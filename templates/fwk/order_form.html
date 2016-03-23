@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+
+<form method="post" class="order-form">
+
+	<h2 class="order-form__header">Abholung</h2>
+
+		{% include 'fwk/_order_form-field.html' with field=form.from_person %}
+		{% include 'fwk/_order_form-field.html' with field=form.from_company %}
+		{% include 'fwk/_order_form-field.html' with field=form.from_street %}
+		{% include 'fwk/_order_form-field.html' with field=form.from_streetnumber %}
+		{% include 'fwk/_order_form-field.html' with field=form.from_zipcode %}
+		{% include 'fwk/_order_form-field.html' with field=form.from_comment %}
+
+		{% include 'fwk/_order_form-inline_field.html' with street=form.from_street street_no=form.from_streetnumber zipcode=form.from_zipcode %}
+
+	<h2 class="order-form__header">Zustellung</h2>
+
+		{% include 'fwk/_order_form-field.html' with field=form.to_person %}
+		{% include 'fwk/_order_form-field.html' with field=form.to_company %}
+		{% include 'fwk/_order_form-field.html' with field=form.to_street %}
+		{% include 'fwk/_order_form-field.html' with field=form.to_streetnumber %}
+		{% include 'fwk/_order_form-field.html' with field=form.to_zipcode %}
+		{% include 'fwk/_order_form-field.html' with field=form.to_comment %}
+
+	<h2 class="order-form__header">Sendungsdetails</h2>
+
+		{% include 'fwk/_order_form-field.html' with field=form.package_detail %}
+		{% include 'fwk/_order_form-field.html' with field=form.i %}
+
+
+</form>
+
+
+{% endblock body %}

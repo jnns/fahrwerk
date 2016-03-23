@@ -1,0 +1,15 @@
+django>=1.9
+
+djangorestframework
+django-constance
+brotlipy>=0.2.0  # See README in case of failing build
+whitenoise
+
+# The following packages are only suggested for development
+
+sphinx
+sphinx-rtd-theme
+django-debug-toolbar
+django-extensions
+werkzeug
+ipython
