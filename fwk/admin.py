@@ -37,6 +37,7 @@ class OrderAdmin(admin.ModelAdmin):
 			'fields': (
 				'from_company',
 				'from_person',
+				'from_phone_no',
 				('from_street', 'from_zipcode',),
 				'from_comment',
 				'timeframe_pickup'
@@ -46,6 +47,7 @@ class OrderAdmin(admin.ModelAdmin):
 			'fields': (
 				'to_company',
 				'to_person',
+				'to_phone_no',
 				('to_street', 'to_zipcode',),
 				'to_comment',
 				'timeframe_dropoff'
@@ -53,9 +55,11 @@ class OrderAdmin(admin.ModelAdmin):
 		}),
 		('Sendungsdetails', {
 			'fields': (
-				'distance',
 				'package_detail',
-				('packages_s', 'packages_m', 'packages_l')
+				('packages_s', 'packages_m', 'packages_l'),
+				'distance',
+				'rate',
+				'price',
 			)
 		}),
 		('Meta-Informationen', {
@@ -64,7 +68,8 @@ class OrderAdmin(admin.ModelAdmin):
 				'status',
 				'ip_addr',
 				'delivered',
-				'hash'
+				'hash',
+				'directions_json'
 			)
 		}),
 	)

@@ -1,0 +1,57 @@
+[
+{
+  "model": "fwk.rate",
+  "pk": 1,
+  "fields": {
+    "name": "Fahrrad",
+    "price_base": "5.95",
+    "price_per_km": "1.01",
+    "price_priority": null,
+    "tax": "1.19"
+  }
+},
+{
+  "model": "fwk.rate",
+  "pk": 2,
+  "fields": {
+    "name": "Lastenrad",
+    "price_base": "5.95",
+    "price_per_km": "1.19",
+    "price_priority": null,
+    "tax": "1.19"
+  }
+},
+{
+  "model": "fwk.rate",
+  "pk": 3,
+  "fields": {
+    "name": "PKW",
+    "price_base": "6.90",
+    "price_per_km": "1.13",
+    "price_priority": null,
+    "tax": "1.19"
+  }
+},
+{
+  "model": "fwk.rate",
+  "pk": 4,
+  "fields": {
+    "name": "Kombi",
+    "price_base": "11.60",
+    "price_per_km": "1.13",
+    "price_priority": null,
+    "tax": "1.19"
+  }
+},
+{
+  "model": "fwk.rate",
+  "pk": 5,
+  "fields": {
+    "name": "Transporter",
+    "price_base": "15.80",
+    "price_per_km": "1.00",
+    "price_priority": null,
+    "tax": "1.19"
+  }
+}
+]

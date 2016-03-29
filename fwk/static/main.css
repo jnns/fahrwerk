@@ -83,9 +83,14 @@ body {
 	max-width: 500px;
 	margin: auto;
 }
+.order-detail__summary-header,
+.order-detail__progress-header,
+.order-detail__rate-header,
+.order-detail__header,
 .order-form__header {
 	border-left: #84329B solid .5em;
-	padding-left: .5em
+	padding-left: .5em;
+	margin: 2em 0 .25em 0;
 }
 .order-form__form-field {
 	padding: .6em 0;
@@ -174,7 +179,7 @@ body {
  */
 
 .order-detail {
-	max-width: 600px;
+	max-width: 500px;
 	margin: auto;
 }
 .order-detail__address {
@@ -187,6 +192,12 @@ body {
 .order-detail__address--domain {
 	color: #a0a0a0;
 }
+.order-detail__details,
+.order-detail__summary {
+	display: flex;
+	justify-content: space-between;
+
+}
 .order-detail__from-summary {
 	float: left;
 	max-width: 50%;
@@ -195,4 +206,55 @@ body {
 	float: right;
 	max-width: 50%;
 }
+.order-detail__map {
+	margin: 1em 0;
+}
+.order-detail__attribution {
+	color: #999;
+	font-size: .8em;
+	margin: .5em 0;
+	float: right;
+}
+.order-detail__attribution a {
+	color: #999;
+}
+.order-detail__progress {
+	list-style: none;
+	width: 100%;
+	margin: 1em 0;
+	padding: 0;
+	background-color: #f7f7f7;
+}
+.order-detail__status {
+	padding: .5em;
+}
+.order-detail__status--current {
+	background-color: hsla(75,60%,63%,1);
+}
+.status__timestamp {
+	float: right;
+	font-size: .9em;
+	color: #555;
+}
 
+.order-summary__field {
+	display: block;
+	margin-top: .5em;
+}
+.order-summary__field label {
+	color: #777;
+	display: block;
+	font-size: .9em;
+}
+.order-detail__calculation {
+	font-size: 1.2em;
+	margin: 1em 0;
+}
+.order-detail__distance,
+.order-detail__rate,
+.order-detail__price {
+	border-bottom: 1px dotted #000;
+}
+.order-detail__price {
+	font-weight: bold;
+}
