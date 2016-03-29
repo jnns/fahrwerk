@@ -1,34 +1,65 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block body %}
 
 
 <form method="post" class="order-form">
+	{% csrf_token %}
+
+	{% if form.errors %}
+		<ul class="errorlist nonfield">
+			Es befinden sich Fehler im Formular. Bitte korrigiere die markierten Felder:
+		</ul>
+
+		{{ form.non_field_errors }}
+
+	{% endif %}
 
 	<h2 class="order-form__header">Abholung</h2>
 
 		{% include 'fwk/_order_form-field.html' with field=form.from_person %}
+		{% include 'fwk/_order_form-field.html' with field=form.from_phone_no %}
 		{% include 'fwk/_order_form-field.html' with field=form.from_company %}
-		{% include 'fwk/_order_form-field.html' with field=form.from_street %}
-		{% include 'fwk/_order_form-field.html' with field=form.from_streetnumber %}
-		{% include 'fwk/_order_form-field.html' with field=form.from_zipcode %}
-		{% include 'fwk/_order_form-field.html' with field=form.from_comment %}
 
-		{% include 'fwk/_order_form-inline_field.html' with street=form.from_street street_no=form.from_streetnumber zipcode=form.from_zipcode %}
+		{% include 'fwk/_order_form-inline_field.html' with street=form.from_street  zipcode=form.from_zipcode %}
+
+		{% include 'fwk/_order_form-field.html' with field=form.timeframe_pickup %}
+		{% include 'fwk/_order_form-field.html' with field=form.from_comment %}
 
 	<h2 class="order-form__header">Zustellung</h2>
 
 		{% include 'fwk/_order_form-field.html' with field=form.to_person %}
+		{% include 'fwk/_order_form-field.html' with field=form.to_phone_no %}
 		{% include 'fwk/_order_form-field.html' with field=form.to_company %}
-		{% include 'fwk/_order_form-field.html' with field=form.to_street %}
-		{% include 'fwk/_order_form-field.html' with field=form.to_streetnumber %}
-		{% include 'fwk/_order_form-field.html' with field=form.to_zipcode %}
+		{% include 'fwk/_order_form-inline_field.html' with street=form.to_street  zipcode=form.to_zipcode %}
+		{% include 'fwk/_order_form-field.html' with field=form.timeframe_dropoff %}
 		{% include 'fwk/_order_form-field.html' with field=form.to_comment %}
 
 	<h2 class="order-form__header">Sendungsdetails</h2>
 
+		<div class="order-form__form-field-wrapper">
+			<div class="order-form__form-field">
+				<img src="{% static 'svg/letter.svg' %}" width=40 height=40 />
+				{{ form.packages_s.label_tag }}
+				{{ form.packages_s }}
+			</div>
+			<div class="order-form__form-field">
+				<img src="{% static 'svg/folder.svg' %}" width=40 height=40 />
+				{{ form.packages_m.label_tag }}
+				{{ form.packages_m }}
+			</div>
+			<div class="order-form__form-field">
+				<img src="{% static 'svg/box.svg' %}" width=40 height=40 />
+				{{ form.packages_l.label_tag }}
+				{{ form.packages_l }}
+			</div>
+		</div>
+
 		{% include 'fwk/_order_form-field.html' with field=form.package_detail %}
-		{% include 'fwk/_order_form-field.html' with field=form.i %}
+		{% include 'fwk/_order_form-field.html' with field=form.customer %}
+
+	<input class="order-form__submit" type="submit" value="Bestellung aufgeben" />
 
 
 </form>

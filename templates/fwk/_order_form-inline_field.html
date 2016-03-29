@@ -1,26 +1,20 @@
 <div class="order-form__form-field-wrapper">
 
-	<div class="order-form__form-field order-form__street">
+	<div class="order-form__form-field order-form__street {% if street.errors %}error{% endif %}">
 		{{ street.label_tag }}
 		{{ street }}
 	</div>
-	<div class="order-form__form-field order-form__street_no">
-		{{ street_no.label_tag }}
-		{{ street_no }}
-	</div>
-	<div class="order-form__form-field order-form__zipcode">
+
+	<div class="order-form__form-field order-form__zipcode {% if zipcode.errors %}error{% endif %}">
 		{{ zipcode.label_tag }}
 		{{ zipcode }}
 	</div>
 
 </div>
 
-	{{ street.errors }}
-	{{ street_no.errors }}
-	{{ zipcode.errors }}
+	{{ street.errors|default:zipcode.errors }}
 
 	<span class="form-field__help-text">
 		{{ street.help_text }}
-		{{ street_no.help_text }}
 		{{ zipcode.help_text }}
 	</span>

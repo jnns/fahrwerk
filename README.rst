@@ -17,7 +17,7 @@ all required packages that this project depends on.
 
 .. code-block:: sh
 
-  $ mkvirtualenv fahrwerk
+  $ mkvirtualenv fwk
   $ pip install -r requirements.pip
 
 WhiteNoise can make use of the brotli compression mechanism. Installing with
@@ -27,12 +27,38 @@ WhiteNoise can make use of the brotli compression mechanism. Installing with
 
   $ apt install build-essential python-dev libffi-dev
 
+Collect all static files to the folder defined by `STATIC_ROOT`. Serving is taken care of by WhiteNoise as well.
+
+
+
+Deployment
+----------
+
+.. code-block:: sh
+
+  $ ./manage.py collectstatic
+
+The (extended) development server can be run by
+
+.. code-block:: sh
+
+  $ ./manage.py runserver_plus
+
+
+Testing
+-------
+
+The tests can be run via::
+
+  $ ./manage.py test fwk
+
 
 Issues
 ======
 
 This is a list of features that I want to implement in the near future:
 
+- PayPal as a payment method
 - automatically insert orders into eCourier (either via API or direct SQL).
 - logging all admin and form actions using the Python logging framework.
 - LDAP-authentication using `django-auth-ldap`.

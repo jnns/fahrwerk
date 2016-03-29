@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+    <div class="order-detail">
+        Hier siehst du den aktuellen Status deiner Sendung.
+
+        Um diese Seite aufzurufen, merke dir folgende Adresse:
+        <div class="order-detail__address">
+            <span class="order-detail__address--domain">http://bestellen.fahrwerk-berlin.de/</span><span class="order-detail__address--hash">{{ order.get_hash_id }}</span>
+        </div>
+
+        {{ order }}
+
+        <div class="order-detail__from_summary">
+
+            <h2 class="order-detail__summary-header">Abholung</h2>
+
+            {{ order.from_person }}<br>
+            {{ order.from_phone_no }}<br>
+            {% if order.from_company %}{{ order.from_company }}<br>{% endif %}
+            {{ order.from_street }}<br>
+            {{ order.from_zipcode }} Berlin<br>
+            {% if order.from_comment %}{{ order.from_comment }}<br>{% endif %}
+            Abholung zwischen {{ order.get_timeframe_pickup_display }}
+
+        </div>
+
+        <div class="order-detail__to_summary">
+
+            <h2 class="order-detail__summary-header">Zustellung</h2>
+
+            {{ order.to_person }}<br>
+            {{ order.to_phone_no }}<br>
+            {% if order.to_company %}{{ order.to_company }}<br>{% endif %}
+            {{ order.to_street }}<br>
+            {{ order.to_zipcode }} Berlin<br>
+            {% if order.to_comment %}{{ order.to_comment }}<br>{% endif %}
+            Abholung zwischen {{ order.get_timeframe_dropoff_display }}
+
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -2,9 +2,20 @@
 
 from __future__ import unicode_literals
 
-from django.db import models
 from datetime import time
+
+from django.core.urlresolvers import reverse
+from django.core.validators import RegexValidator
+from django.db import models
 from django.utils import timezone
+
+from hashids import Hashids
+
+hashids = Hashids(
+	min_length=4,
+	salt="fwx1312Ac4b",
+	# 0,o,l, and 1 are purposefully left out of the alphabet
+	alphabet='abcdefghijkmnpqrstuvwxyz23456789')
 
 # Rates. Hard defined here. I'm not sure yet wether they should be stored in
 # the database or not but some constants are needed one way or the other
@@ -36,6 +47,12 @@ STATUS_CHOICES = (
 	# The order has been canceled because of s reasons.
 	('CANCELED', 'x. storniert'),
 )
+
+PAYMENT_CHOICES = (
+	('PICKUP', 'Abholung'),
+	('DROPOFF', 'Auslieferung'),
+)
+
 
 class Rate(models.Model):
 	"""
@@ -100,13 +117,14 @@ class Order(models.Model):
 		(time(17), '17:00 – 18:00'),
 		(time(18), '18:00 – 19:00'),
 	)
+	PHONE_REGEX = RegexValidator(regex=r'^\+?1?[ \d]{9,15}$',
+		message="Die Telefonnummer bitte nach diesem Format eingeben: '+49 000 00000'.")
 
 	# Pickup information
 	from_person = models.CharField("Ansprechpartner_in", max_length=40)
 	from_company = models.CharField("Firma", max_length=40, blank=True)
-	from_telephone = models.CharField("Telefonnummer", max_length=20)
-	from_street = models.CharField("Straße", max_length=30)
-	from_streetnumber = models.CharField("Hausnummer", max_length=5)
+	from_phone_no = models.CharField("Telefonnummer", max_length=15, default="+49 ", validators=[PHONE_REGEX])
+	from_street = models.CharField("Straße und Hausnummer", max_length=30)
 	from_zipcode = models.PositiveSmallIntegerField("PLZ")
 	from_comment = models.CharField("Bemerkung", max_length=40, blank=True,
 		help_text='Gebäude, Stockwerk, o.Ä.')
@@ -115,9 +133,8 @@ class Order(models.Model):
 	# Drop-off information
 	to_person = models.CharField("Ansprechpartner_in", max_length=40)
 	to_company = models.CharField("Firma", max_length=40, blank=True)
-	to_telephone = models.CharField("Telefonnummer", max_length=20)
-	to_street = models.CharField("Straße", max_length=30)
-	to_streetnumber = models.CharField("Hausnummer", max_length=5)
+	to_phone_no = models.CharField("Telefonnummer", max_length=15)
+	to_street = models.CharField("Straße und Hausnummer", max_length=30)
 	to_zipcode = models.PositiveSmallIntegerField("PLZ")
 	to_comment = models.CharField("Bemerkung", max_length=40, blank=True,
 		help_text='Gebäude, Stockwerk, o.Ä.')
@@ -135,11 +152,16 @@ class Order(models.Model):
 	# Meta information
 	ecourier_id = models.PositiveIntegerField("Tournummer", blank=True, null=True,
 		help_text='Sobald diese Tour in eCourier übernommen wurde, sollte hier die \
-		entsprechende Tournummer hinterlegt sein.')
+		entsprechende Tournummer hinterlegt sein. Der Status `bestätigt` kann nur \
+		dann erteilt werden, wenn eine Tournummer angegeben wurde.')
 	status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
 	ordered = models.DateTimeField("Bestelldatum", auto_now_add=True)
 	delivered = models.DateTimeField("Auslieferungsdatum", blank=True, null=True)
 	ip_addr = models.GenericIPAddressField("IP-Adresse", blank=True, null=True)
+	customer = models.CharField("Barzahlung bei", max_length=8, choices=PAYMENT_CHOICES,
+		default=PAYMENT_CHOICES[0][0])
+
+
 
 	class Meta:
 		verbose_name = "Bestellung"
@@ -149,13 +171,19 @@ class Order(models.Model):
 		return "%s → %s" % (self.from_street, self.to_street)
 
 	def pickup_short(self):
-		return "%s %s %s" % (self.from_street, self.from_streetnumber, self.from_zipcode)
+		return "%s %s" % (self.from_street, self.from_zipcode)
 
 	def dropoff_short(self):
-		return "%s %s %s" % (self.to_street, self.to_streetnumber, self.to_zipcode)
+		return "%s %s" % (self.to_street, self.to_zipcode)
 
 	def distance_display(self):
 		return "%s 	km" % self.distance
+
+	def get_hash_id(self):
+		return hashids.encode(self.id)
+
+	def get_absolute_url(self):
+		return reverse("order_status", kwargs={'id': self.get_hash_id()})
 
 	def rate(self):
 		"""
@@ -199,6 +227,9 @@ class Order(models.Model):
 	def save(self, *args, **kwargs):
 		# TODO: The actions taking place in this method should be logged in
 		# the database
+
+		# TODO: Check for the order to be fully qualified by validating it
+		# through a form before setting the status to confirmed.
 
 		# automatically update the delivery timestamp
 		if self.status == 'DELIVERED' and not self.delivered:

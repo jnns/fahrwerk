@@ -36,10 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',  # add --nonstatic option to runserver
+    'whitenoise.runserver_nostatic',  # add --nostatic option to runserver
     'django.contrib.staticfiles',
     'fwk',
     'django_extensions',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -104,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -127,4 +127,6 @@ STATIC_URL = '/static/'
 # Forever-cachable files and compression support
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# This is the place where all static assets are collected to when
+# 'django.contrib.staticfiles' is used.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

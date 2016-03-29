@@ -1,12 +1,16 @@
+# -*- coding: utf-8 -*-
+
 from django.contrib import admin
 
 from .models import *  # NOOP
+from .forms import OrderAdminForm
 
 admin.site.site_header = "Online-Bestellungen"
 admin.site.register(Rate)
 
 class OrderAdmin(admin.ModelAdmin):
 	model = Order
+	form = OrderAdminForm
 	list_display = (
 		'ecourier',
 		'pickup_short',
@@ -16,29 +20,34 @@ class OrderAdmin(admin.ModelAdmin):
 		'distance_display'
 	)
 	list_editable = ('status',)
+	readonly_fields = ('hash',)
 
 	def ecourier(self, obj):
 		if obj.ecourier_id:
 			return "#%d" % obj.ecourier_id
 	ecourier.short_description = 'Tournr.'
 
+	def hash(self, obj):
+		return obj.get_hash_id()
+	hash.short_description = 'Kennung für Kund_innen'
+
 
 	fieldsets = (
 		('Abholung', {
 			'fields': (
-				('from_person', 'from_company'),
-				('from_street', 'from_streetnumber'),
+				'from_company',
+				'from_person',
+				('from_street', 'from_zipcode',),
 				'from_comment',
-				'from_zipcode',
 				'timeframe_pickup'
 			)
 		}),
 		('Auslieferung', {
 			'fields': (
-				('to_person', 'to_company'),
-				('to_street', 'to_streetnumber'),
+				'to_company',
+				'to_person',
+				('to_street', 'to_zipcode',),
 				'to_comment',
-				'to_zipcode',
 				'timeframe_dropoff'
 			)
 		}),
@@ -54,9 +63,11 @@ class OrderAdmin(admin.ModelAdmin):
 				'ecourier_id',
 				'status',
 				'ip_addr',
-				'delivered'
+				'delivered',
+				'hash'
 			)
 		}),
 	)
+
 admin.site.register(Order, OrderAdmin)
 

@@ -1,0 +1,198 @@
+/*
+ * CSS should follow the BEM naming principles.
+ * See http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/
+ */
+
+
+/*
+ * A font from Google's CDN is used. It may not be so bad on the
+ * performance because it probably is in the browser's cache
+ * already anyway.
+ */
+
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+
+
+/*
+ * General
+ */
+
+/* Outlines in corporate color */
+
+*:focus {
+	outline: #84329B auto 5px;
+}
+
+/* Use quirks mode box model because it's the best box model */
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* 1. Set default font family to sans-serif.
+ * 2. Prevent iOS and IE text size adjust after device orientation
+ *    change, without disabling user zoom.*/
+
+html {
+  font-family: sans-serif; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/* Allow only vertical resizing of textareas. */
+
+textarea {
+    resize: vertical;
+}
+
+/* 1. Correct color not being inherited.
+ *    Known issue: affects color of disabled elements.
+ * 2. Correct font properties not being inherited.
+ * 3. Address margins set differently in Firefox 4+, Safari,
+ *    and Chrome.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit; /* 1 */
+  font: inherit; /* 2 */
+  margin: 0; /* 3 */
+}
+
+body {
+	margin: 0; /* Remove default margin */
+
+	font-size: 15px;
+	font-family: "Source Sans Pro";
+	line-height: 1.5em;
+}
+
+
+/*
+ * Forms
+ */
+
+.order-form {
+	max-width: 500px;
+	margin: auto;
+}
+.order-form__header {
+	border-left: #84329B solid .5em;
+	padding-left: .5em
+}
+.order-form__form-field {
+	padding: .6em 0;
+	width: 100%;
+}
+.order-form__form-field-wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: nowrap;
+	margin: -10px;
+}
+.order-form__form-field-wrapper > div {
+	margin: 10px;
+}
+.order-form__street_no {
+	max-width: 20%;
+}
+.order-form__zipcode {
+	max-width: 20%;
+}
+.order-form__form-field input,
+.order-form__form-field select,
+.order-form__form-field textarea
+{
+	width: 100%;
+	padding: .5em;
+
+	color: #111;
+
+	background-color: hsl(0, 0%, 93%);
+	border: none;
+}
+.order-form__form-field label {
+	display: block;
+	color: #555;
+}
+.order-form__form-field label:not(.required):after {
+	content: "(optional)";
+	padding-left: .5em;
+	font-size: .8rem;
+	color: #777;
+}
+.form-field__help-text {
+	color: #777;
+}
+.order-form .form-field__help-text {
+	display: block;
+	font-size: .8rem;
+}
+.order-form__submit {
+	background-color: #84329B;
+	color: #fff;
+	border: none;
+	padding: 1em;
+	margin: 1em 0;
+	width: 100%;
+}
+.order-form__form-field.error input,
+.order-form__form-field.error select,
+.order-form__form-field.error textarea
+{
+	background-color: hsl(0, 100%, 87%);
+}
+.order-form__form-field .errorlist {
+	margin: 0;
+	padding: 0;
+}
+.order-form__form-field .errorlist li {
+	list-style: none;
+	font-size: .9em;
+	padding: .1em;
+}
+.order-form .errorlist.nonfield {
+	padding: .5em;
+	border-left: red solid .5em;
+	padding-left: .5em;
+	background-color: hsl(0, 100%, 87%);
+}
+.order-form .errorlist.nonfield li {
+	margin-left: 1.5em;
+}
+
+/*
+ * Order detail
+ */
+
+.order-detail {
+	max-width: 600px;
+	margin: auto;
+}
+.order-detail__address {
+	font-family: monospace;
+	font-size: 1.2em;
+	padding: .5em;
+	background-color: #f7f7f7;
+	margin: .5em 0 1em;
+}
+.order-detail__address--domain {
+	color: #a0a0a0;
+}
+.order-detail__from-summary {
+	float: left;
+	max-width: 50%;
+}
+.order-detail__to-summary {
+	float: right;
+	max-width: 50%;
+}
+

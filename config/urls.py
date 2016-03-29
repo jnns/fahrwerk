@@ -16,9 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from fwk.views import OrderCreateView
+from fwk.views import OrderCreateView, OrderStatusView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', OrderCreateView.as_view(), name="order"),
+    url(r'^(?P<id>[A-z0-9]{4,})$', OrderStatusView.as_view(), name="order_status"),
+    url(r'^$', OrderCreateView.as_view(), name="order",)
 ]
