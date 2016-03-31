@@ -72,24 +72,22 @@ class Rate(models.Model):
     name = models.CharField(max_length=30, unique=True)
     price_base =  models.DecimalField('Grundpreis',
         help_text="Der Grundpreis für eine Abholung bzw. den ersten Kilometer.",
-        **DECIMAL_KWARGS
-        )
+        **DECIMAL_KWARGS)
     price_per_km = models.DecimalField('Preis pro Km',
         help_text="Der Preis pro gefahrenen Kilometer.",
-        **DECIMAL_KWARGS
-        )
+        **DECIMAL_KWARGS)
     price_priority = models.DecimalField('Zuschlag',
         help_text='Wird derzeit noch nicht verwendet',
         null=True,
         editable=False,
-        **DECIMAL_KWARGS
-        )
+        **DECIMAL_KWARGS)
+    price_service = models.DecimalField('Servicezeit 5 Min',
+        **DECIMAL_KWARGS)
     tax = models.DecimalField('MwSt.',
         default=1.19,
         blank=True,
         help_text='Optional; standardmäßig 19 %.',
-        **DECIMAL_KWARGS
-        )
+        **DECIMAL_KWARGS)
 
     class Meta:
         verbose_name = 'Tarif'
@@ -102,7 +100,7 @@ class Rate(models.Model):
         distance = max(distance, 1)
 
         # German "netto" price
-        net = self.price_base + self.price_per_km * distance - self.price_per_km
+        net = self.price_base + self.price_per_km * distance - self.price_per_km + self.price_service
 
         # German "brutto" price
         gross = net * self.tax
@@ -252,35 +250,23 @@ class Order(models.Model):
         # L:
         #   objects the size of moving boxes and the like
         S, M, L = self.packages_s, self.packages_m, self.packages_l
-
-        if S > 25:
-            return RATE_CARGO
-        # There's probably no amount of small packages that requires
-        # transportation with a car instead of a cargo bike, so skip that
-        # condition.
-
-        if M > 3:
-            return RATE_CARGO
-        if M > 10:
-            return RATE_PKW
-        if M > 30:
-            return RATE_KOMBI
-        # As with the small package, I'm to lazy to think of a hard limit for
-        # medium packages in a car which would justify a higher rate.
-
-        if L > 3:
-            return RATE_KOMBI
-        if L > 6:
+        if L > 5:
             return RATE_TRANSPORTER
+        if L > 3 or M > 15:
+            return RATE_KOMBI
+        if L > 2 or M > 6:
+            return RATE_PKW
+        if L > 0 or M > 2 or S > 10:
+            return RATE_CARGO
         return RATE_BIKE
 
     def get_rate_display(self):
         display_values = {
             RATE_BIKE: 'Fahrrad',
             RATE_CARGO: 'Lastenrad',
-            RATE_PKW: 'PKW',
-            RATE_KOMBI: 'Kombi',
-            RATE_TRANSPORTER: 'Transporter'
+            RATE_PKW: 'E-PKW',
+            RATE_KOMBI: 'E-Kombi',
+            RATE_TRANSPORTER: 'E-Transporter'
         }
         return display_values[self.calculate_rate()]
 

@@ -1,10 +1,11 @@
-======================================================
-Online ordering system for Fahrwerk courier collective
-======================================================
+===============================
+Online form for bike deliveries
+===============================
 
-This is a web app which makes it possible to order deliveries with Berlin's
-only bike courier collective, Fahrwerk_, via the internet.
-No need to call – but we're happy if you do!
+This web app makes it possible to order deliveries online via a neat and
+simple form.
+
+See it in action at Fahrwerk_, Berlin's only bike courier collective.
 
 .. _Fahrwerk: http://fahrwerk-berlin.de
 
@@ -28,6 +29,20 @@ WhiteNoise can make use of the brotli compression mechanism. Installing with
   $ apt install build-essential python-dev libffi-dev
 
 Collect all static files to the folder defined by `STATIC_ROOT`. Serving is taken care of by WhiteNoise as well.
+
+
+Development
+-----------
+
+Install ``npm`` via the nodesource.com repositories and run ``npm install`` in
+the project directory. All needed modules are pulled in automatically to
+``./node_modules`` because they're defined in ``package.json``.
+
+`django-pipeline` bundles all necessary files together from the app
+directories and ``./node_modules``.
+
+Depending on how this project develops I might dive into `webpack` and
+integrate that into the stack.
 
 
 
@@ -58,6 +73,9 @@ Issues
 
 This is a list of features that I want to implement in the near future:
 
+- send confirmation e-mail to customers upon successful order
+- implement quickstart with opencage.org geocoding
+- check user submitted address for validity on form validation
 - PayPal as a payment method
 - automatically insert orders into eCourier (either via API or direct SQL).
 - logging all admin and form actions using the Python logging framework.

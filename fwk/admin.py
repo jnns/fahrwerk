@@ -6,7 +6,18 @@ from .models import *  # NOOP
 from .forms import OrderAdminForm
 
 admin.site.site_header = "Online-Bestellungen"
-admin.site.register(Rate)
+
+class RateAdmin(admin.ModelAdmin):
+	model = Rate
+	list_display = (
+		'name',
+		'price_base',
+		'price_per_km',
+		'price_service',
+		'tax'
+	)
+
+admin.site.register(Rate, RateAdmin)
 
 class OrderAdmin(admin.ModelAdmin):
 	model = Order

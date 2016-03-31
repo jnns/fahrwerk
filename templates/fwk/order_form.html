@@ -1,8 +1,25 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block head %}
+	<script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
+	<link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
+{% endblock %}
+
 {% block body %}
 
+<!-- Map -->
+
+<form class="quickstart">
+
+	<input type="text" class="quickstart__from" placeholder="Abholadresse" />
+	<span class="quickstart__arrow">🡆</span>
+	<input type="text" class="quickstart__to" placeholder="Zustelladresse" />
+</form>
+
+<div class="order-form__map" id='map'></div>
+
+<!-- Form -->
 
 <form method="post" class="order-form">
 	{% csrf_token %}
@@ -63,6 +80,36 @@
 
 
 </form>
-
-
 {% endblock body %}
+
+
+
+{% block footer %}
+
+<div class="footer__contact">
+	Bei Fragen aller Art stehen wir euch gerne telefonisch Rede und Antwort. Ruft einfach durch:
+	<a class="contact__phone-no" href="tel:+49 030 50 58 51 00">(+49 030) 40 58 51 00</a>
+</div>
+
+<div class="footer__terms">
+	<div class="terms__term">
+		<span class="term__star">*</span>Je nach Auftragslage und Ort der
+		Abholung und Zustellung können bis zur Abholung <nobr>120 Min</nobr>
+		und bis zur Auslieferung <nobr>180 Min</nobr> vergehen. Sollten eure
+		angegebenen Zeitfenster nicht eingehalten werden können, melden wir
+		uns frühzeitig telefonisch bei euch!
+	</div>
+
+	<div class="terms__term">
+		<span class="term__star">**</span>Es kann aufgrund von nötiger
+		Geldauslage, falsch angegebener Sendungsgröße, entstandener Wartezeit
+		o.ä. zu anderen Preisen als den hier angegebenen kommen. Wir
+		informieren euch, falls unvorhergesehene Kosten entstehen würden,
+		darüber schnellstmöglich telefonisch.
+	</div>
+</div>
+
+
+
+
+{% endblock footer %}

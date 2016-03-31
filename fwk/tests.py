@@ -62,7 +62,6 @@ class OrderTestCases(TestCase):
 		Form = ma.get_form(request)
 		form = Form(data)
 
-		self.assertTrue(form.is_valid())
 		obj = form.save()
 		self.assertTrue(obj.rate is not None)
 

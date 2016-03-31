@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'fwk',
     'django_extensions',
-    'debug_toolbar'
+    'debug_toolbar',
+    'pipeline',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -126,7 +127,39 @@ STATIC_URL = '/static/'
 
 # Forever-cachable files and compression support
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 # This is the place where all static assets are collected to when
 # 'django.contrib.staticfiles' is used.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.PipelineFinder',
+)
+
+PIPELINE = {
+    'STYLESHEETS': {
+        'main': {
+            'source_filenames': (
+              'css/main.css',
+            ),
+            'output_filename': 'main.css',
+            'extra_context': {
+                'media': 'screen,projection'
+            },
+            'variant': 'datauri'
+        }
+    },
+    'JAVASCRIPT': {
+        'main': {
+            'source_filenames': (
+                'js/jquery.min.js',
+                'js/app.js',
+            ),
+            'output_filename': 'main.js',
+        }
+    },
+    'YUGLIFY_BINARY': 'node_modules/yuglify/bin/yuglify'
+}
