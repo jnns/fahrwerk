@@ -21,14 +21,7 @@ hashids = Hashids(
     # 0,o,l, and 1 are purposefully left out of the alphabet
     alphabet='abcdefghijkmnpqrstuvwxyz23456789')
 
-# Rates. Hard defined here. I'm not sure yet wether they should be stored in
-# the database or not but some constants are needed one way or the other
-# because they're needed in the rate calculation method.
-RATE_BIKE = 1
-RATE_CARGO = 2
-RATE_PKW = 3
-RATE_KOMBI = 4
-RATE_TRANSPORTER = 5
+
 
 STATUS_CHOICES = (
     # The order object is newly created but the client has not yet submitted
@@ -69,6 +62,15 @@ class Rate(models.Model):
     Think cargo- or electric car rates.
     """
 
+    # Rates. Hard defined here. I'm not sure yet wether they should be stored in
+    # the database or not but some constants are needed one way or the other
+    # because they're needed in the rate calculation method.
+    RATE_BIKE = 1
+    RATE_CARGO = 2
+    RATE_PKW = 3
+    RATE_KOMBI = 4
+    RATE_TRANSPORTER = 5
+
     name = models.CharField(max_length=30, unique=True)
     price_base =  models.DecimalField('Grundpreis',
         help_text="Der Grundpreis für eine Abholung bzw. den ersten Kilometer.",
@@ -97,15 +99,15 @@ class Rate(models.Model):
         return self.name
 
     def price(self, distance=None):
-        distance = max(distance, 1)
+        distance = max(round(Decimal(distance)), 1)
 
         # German "netto" price
-        net = self.price_base + self.price_per_km * distance - self.price_per_km + self.price_service
+        net = self.price_base + self.price_per_km * Decimal(distance) - self.price_per_km + self.price_service
 
         # German "brutto" price
         gross = net * self.tax
 
-        return gross
+        return round(gross, 2)
 
 
 
@@ -129,6 +131,7 @@ class Order(models.Model):
         (time(16), '16:00 – 17:00'),
         (time(17), '17:00 – 18:00'),
         (time(18), '18:00 – 19:00'),
+        (time(19), '19:00 – 20:00'),
     )
     PHONE_REGEX = RegexValidator(regex=r'^\+?1?[ \d]{9,15}$',
         message="Die Telefonnummer bitte nach diesem Format eingeben: '+49 000 00000'.")
@@ -141,7 +144,7 @@ class Order(models.Model):
     from_zipcode = models.PositiveSmallIntegerField("PLZ")
     from_comment = models.CharField("Bemerkung", max_length=40, blank=True,
         help_text='Gebäude, Stockwerk, o.Ä.')
-    timeframe_pickup = models.TimeField("Zeitfenster Abholung", choices=HOUR_CHOICES)
+    timeframe_pickup = models.TimeField("Zeitfenster Abholung **", choices=HOUR_CHOICES)
 
     # Drop-off information
     to_person = models.CharField("Ansprechpartner_in", max_length=40)
@@ -151,7 +154,7 @@ class Order(models.Model):
     to_zipcode = models.PositiveSmallIntegerField("PLZ")
     to_comment = models.CharField("Bemerkung", max_length=40, blank=True,
         help_text='Gebäude, Stockwerk, o.Ä.')
-    timeframe_dropoff = models.TimeField("Zeitfenster Auslieferung", choices=HOUR_CHOICES)
+    timeframe_dropoff = models.TimeField("Zeitfenster Auslieferung **", choices=HOUR_CHOICES)
 
     # Delivery details
     distance = models.PositiveSmallIntegerField("Distanz", null=True)
@@ -227,6 +230,9 @@ class Order(models.Model):
         self.distance = Decimal.from_float(round(distance_in_m / 1000.0))
 
     def calculate_price(self):
+        if not self.rate:
+            self.rate = Rate.objects.get(pk=self.calculate_rate())
+            print "Tarif: ", self.rate
         return self.rate.price(self.distance)
 
     def calculate_rate(self):
@@ -249,24 +255,24 @@ class Order(models.Model):
         #
         # L:
         #   objects the size of moving boxes and the like
-        S, M, L = self.packages_s, self.packages_m, self.packages_l
+        S, M, L = int(self.packages_s), int(self.packages_m), int(self.packages_l)
         if L > 5:
-            return RATE_TRANSPORTER
+            return Rate.RATE_TRANSPORTER
         if L > 3 or M > 15:
-            return RATE_KOMBI
+            return Rate.RATE_KOMBI
         if L > 2 or M > 6:
-            return RATE_PKW
+            return Rate.RATE_PKW
         if L > 0 or M > 2 or S > 10:
-            return RATE_CARGO
-        return RATE_BIKE
+            return Rate.RATE_CARGO
+        return Rate.RATE_BIKE
 
     def get_rate_display(self):
         display_values = {
-            RATE_BIKE: 'Fahrrad',
-            RATE_CARGO: 'Lastenrad',
-            RATE_PKW: 'E-PKW',
-            RATE_KOMBI: 'E-Kombi',
-            RATE_TRANSPORTER: 'E-Transporter'
+            Rate.RATE_BIKE: 'Fahrrad',
+            Rate.RATE_CARGO: 'Lastenrad',
+            Rate.RATE_PKW: 'E-PKW',
+            Rate.RATE_KOMBI: 'E-Kombi',
+            Rate.RATE_TRANSPORTER: 'E-Transporter'
         }
         return display_values[self.calculate_rate()]
 

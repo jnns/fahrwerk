@@ -8,20 +8,13 @@
 
 {% block body %}
 
-<!-- Map -->
-
-<form class="quickstart">
-
-	<input type="text" class="quickstart__from" placeholder="Abholadresse" />
-	<span class="quickstart__arrow">🡆</span>
-	<input type="text" class="quickstart__to" placeholder="Zustelladresse" />
-</form>
+<div id="quickstart"></div>
 
 <div class="order-form__map" id='map'></div>
 
 <!-- Form -->
 
-<form method="post" class="order-form">
+<form method="post" action="/" class="order-form">
 	{% csrf_token %}
 
 	{% if form.errors %}
@@ -59,17 +52,17 @@
 			<div class="order-form__form-field">
 				<img src="{% static 'svg/letter.svg' %}" width=40 height=40 />
 				{{ form.packages_s.label_tag }}
-				{{ form.packages_s }}
+				<input id="id_packages_s" min="0" name="packages_s" type="number" value="{{ form.packages_s.value }}" onchange=quickstartBox.handlePackageSChange() >
 			</div>
 			<div class="order-form__form-field">
 				<img src="{% static 'svg/folder.svg' %}" width=40 height=40 />
 				{{ form.packages_m.label_tag }}
-				{{ form.packages_m }}
+				<input id="id_packages_m" min="0" name="packages_m" type="number" value="{{ form.packages_m.value }}" onchange=quickstartBox.handlePackageMChange() >
 			</div>
 			<div class="order-form__form-field">
 				<img src="{% static 'svg/box.svg' %}" width=40 height=40 />
 				{{ form.packages_l.label_tag }}
-				{{ form.packages_l }}
+				<input id="id_packages_l" min="0" name="packages_l" type="number" value="{{ form.packages_l.value }}" onchange=quickstartBox.handlePackageLChange() >
 			</div>
 		</div>
 
@@ -93,19 +86,18 @@
 
 <div class="footer__terms">
 	<div class="terms__term">
-		<span class="term__star">*</span>Je nach Auftragslage und Ort der
-		Abholung und Zustellung können bis zur Abholung <nobr>120 Min</nobr>
-		und bis zur Auslieferung <nobr>180 Min</nobr> vergehen. Sollten eure
-		angegebenen Zeitfenster nicht eingehalten werden können, melden wir
-		uns frühzeitig telefonisch bei euch!
-	</div>
-
-	<div class="terms__term">
-		<span class="term__star">**</span>Es kann aufgrund von nötiger
+		<span class="term__star">*</span><a name="*"></a>Es kann aufgrund von nötiger
 		Geldauslage, falsch angegebener Sendungsgröße, entstandener Wartezeit
 		o.ä. zu anderen Preisen als den hier angegebenen kommen. Wir
 		informieren euch, falls unvorhergesehene Kosten entstehen würden,
 		darüber schnellstmöglich telefonisch.
+	</div>
+	<div class="terms__term">
+		<span class="term__star">**</span><a name="**"></a>Je nach Auftragslage und Ort der
+		Abholung und Zustellung können bis zur Abholung <nobr>120 Min</nobr>
+		und bis zur Auslieferung <nobr>180 Min</nobr> vergehen. Sollten eure
+		angegebenen Zeitfenster nicht eingehalten werden können, melden wir
+		uns frühzeitig telefonisch bei euch!
 	</div>
 </div>
 

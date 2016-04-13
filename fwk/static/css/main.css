@@ -79,16 +79,33 @@ body {
  * Forms
  */
 
-.quickstart {
-    display: flex;
+.quickstart__wrapper {
     position: absolute;
     top: 50px;
     left: 50%;
     margin: auto;
     margin-left: -250px;
-    padding: 1em;
     width: 500px;
     z-index: 99999;
+}
+.quickstart__price {
+    right: 0;
+    margin: 0.25em 0;
+    padding: 1em;
+    color: #fff;
+    background-color: #94B24D;
+    box-shadow: 4px 5px 5px rgba(0,0,0,.2);
+    font-weight: bold;
+    font-size: 1.3em;
+}
+.quickstart__price a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.quickstart {
+    display: flex;
+    padding: 1em;
 
     background-color: #fff;
     box-shadow: 4px 5px 5px rgba(0,0,0,.2);
@@ -96,6 +113,7 @@ body {
     align-items: center;
 }
 .quickstart input {
+    width: 100%;
     padding: .5em;
 
     color: #111;
@@ -107,6 +125,7 @@ body {
     color: #84329B;
     font-size: 1.5em;
     vertical-align: middle;
+    margin: 0 .5em;
 }
 
 .order-form {

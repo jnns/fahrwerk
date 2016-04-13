@@ -3,6 +3,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
+from django.utils import timezone
 
 from .models import Order
 
@@ -34,6 +35,25 @@ class OrderForm(forms.ModelForm):
             'customer',
         )
 
+    def clean_timeframe_pickup(self):
+        # As the time datatype given by the form is naive in a way that it
+        # can't be compared to UTC datetimes, we need to convert the current
+        # timestampt to a localtime
+        now = timezone.localtime(timezone.now())
+
+        input = self.cleaned_data["timeframe_pickup"]
+        given_time = now.replace(hour=input.hour, minute=0, second=0)
+
+        if given_time <= now:
+            raise ValidationError("Wir besitzen leider keine Zeitmaschine.")
+
+        time_until = given_time - now
+        if time_until.seconds / 60 < 60:
+            raise ValidationError("Bitte gewähre uns mindestens 1 Stunde bis \
+            zur Abholung, wenn du dieses Bestellformular nutzt. Für \
+            zeitkritische Sendungen rufe uns bitte direkt an.")
+        return input
+
     def clean(self):
         super(OrderForm, self).clean()
 
@@ -46,11 +66,16 @@ class OrderForm(forms.ModelForm):
             errors.append(ValidationError("Bitte gib die Größe deiner Sendung an."))
 
         # Dropoff must be after pickup
-        if data.get("timeframe_pickup") > data.get("timeframe_dropoff"):
-            errors.append(ValidationError(
-                mark_safe("Zeitreisen können wir leider nicht. Bitte "
-                "gib einen Auslieferungszeitraum an, der <strong>nach</strong> "
-                "der Abholung liegt.")))
+        try:
+            if data.get("timeframe_pickup") > data.get("timeframe_dropoff"):
+                errors.append(ValidationError(
+                    mark_safe("Zeitreisen können wir leider nicht. Bitte "
+                    "gib einen Auslieferungszeitraum an, der <strong>nach</strong> "
+                    "der Abholung liegt.")))
+        except TypeError:
+            # if clean_timeframe_pickup failed there's a failing comparison
+            # against None
+            pass
 
         if errors:
             raise ValidationError(errors)

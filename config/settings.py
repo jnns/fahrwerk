@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'debug_toolbar',
     'pipeline',
+    'rest_framework',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -156,7 +157,11 @@ PIPELINE = {
         'main': {
             'source_filenames': (
                 'js/jquery.min.js',
-                'js/app.js',
+                'js/map.js',
+                'js/babel/browser.min.js',
+                'js/underscore-min.js',
+                'js/react-0.14.8/build/react.js',
+                'js/react-0.14.8/build/react-dom.js',
             ),
             'output_filename': 'main.js',
         }
