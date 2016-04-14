@@ -7,7 +7,7 @@ from datetime import time
 from decimal import Decimal
 
 from django.core.urlresolvers import reverse
-from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 
@@ -21,6 +21,16 @@ hashids = Hashids(
     # 0,o,l, and 1 are purposefully left out of the alphabet
     alphabet='abcdefghijkmnpqrstuvwxyz23456789')
 
+
+def validate_phone_no(value):
+    error = ValidationError("Bitte gib eine korrekte Telefonnummer ein.")
+    number = "".join(
+        [s for s in value if s.isdigit()]
+    )
+    if not 9 <= len(number) <= 15:
+        raise error
+    if value[0] != "+" and number[0] != "0":
+        raise error
 
 
 STATUS_CHOICES = (
@@ -133,13 +143,11 @@ class Order(models.Model):
         (time(18), '18:00 – 19:00'),
         (time(19), '19:00 – 20:00'),
     )
-    PHONE_REGEX = RegexValidator(regex=r'^\+?1?[ \d]{9,15}$',
-        message="Die Telefonnummer bitte nach diesem Format eingeben: '+49 000 00000'.")
 
     # Pickup information
     from_person = models.CharField("Ansprechpartner_in", max_length=40)
     from_company = models.CharField("Firma", max_length=40, blank=True)
-    from_phone_no = models.CharField("Telefonnummer", max_length=15, default="+49 ", validators=[PHONE_REGEX])
+    from_phone_no = models.CharField("Telefonnummer", max_length=15, validators=[validate_phone_no])
     from_street = models.CharField("Straße und Hausnummer", max_length=30)
     from_zipcode = models.PositiveSmallIntegerField("PLZ")
     from_comment = models.CharField("Bemerkung", max_length=40, blank=True,
@@ -149,7 +157,7 @@ class Order(models.Model):
     # Drop-off information
     to_person = models.CharField("Ansprechpartner_in", max_length=40)
     to_company = models.CharField("Firma", max_length=40, blank=True)
-    to_phone_no = models.CharField("Telefonnummer", max_length=15)
+    to_phone_no = models.CharField("Telefonnummer", max_length=15, validators=[validate_phone_no])
     to_street = models.CharField("Straße und Hausnummer", max_length=30)
     to_zipcode = models.PositiveSmallIntegerField("PLZ")
     to_comment = models.CharField("Bemerkung", max_length=40, blank=True,
@@ -199,6 +207,11 @@ class Order(models.Model):
         verbose_name = "Bestellung"
         verbose_name_plural = "Bestellungen"
 
+    def __init__(self, *args, **kwargs):
+        super(Order, self).__init__(*args, **kwargs)
+        if all([self.from_street, self.from_zipcode, self.to_street, self.to_zipcode]):
+            self.get_directions()
+
     def __unicode__(self):
         return "%s → %s" % (self.from_street, self.to_street)
 
@@ -232,7 +245,6 @@ class Order(models.Model):
     def calculate_price(self):
         if not self.rate:
             self.rate = Rate.objects.get(pk=self.calculate_rate())
-            print "Tarif: ", self.rate
         return self.rate.price(self.distance)
 
     def calculate_rate(self):

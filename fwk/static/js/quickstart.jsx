@@ -16,8 +16,9 @@ var QuickstartBox = React.createClass({
         // In case of Django re-rendering the form, kick off route drawing and
         // price calculation
         if (this.bothAddressesSet()) {
-           this.geocode(this.state.pickup, "pickup");
-           this.geocode(this.state.dropoff, "dropoff");
+
+            this.geocode(this.state.pickup, "pickup");
+            this.geocode(this.state.dropoff, "dropoff");
         }
         // Throttle API calls by using underscore.js's debounce function.
         this.geocode = _.debounce(this.geocode, 750);
@@ -25,18 +26,17 @@ var QuickstartBox = React.createClass({
     getInitialState: function() {
         // If Django re-renders the form, use the supplied values to set the
         // initial state
-        var pickup = ($("#id_from_street").val() +" "+ $("#id_from_zipcode").val()).trim();
-        var dropoff = ($("#id_to_street").val() +" "+ $("#id_to_zipcode").val()).trim();
+        var pickup = ($("#id_order-from_street").val() +" "+ $("#id_order-from_zipcode").val()).trim();
+        var dropoff = ($("#id_order-to_street").val() +" "+ $("#id_order-to_zipcode").val()).trim();
 
         return {
-            pickup: pickup,
-            dropoff: dropoff,
+            pickup: pickup || "",
+            dropoff: dropoff || "",
             geocoded: {
                 pickup: {},
                 dropoff: {}
             },
             markers: {},  //  L.marker information
-            price: '',
             packages_s: 0,
             packages_m: 0,
             packages_l: 0
@@ -107,15 +107,15 @@ var QuickstartBox = React.createClass({
     // use of React and Django form validation at the same time. It'd be much
     // cleaner if this could also be a React component on itw own.
     handlePackageSChange: function() {
-        this.setState({packages_s: $("#id_packages_s").val() });
+        this.setState({packages_s: $("#id_order-packages_s").val() });
         this.loadPrice();
     },
     handlePackageMChange: function() {
-        this.setState({packages_m: $("#id_packages_m").val() });
+        this.setState({packages_m: $("#id_order-packages_m").val() });
         this.loadPrice();
     },
     handlePackageLChange: function() {
-        this.setState({packages_l: $("#id_packages_l").val() });
+        this.setState({packages_l: $("#id_order-packages_l").val() });
         this.loadPrice();
     },
     markerHasBeenSet: function (data, pu_or_do) {
@@ -127,13 +127,13 @@ var QuickstartBox = React.createClass({
         var postcode = p.postcode || "";
 
         if (pu_or_do == "pickup") {
-            $("#id_from_company").val(name);
-            $("#id_from_street").val(street);
-            $("#id_from_zipcode").val(postcode);
+            $("#id_order-from_company").val(name);
+            $("#id_order-from_street").val(street);
+            $("#id_order-from_zipcode").val(postcode);
         } else {
-            $("#id_to_company").val(name);
-            $("#id_to_street").val(street);
-            $("#id_to_zipcode").val(postcode);
+            $("#id_order-to_company").val(name);
+            $("#id_order-to_street").val(street);
+            $("#id_order-to_zipcode").val(postcode);
         }
 
         // calculate route if all necessary informations are supplied
@@ -154,7 +154,7 @@ var QuickstartBox = React.createClass({
                 },
                 cache: false,
                 success: function(data) {
-                    this.setState({price: data});
+                    eventbus.dispatch(data);
             }.bind(this),
                 error: function(xhr, status, err) {
                     console.error(this.props.url, status, err.toString());
@@ -213,7 +213,6 @@ var QuickstartBox = React.createClass({
         return false;
     },
     render: function () {
-        var price = (this.state.price || 0).toLocaleString("de", {style: "currency", currency: "EUR", minimumFractionDigits: 2})
         return (
             <div className="quickstart__wrapper">
                 <form className="quickstart">
@@ -221,17 +220,44 @@ var QuickstartBox = React.createClass({
                     <span className="quickstart__arrow">🡆</span>
                     <input type="text" className="quickstart__to" placeholder="Zustelladresse" value={this.state.dropoff} onChange={this.handleDropoffChange} />
                 </form>
-                <div className="quickstart__price">Preis: {price} <a href="#*">*</a></div>
+                <Price />
             </div>
         );
     }
 });
 
-React.createClass({
+window.eventbus = {
+    listeners: [],
+    subscribe: function (callback) {
+        this.listeners.push(callback);
+    },
+    dispatch: function (value) {
+        for (var i = 0; i< this.listeners.length; i++) {
+            this.listeners[i](value);
+        }
+    }
+}
 
+var Price = React.createClass({
+    componentDidMount: function() {
+        window.eventbus.subscribe(function (price) {
+            this.setState({price: price});
+        }.bind(this));
+    },
+    getInitialState: function () {
+        return { price: 0 };
+    },
+    render: function () {
+        var price = (this.state.price || 0).toLocaleString("de", {style: "currency", currency: "EUR", minimumFractionDigits: 2})
+        return (
+            <div className="quickstart__price">Preis: {price} <a href="#*">*</a></div>
+        )
+    }
 });
 
 // render QuickstartBox and make it available to map.js under `quickstartBox`.
 window.quickstartBox = ReactDOM.render(
     <QuickstartBox url="/api/v1/price/" />,
     document.getElementById('quickstart'));
+
+ReactDOM.render(<Price />, document.getElementById('price_wrapper'));

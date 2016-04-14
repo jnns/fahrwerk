@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'pipeline',
     'rest_framework',
+    'formtools',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -168,3 +169,6 @@ PIPELINE = {
     },
     'YUGLIFY_BINARY': 'node_modules/yuglify/bin/yuglify'
 }
+
+
+FWK_PHONE_NO = "(030) 40 58 51 00"

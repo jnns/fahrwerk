@@ -102,6 +102,9 @@ body {
     text-decoration: none;
     color: inherit;
 }
+#price_wrapper .quickstart__price {
+    box-shadow: none;
+}
 
 .quickstart {
     display: flex;
@@ -132,9 +135,12 @@ body {
     max-width: 500px;
     margin: auto;
 }
+.order-confirmation__header,
+.confirmation__header,
 .order-detail__summary-header,
 .order-detail__progress-header,
 .order-detail__rate-header,
+.order-detail__map-header,
 .order-detail__header,
 .order-form__header {
     border-left: #84329B solid .5em;
@@ -226,6 +232,7 @@ body {
 .order-form__map {
     width: 100%;
     height: 400px;
+    background-color: #E8E0D8 !important;
 }
 
 /*
@@ -246,7 +253,6 @@ body {
 .order-detail__address--domain {
     color: #a0a0a0;
 }
-.order-detail__details,
 .order-detail__summary {
     display: flex;
     justify-content: space-between;
@@ -314,17 +320,62 @@ body {
 }
 
 /*
+ * Confirmation
+ */
+
+.confirmation,
+.confirmation__footer {
+    max-width: 500px;
+    margin: 2.5em auto;
+}
+.confirmation__subheader {
+    margin: 1.5em 0;
+    line-height: 1.4em;
+    font-size: 1.4em;
+}
+.confirmation__phone-numbers {
+    max-width: 400px;
+    min-width: 50%;
+    margin: auto;
+}
+.confirmation__phone-numbers td {
+    padding: 0 .5em;
+}
+.confirmation__phone-numbers a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.confirmation__footer a {
+    display: inline-block;
+    width: 49%;
+    padding: .5em;
+    background: #84329B;
+    border-left: 10px solid #84329B;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+}
+.confirmation__footer a:hover {
+    transition: all .1s ease-in-out;
+    border-left: 10px solid #98C11D;
+}
+
+/*
  * Footer
  */
 
 .footer__terms {
-    margin: 2em auto;
+    margin: 5em auto 3em;
     max-width: 500px;
     color: #999;
     font-size: .9em;
 }
 .terms__term {
     padding: 1em 0;
+}
+.terms__term a {
+    color: #999;
 }
 .term__star {
     display: inline-block;
@@ -340,12 +391,21 @@ body {
 
 .footer__contact {
     max-width: 500px;
-    margin: 2em auto;
+    margin: 5em auto;
 }
+.confirmation__our-phone-no,
 .contact__phone-no {
     display: block;
     text-align: center;
     font-weight: bold;
     color: inherit;
     text-decoration: none;
+    font-size: 2.8em;
+    line-height: 2em;
 }
+
+/*
+ *  General
+ */
+
+.mute { color: rgba(0,0,0,.5) }

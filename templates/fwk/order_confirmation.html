@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
+<style>
+  #map { width:100%; height: 200px }
+</style>
+{% endblock head %}
+
+{% block content %}
+
+    <div class="order-detail">
+        <h1 class="order-detail__header">Bestätige deinen Auftrag</h1>
+
+        <p>Bitte schau dir deine Angaben noch einmal ganz genau an, bevor du deinen Auftrag an uns übermittelst.</p>
+
+        <div class="order-detail__summary">
+            <div class="order-detail__from_summary">
+
+                <h3>Abholadresse</h3>
+
+                {% if order.from_company %}{{ order.from_company }}<br>{% endif %}
+
+                <strong>{{ order.from_person }}</strong><br>
+
+                {{ order.from_street }}<br>
+                {{ order.from_zipcode }} Berlin<br>
+
+                <div class="order-summary__field">
+                    <label>Telefon</label>
+                    {{ order.from_phone_no }}<br>
+                </div>
+
+                <div class="order-summary__field">
+                    <label>Abholung zwischen</label>
+                    {{ order.get_timeframe_pickup_display }} Uhr
+                </div>
+
+                {% if order.from_comment %}
+                <div class="order-summary__field">
+                    <label>Bemerkung</label>
+                    {{ order.from_comment }}</p>
+                </div>
+                {% endif %}
+
+            </div>
+
+            <div class="order-detail__to_summary">
+
+                <h3>Zustelladresse</h3>
+
+                {% if order.to_company %}{{ order.to_company }}<br>{% endif %}
+
+                <strong>{{ order.to_person }}</strong><br>
+
+                {{ order.to_street }}<br>
+                {{ order.to_zipcode }} Berlin<br>
+
+                <div class="order-summary__field">
+                    <label>Telefon</label>
+                    {{ order.to_phone_no }}<br>
+                </div>
+
+                <div class="order-summary__field">
+                    <label>Abholung zwischen</label>
+                    {{ order.get_timeframe_pickup_display }} Uhr
+                </div>
+
+                {% if order.to_comment %}
+                <div class="order-summary__field">
+                    <label>Bemerkung</label>
+                    {{ order.to_comment }}</p>
+                </div>
+                {% endif %}
+
+            </div>
+
+
+        </div>
+
+        <div class="order-detail__details">
+
+            <div class="order-summary__field">
+                <label>Packstücke</label>
+                {% with order.packages_s as s %}
+                    {% if s %}
+                        {{ s }} klein{{ s|pluralize:"es,e"}} Packstück{{ p|pluralize:"e" }}
+                    {% endif %}<br>
+                {% endwith %}
+
+                {% with order.packages_m as p %}
+                    {% if p %}
+                        {{ p }} mittler{{ p|pluralize:"es,e"}} Packstück{{ p|pluralize:"e" }}<br>
+                    {% endif %}
+                {% endwith %}
+
+                {% with order.packages_l as p %}
+                    {% if p %}
+                        {{ p }} groß{{ p|pluralize:"es,e"}} Packtück{{ p|pluralize:"e" }}<br>
+                    {% endif %}
+                {% endwith %}
+            </div>
+
+            {% if order.package_detail %}
+                <div class="order-summary__field">
+                    <label>Sendung</label>
+                    {{ order.package_detail }}
+                </div>
+            {% endif %}
+
+        </div>
+
+        <h2 class="order-detail__rate-header">Tarif & Preis</h2>
+
+            <div class="order-detail__calculation">
+                <span class="order-detail__rate">{{ order.get_rate_display }}</span>
+                für
+                <span class="order-detail__price">{{ order.calculate_price|floatformat:"2" }} €</span>
+            </div>
+
+            <div class="order-summary__field">
+                Bezahlung
+                {% if order.customer == 'PICKUP' %}
+                    bei Abholung ({{ order.from_person}})
+                {% else %}
+                    bei Abgabe ({{ order.to_person}})
+                {% endif %}
+            </div>
+
+
+        <h2 class="order-detail__map-header">Karte <span style="font-size: .8em" class="mute">(noch in Arbeit)</span></h2>
+
+        <div id="map" class="order-detail__map">
+        </div>
+
+        <form method="post">
+            {{ wizard.management_form }}
+            {% csrf_token %}
+            <input class="order-form__submit" type="submit" value="Auftrag abschicken" />
+        </form>
+
+        <script>
+        var geojson = {{ order.directions_json|safe|default:"{}" }};
+
+        L.mapbox.accessToken = 'pk.eyJ1Ijoiam5ucyIsImEiOiJjaWdkanI2cW0wN3pudmprcjd5emNkZGliIn0.XU8kSbBiCjLZ6E7PCI3_SQ';
+        L.mapbox.map('map', 'mapbox.streets').setView([52.507,13.396], 11).
+            featureLayer.setGeoJSON(geojson);
+        </script>
+
+    </div>
+
+
+
+{% endblock %}

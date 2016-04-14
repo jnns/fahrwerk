@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from fwk.views import OrderCreateView, OrderStatusView
+from fwk.views import OrderStatusView, OrderWizardView, FORMS
 from fwk.api import price
 
 urlpatterns = [
@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/v1/price/$', price , name="price"),
     url(r'^(?P<id>[A-z0-9]{4,})$', OrderStatusView.as_view(), name="order_status"),
-    url(r'^$', OrderCreateView.as_view(), name="order",)
+    url(r'^$', OrderWizardView.as_view(FORMS), name="order",)
+    #url(r'^$', OrderCreateView.as_view(), name="order",)
 ]

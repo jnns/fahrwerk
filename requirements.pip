@@ -1,6 +1,7 @@
 django>=1.9
 
 djangorestframework
+django-formtools
 django-constance
 brotlipy>=0.2.0  # See README in case of failing build
 whitenoise

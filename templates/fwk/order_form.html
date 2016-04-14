@@ -6,7 +6,7 @@
 	<link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
 {% endblock %}
 
-{% block body %}
+{% block content %}
 
 <div id="quickstart"></div>
 
@@ -16,6 +16,7 @@
 
 <form method="post" action="/" class="order-form">
 	{% csrf_token %}
+	{{ wizard.management_form }}
 
 	{% if form.errors %}
 		<ul class="errorlist nonfield">
@@ -52,28 +53,30 @@
 			<div class="order-form__form-field">
 				<img src="{% static 'svg/letter.svg' %}" width=40 height=40 />
 				{{ form.packages_s.label_tag }}
-				<input id="id_packages_s" min="0" name="packages_s" type="number" value="{{ form.packages_s.value }}" onchange=quickstartBox.handlePackageSChange() >
+				<input id="{{ form.packages_s.id_for_label }}" min="0" name="{{ form.packages_s.html_name }}" type="number" value="{{ form.packages_s.value }}" onchange=quickstartBox.handlePackageSChange() >
 			</div>
 			<div class="order-form__form-field">
 				<img src="{% static 'svg/folder.svg' %}" width=40 height=40 />
 				{{ form.packages_m.label_tag }}
-				<input id="id_packages_m" min="0" name="packages_m" type="number" value="{{ form.packages_m.value }}" onchange=quickstartBox.handlePackageMChange() >
+				<input id="{{ form.packages_m.id_for_label }}" min="0" name="{{ form.packages_m.html_name }}" type="number" value="{{ form.packages_m.value }}" onchange=quickstartBox.handlePackageMChange() >
 			</div>
 			<div class="order-form__form-field">
 				<img src="{% static 'svg/box.svg' %}" width=40 height=40 />
 				{{ form.packages_l.label_tag }}
-				<input id="id_packages_l" min="0" name="packages_l" type="number" value="{{ form.packages_l.value }}" onchange=quickstartBox.handlePackageLChange() >
+				<input id="{{ form.packages_l.id_for_label }}" min="0" name="{{ form.packages_l.html_name }}" type="number" value="{{ form.packages_l.value }}" onchange=quickstartBox.handlePackageLChange() >
 			</div>
 		</div>
 
 		{% include 'fwk/_order_form-field.html' with field=form.package_detail %}
 		{% include 'fwk/_order_form-field.html' with field=form.customer %}
 
+	<div id="price_wrapper"></div>
+
 	<input class="order-form__submit" type="submit" value="Bestellung aufgeben" />
 
 
 </form>
-{% endblock body %}
+{% endblock content %}
 
 
 
@@ -81,16 +84,24 @@
 
 <div class="footer__contact">
 	Bei Fragen aller Art stehen wir euch gerne telefonisch Rede und Antwort. Ruft einfach durch:
-	<a class="contact__phone-no" href="tel:+49 030 50 58 51 00">(+49 030) 40 58 51 00</a>
+	<a class="contact__phone-no" href="tel:+49 030 50 58 51 00">
+	(030) 40 58 51 00</a>
 </div>
 
 <div class="footer__terms">
 	<div class="terms__term">
-		<span class="term__star">*</span><a name="*"></a>Es kann aufgrund von nötiger
-		Geldauslage, falsch angegebener Sendungsgröße, entstandener Wartezeit
-		o.ä. zu anderen Preisen als den hier angegebenen kommen. Wir
-		informieren euch, falls unvorhergesehene Kosten entstehen würden,
-		darüber schnellstmöglich telefonisch.
+		<span class="term__star">*</span><a name="*"></a>
+
+		Es kann aufgrund von nötiger Geldauslage, falsch angegebener
+		Sendungsgröße, entstandener Wartezeit o.ä. zu anderen Preisen als den
+		hier angegebenen kommen. Wir informieren euch, falls unvorhergesehene
+		Kosten entstehen würden, darüber schnellstmöglich telefonisch.
+
+		<p>
+		Die hier dargestellten Preise verstehen sich &mdash; anders als in unserem <a
+		href="http://www.fahrwerk-berlin.de/wp/preise/">Preis- und
+		Leistungsverzeichnis</a> &mdash; inkl. 19% MwSt.
+		</p>
 	</div>
 	<div class="terms__term">
 		<span class="term__star">**</span><a name="**"></a>Je nach Auftragslage und Ort der

@@ -7,9 +7,17 @@ from django.utils import timezone
 
 from .models import Order
 
+class OrderConfirmation(forms.Form):
+    pass
+
+
 class OrderForm(forms.ModelForm):
     error_css_class = 'error'
     required_css_class = 'required'
+
+    # valid postcodes
+    MIN_POSTCODE = 10115
+    MAX_POSTCODE = 14467
 
     class Meta:
         model = Order
@@ -54,6 +62,25 @@ class OrderForm(forms.ModelForm):
             zeitkritische Sendungen rufe uns bitte direkt an.")
         return input
 
+    def clean_to_zipcode(self):
+        value = self.cleaned_data["to_zipcode"]
+        if not self.MIN_POSTCODE < value < self.MAX_POSTCODE:
+           raise ValidationError(
+            "Dieser Ort liegt außerhalb unseres regulären Zustellgebietes. \
+            Ruf uns doch an, damit wir über Transportmöglichkeiten dorthin \
+            sprechen können. " + settings.FWK_PHONE_NO)
+        return value
+
+    def clean_from_zipcode(self):
+        value = self.cleaned_data["from_zipcode"]
+        if not self.MIN_POSTCODE < value < self.MAX_POSTCODE:
+           raise ValidationError(
+            "Dieser Ort liegt außerhalb unseres regulären Abholgebietes. \
+            Ruf uns doch an, damit wir über Transportmöglichkeiten von \
+            dort aus sprechen können. " + settings.FWK_PHONE_NO)
+        return value
+
+
     def clean(self):
         super(OrderForm, self).clean()
 
@@ -73,8 +100,8 @@ class OrderForm(forms.ModelForm):
                     "gib einen Auslieferungszeitraum an, der <strong>nach</strong> "
                     "der Abholung liegt.")))
         except TypeError:
-            # if clean_timeframe_pickup failed there's a failing comparison
-            # against None
+            # If clean_timeframe_pickup failed there's a failing comparison
+            # against NoneType.
             pass
 
         if errors:
