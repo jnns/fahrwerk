@@ -25,7 +25,8 @@ SECRET_KEY = '_pzossb(06c$s_p&jsy%+wo05qrqbc4jxb-@eqww(url&mfnyv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*.regulus.uberspace.de"]
+USE_X_FORWARDED_HOST = True
 
 
 # Application definition
