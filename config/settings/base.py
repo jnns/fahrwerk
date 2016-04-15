@@ -20,14 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_pzossb(06c$s_p&jsy%+wo05qrqbc4jxb-@eqww(url&mfnyv'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ["*.regulus.uberspace.de"]
-USE_X_FORWARDED_HOST = True
-
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # Application definition
 
@@ -171,5 +164,8 @@ PIPELINE = {
     'YUGLIFY_BINARY': 'node_modules/yuglify/bin/yuglify'
 }
 
+EMAIL_SUBJECT_PREFIX = "[FWK]"
 
+# This is Fahrwerk's landline that's used in several places throughout the
+# codebase.
 FWK_PHONE_NO = "(030) 40 58 51 00"

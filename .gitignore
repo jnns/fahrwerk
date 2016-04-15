@@ -1,3 +1,10 @@
+### Project specific stuff ###
+config/settings/env
+
+
+
+### Generated stuff ###
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

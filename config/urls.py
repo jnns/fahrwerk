@@ -13,17 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url #, include
 from django.contrib import admin
 
-from fwk.views import OrderStatusView, OrderWizardView, FORMS
+from fwk.views import OrderWizardView, FORMS
 from fwk.api import price
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/v1/price/$', price , name="price"),
-    url(r'^(?P<id>[A-z0-9]{4,})$', OrderStatusView.as_view(), name="order_status"),
+    #url(r'^(?P<id>[A-z0-9]{4,})$', OrderStatusView.as_view(), name="order_status"),
     url(r'^$', OrderWizardView.as_view(FORMS), name="order",)
-    #url(r'^$', OrderCreateView.as_view(), name="order",)
 ]

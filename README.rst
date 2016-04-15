@@ -1,6 +1,6 @@
-===============================
-Online form for bike deliveries
-===============================
+=====================
+fwk - online ordering
+=====================
 
 This web app makes it possible to order deliveries online via a neat and
 simple form.
@@ -28,7 +28,19 @@ WhiteNoise can make use of the brotli compression mechanism. Installing with
 
   $ apt install build-essential python-dev libffi-dev
 
-Collect all static files to the folder defined by `STATIC_ROOT`. Serving is taken care of by WhiteNoise as well.
+Install the required node.js packages (defined in ``package.json``):
+
+.. code-block:: sh
+
+  $ npm install
+
+Collect all static files to the folder defined by ``STATIC_ROOT``. Serving is taken care of by WhiteNoise as well.
+
+.. code-block:: sh
+
+  $ ./manage.py collectstatic
+
+
 
 
 Development
@@ -43,21 +55,6 @@ directories and ``./node_modules``.
 
 Depending on how this project develops I might dive into `webpack` and
 integrate that into the stack.
-
-
-
-Deployment
-----------
-
-.. code-block:: sh
-
-  $ ./manage.py collectstatic
-
-The (extended) development server can be run by
-
-.. code-block:: sh
-
-  $ ./manage.py runserver_plus
 
 
 Testing
