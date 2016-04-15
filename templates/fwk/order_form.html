@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
-{% load static %}
 
-{% block head %}
+{% load static %}
+{% load pipeline %}
+
+
+{% block javascript %}
 	<script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
-	<link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
+    {% javascript 'main' %}
+    {% javascript 'map' %}
+    <script src="{% static 'js/quickstart.jsx' %}" type="text/babel"></script>
+
+	{{ block.super }}
 {% endblock %}
+
+
+{% block stylesheets %}
+	{{ block.super }}
+	<link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
+{% endblock stylesheets %}
+
 
 {% block content %}
 

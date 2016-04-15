@@ -121,8 +121,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# Forever-cachable files and compression support
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 # This is the place where all static assets are collected to when
@@ -136,6 +134,7 @@ STATICFILES_FINDERS = (
 )
 
 PIPELINE = {
+    'PIPELINE_ENABLED': True,
     'STYLESHEETS': {
         'main': {
             'source_filenames': (
@@ -152,35 +151,27 @@ PIPELINE = {
         'main': {
             'source_filenames': (
                 'js/jquery.min.js',
-                'js/map.js',
-                'js/babel/browser.min.js',
                 'js/underscore-min.js',
-                'js/react-0.14.8/react.min.js',
-                'js/react-0.14.8/react-dom.min.js',
+                'js/babel/browser.min.js',
+                'js/react.min.js',
+                'js/react-dom.min.js',
             ),
-            'output_filename': 'main.js',
+            'output_filename': 'main.min.js',
+        },
+        'map': {
+            'source_filenames': {
+                'js/map.js'
+            },
+            'output_filename': 'map.min.js',
+
         }
     },
-    'YUGLIFY_BINARY': 'node_modules/yuglify/bin/yuglify'
-}
+    'YUGLIFY_BINARY': 'node_modules/yuglify/bin/yuglify',
 
-# Maybe this is useless. But let's keep it around for a bit because I'm not
-# sure whether gunicorn logging will fail to report Django stuff without it
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'root': {
-        'level': 'DEBUG',
-        'handlers': ['console',]
-    },
+    # This is important because Leaflet refuses to work when the scripts (I
+    # have no idea which) are wrapped.
+    'DISABLE_WRAPPER': True
 }
-
 
 EMAIL_SUBJECT_PREFIX = "[FWK]"
 

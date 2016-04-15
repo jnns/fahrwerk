@@ -4,7 +4,7 @@ from .base import *
 # root access can change it anyway.
 ADMINS = eval(os.environ["ADMINS"])
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "*.regulus.uberspace.de"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "fahrwerk.regulus.uberspace.de"]
 USE_X_FORWARDED_HOST = True
 
 # See https://wiki.uberspace.de/mail for configuration options

@@ -10,7 +10,9 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {% stylesheet 'main' %}
+        {% block stylesheets %}
+            {% stylesheet 'main' %}
+        {% endblock %}
 
         {% block head %}
         {% endblock %}
@@ -24,15 +26,13 @@
         {% block footer %}
         {% endblock %}
 
-        {% javascript 'main' %}
-
-        <script src="{% static 'js/quickstart.jsx' %}" type="text/babel"></script>
-
-        <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-        <script>
-            window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
-            ga('create','UA-75433740-1','auto');ga('send','pageview')
-        </script>
-        <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+        {% block javascript %}
+            <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+            <script>
+                window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+                ga('create','UA-75433740-1','auto');ga('send','pageview')
+            </script>
+            <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+        {% endblock %}
     </body>
 </html>
