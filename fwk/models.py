@@ -27,7 +27,7 @@ def validate_phone_no(value):
     number = "".join(
         [s for s in value if s.isdigit()]
     )
-    if not 9 <= len(number) <= 15:
+    if not 7 <= len(number) <= 15:
         raise error
     if value[0] != "+" and number[0] != "0":
         raise error

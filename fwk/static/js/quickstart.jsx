@@ -127,11 +127,9 @@ var QuickstartBox = React.createClass({
         var postcode = p.postcode || "";
 
         if (pu_or_do == "pickup") {
-            $("#id_order-from_company").val(name);
             $("#id_order-from_street").val(street);
             $("#id_order-from_zipcode").val(postcode);
         } else {
-            $("#id_order-to_company").val(name);
             $("#id_order-to_street").val(street);
             $("#id_order-to_zipcode").val(postcode);
         }
