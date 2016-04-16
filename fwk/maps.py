@@ -1,6 +1,9 @@
 import json
+import logging
 
 from mapbox import Geocoder, Directions
+
+logger = logging.getLogger(__name__)
 
 # For proximity based geocoding specify Berlin as the center
 FILTERS = {
@@ -18,7 +21,12 @@ def geocode(query):
 
 
 def directions(origin, destination):
-    directions = Directions()
-    geojson = directions.directions([origin, destination], 'mapbox.driving').geojson()
-    first = geojson['features'][0]
+    try:
+        directions = Directions()
+        logger.info("Getting directions for: %s / %s" % (origin, destination))
+        geojson = directions.directions([origin, destination], 'mapbox.driving').geojson()
+        logger.info("Result: %s" % geojson)
+        first = geojson['features'][0]
+    except Exception as e:
+        first = str(e)
     return json.dumps(first)
