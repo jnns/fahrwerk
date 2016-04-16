@@ -210,7 +210,10 @@ class Order(models.Model):
     def __init__(self, *args, **kwargs):
         super(Order, self).__init__(*args, **kwargs)
         if all([self.from_street, self.from_zipcode, self.to_street, self.to_zipcode]):
-            self.get_directions()
+            try:
+                self.get_directions()
+            except:
+                pass
 
     def __unicode__(self):
         return "%s → %s" % (self.from_street, self.to_street)
