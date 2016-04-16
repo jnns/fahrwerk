@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
 from django.utils import timezone
