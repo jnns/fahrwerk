@@ -217,7 +217,7 @@ var QuickstartBox = React.createClass({
             <div className="quickstart__wrapper">
                 <form className="quickstart">
                     <input type="text" className="quickstart__from" placeholder="Abholadresse" value={this.state.pickup} onChange={this.handlePickupChange} />
-                    <span className="quickstart__arrow">🡆</span>
+                    <span className="quickstart__arrow">&rarr;</span>
                     <input type="text" className="quickstart__to" placeholder="Zustelladresse" value={this.state.dropoff} onChange={this.handleDropoffChange} />
                 </form>
                 <Price />

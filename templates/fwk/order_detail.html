@@ -92,13 +92,13 @@
                 <label>Packstücke</label>
                 {% with order.packages_s as s %}
                     {% if s %}
-                        {{ s }} klein{{ s|pluralize:"es,e"}} Packstück{{ p|pluralize:"e" }}
-                    {% endif %}<br>
+                        {{ s }} klein{{ s|pluralize:"es,e"}} Packstück{{ p|pluralize:"e" }}<br>
+                    {% endif %}
                 {% endwith %}
 
                 {% with order.packages_m as p %}
                     {% if p %}
-                        {{ p }} mittler{{ p|pluralize:"es,e"}} Packstück{{ p|pluralize:"e" }}<br>
+                        {{ p }} mittelgroß{{ p|pluralize:"es,e"}} Packstück{{ p|pluralize:"e" }}<br>
                     {% endif %}
                 {% endwith %}
 
@@ -109,11 +109,12 @@
                 {% endwith %}
             </div>
 
+            {% if order.package_detail %}
             <div class="order-summary__field">
-                <label>Sendung</label>
+                <label>Was wird transportiert?</label>
                 {{ order.package_detail }}
-
             </div>
+            {% endif %}
 
             <div class="order-summary__field">
                 <label>Bezahlung</label>

@@ -34,12 +34,16 @@ Install the required node.js packages (defined in ``package.json``):
 
   $ npm install
 
-Collect all static files to the folder defined by ``STATIC_ROOT``. Serving is taken care of by WhiteNoise as well.
+Collect all static files to the folder defined by ``STATIC_ROOT``. Serving is
+taken care of by WhiteNoise as well.
 
 .. code-block:: sh
 
   $ ./manage.py collectstatic
 
+Have a look at ``config/settings/production.py`` for environment variables
+that need to be set in order to run the app. Your virtualenv's
+``postactivate`` hook file is a good place to put them, for example.
 
 
 

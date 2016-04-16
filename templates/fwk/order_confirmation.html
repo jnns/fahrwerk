@@ -16,9 +16,9 @@
         <p>Bitte schau dir deine Angaben noch einmal ganz genau an, bevor du deinen Auftrag an uns übermittelst.</p>
 
         <div class="order-detail__summary">
-            <div class="order-detail__from_summary">
+            <div class="order-detail__address">
 
-                <h3>Abholadresse</h3>
+                <h3 class="address__header">Abholadresse</h3>
 
                 {% if order.from_company %}{{ order.from_company }}<br>{% endif %}
 
@@ -46,9 +46,9 @@
 
             </div>
 
-            <div class="order-detail__to_summary">
+            <div class="order-detail__address">
 
-                <h3>Zustelladresse</h3>
+                <h3 class="address__header">Zustelladresse</h3>
 
                 {% if order.to_company %}{{ order.to_company }}<br>{% endif %}
 
@@ -85,13 +85,13 @@
                 <label>Packstücke</label>
                 {% with order.packages_s as s %}
                     {% if s %}
-                        {{ s }} klein{{ s|pluralize:"es,e"}} Packstück{{ p|pluralize:"e" }}
-                    {% endif %}<br>
+                        {{ s }} klein{{ s|pluralize:"es,e"}} Packstück{{ p|pluralize:"e" }}<br>
+                    {% endif %}
                 {% endwith %}
 
                 {% with order.packages_m as p %}
                     {% if p %}
-                        {{ p }} mittler{{ p|pluralize:"es,e"}} Packstück{{ p|pluralize:"e" }}<br>
+                        {{ p }} mittelgroß{{ p|pluralize:"es,e"}} Packstück{{ p|pluralize:"e" }}<br>
                     {% endif %}
                 {% endwith %}
 
@@ -104,7 +104,7 @@
 
             {% if order.package_detail %}
                 <div class="order-summary__field">
-                    <label>Sendung</label>
+                    <label>Was wird transportiert?</label>
                     {{ order.package_detail }}
                 </div>
             {% endif %}
@@ -137,6 +137,7 @@
         <form method="post">
             {{ wizard.management_form }}
             {% csrf_token %}
+            <button name="wizard_goto_step" class="order-form__button" type="submit" value="{{ wizard.steps.first }}">Auftrag bearbeiten</button>
             <input class="order-form__submit" type="submit" value="Auftrag abschicken" />
         </form>
 

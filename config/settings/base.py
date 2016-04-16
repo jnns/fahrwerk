@@ -134,7 +134,7 @@ STATICFILES_FINDERS = (
 )
 
 PIPELINE = {
-    'PIPELINE_ENABLED': True,
+    #'PIPELINE_ENABLED': True,
     'STYLESHEETS': {
         'main': {
             'source_filenames': (
