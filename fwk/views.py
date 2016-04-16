@@ -33,7 +33,9 @@ class OrderWizardView(SessionWizardView):
         return context
 
     def done(self, form_list, form_dict, **kwargs):
-        form_dict["order"].save()
+        form = form_dict["order"]
+        form.instance.status = 'NEW'
+        form.save()
 
         return render_to_response('fwk/done.html', {
             'form_data': [form.cleaned_data for form in form_list],

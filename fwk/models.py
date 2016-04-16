@@ -1,19 +1,24 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-
 import json
+import logging
 from datetime import time
 from decimal import Decimal
 
-from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 from django.db import models
+from django.template.loader import render_to_string
 from django.utils import timezone
 
 from hashids import Hashids
 
 from .maps import geocode, directions
+
+logger = logging.getLogger(__name__)
 
 hashids = Hashids(
     min_length=4,
@@ -104,6 +109,7 @@ class Rate(models.Model):
     class Meta:
         verbose_name = 'Tarif'
         verbose_name_plural = 'Tarife'
+        ordering = ["price_base"]
 
     def __unicode__(self):
         return self.name
@@ -116,8 +122,11 @@ class Rate(models.Model):
 
         # German "brutto" price
         gross = net * self.tax
+        price = round(gross, 2)
 
-        return round(gross, 2)
+        logger.info("Price calculated (for %s km): %s EUR" % (distance, price))
+
+        return price
 
 
 
@@ -206,17 +215,27 @@ class Order(models.Model):
     class Meta:
         verbose_name = "Bestellung"
         verbose_name_plural = "Bestellungen"
+        ordering = ["-ordered"]
 
     def __init__(self, *args, **kwargs):
         super(Order, self).__init__(*args, **kwargs)
-        if all([self.from_street, self.from_zipcode, self.to_street, self.to_zipcode]):
+
+        address_info = [
+            self.from_street, self.from_zipcode,
+            self.to_street, self.to_zipcode
+        ]
+        if not self.distance and all(address_info):
             try:
                 self.get_directions()
             except:
                 pass
 
     def __unicode__(self):
-        return "%s → %s" % (self.from_street, self.to_street)
+        _from = getattr(self, "from_street", "?")
+        _to = getattr(self, "to_street", "?")
+        return "%s → %s" % (_from, _to)
+
+
 
     def pickup_short(self):
         return "%s %s" % (self.from_street, self.from_zipcode)
@@ -244,10 +263,12 @@ class Order(models.Model):
 
         distance_in_m = json.loads(self.directions_json)['properties']['distance']
         self.distance = Decimal.from_float(round(distance_in_m / 1000.0))
+        logger.info("Route has been calculated for %s" % self)
 
     def calculate_price(self):
         if not self.rate:
             self.rate = Rate.objects.get(pk=self.calculate_rate())
+        logger.info("Price has been calculated for %s" % self)
         return self.rate.price(self.distance)
 
     def calculate_rate(self):
@@ -271,6 +292,7 @@ class Order(models.Model):
         # L:
         #   objects the size of moving boxes and the like
         S, M, L = int(self.packages_s), int(self.packages_m), int(self.packages_l)
+        logger.info("Rate has been calculated for %s" % self)
         if L > 5:
             return Rate.RATE_TRANSPORTER
         if L > 3 or M > 15:
@@ -317,6 +339,17 @@ class Order(models.Model):
             self.delivered = None
 
         super(Order, self).save(*args, **kwargs)
+        if not self.id:
+            logger.info("A new order has been placed: %s" % self)
+            context = {
+                "order": self,
+            }
+            subject = "Neue Bestellung: %s" % self
+            message = render_to_string("fwk/order_email.txt", context)
+            send_mail(subject, message,
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.DEFAULT_FROM_EMAIL,
+                'jvajen+fahrwerk-bestellungen@gmail.com'])
 
 
 

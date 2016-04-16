@@ -23,6 +23,7 @@ class OrderAdmin(admin.ModelAdmin):
 	model = Order
 	form = OrderAdminForm
 	list_display = (
+		'ordered',
 		'ecourier',
 		'pickup_short',
 		'dropoff_short',
@@ -32,6 +33,7 @@ class OrderAdmin(admin.ModelAdmin):
 	)
 	list_editable = ('status',)
 	readonly_fields = ('hash',)
+	list_select_related = ('rate',)
 
 	def ecourier(self, obj):
 		if obj.ecourier_id:
