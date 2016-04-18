@@ -1,0 +1,27 @@
+Hej! Es gibt eine neue Bestellung:
+
+ABHOLUNG:{% if order.from_company %}
+   {{ order.from_company }}{% endif %}
+   {{ order.from_person }}
+   {{ order.from_phone_no }}
+   {{ order.from_street }}, {{ order.from_zipcode }}{% if order.from_comment %}
+   {{ order.from_comment }}{% endif %}
+   {{ order.get_timeframe_pickup_display }} Uhr
+
+ZUSTELLUNG:{% if order.to_company %}
+   {{ order.to_company }}{% endif %}
+   {{ order.to_person }}
+   {{ order.to_phone_no }}
+   {{ order.to_street }}, {{ order.to_zipcode }}{% if order.to_comment %}
+   {{ order.to_comment }}{% endif %}
+   {{ order.get_timeframe_dropoff_display }} Uhr
+
+SENDUNG & TARIF:{% if order.package_details %}
+   {{ order.package_details }}{% endif %}
+   Packstücke (S/M/L): {{ order.packages_s }} / {{ order.packages_m }} / {{ order.packages_l }}
+   {{ order.get_rate_display }}-Tarif
+
+PREIS:
+   {{ order.price|floatformat:2 }} EUR (inkl. 19% MwSt.) für {{ order.distance }} km
+
+Viel Spaß damit!
