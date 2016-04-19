@@ -157,12 +157,15 @@ body {
 }
 
 
+.error-page,
 .order-form,
 .footer {
     max-width: 500px;
     margin: auto;
     padding: .5em;
 }
+    .error-page__header,
+    .error-page__subheader,
     .order-confirmation__header,
     .confirmation__header,
     .order-detail__summary-header,
