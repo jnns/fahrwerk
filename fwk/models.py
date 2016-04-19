@@ -139,18 +139,25 @@ class Order(models.Model):
     In the future, they will eventually be transferable to eCourier via API.
     """
     HOUR_CHOICES = (
-        (time(8), ' 8:00 –  9:00'),
-        (time(9), ' 9:00 – 10:00'),
-        (time(10), '10:00 – 11:00'),
-        (time(11), '11:00 – 12:00'),
-        (time(12), '12:00 – 13:00'),
-        (time(13), '13:00 – 14:00'),
-        (time(14), '14:00 – 15:00'),
-        (time(15), '15:00 – 16:00'),
-        (time(16), '16:00 – 17:00'),
-        (time(17), '17:00 – 18:00'),
-        (time(18), '18:00 – 19:00'),
-        (time(19), '19:00 – 20:00'),
+        ('Allgemein', (
+            ('ASAP', 'schnellstmöglich'),
+            ('CUSTOM', 'spezifisch (bitte Bemerkung hinterlassen)'),
+            ('LOW', 'entspannt ("im Laufe des Tages", "während Öffnungszeiten", …)'),
+        )),
+        ('Konkretes Zeitfenster', (
+            ('8', ' 8:00 –  9:00 Uhr'),
+            ('9', ' 9:00 – 10:00 Uhr'),
+            ('10', '10:00 – 11:00 Uhr'),
+            ('11', '11:00 – 12:00 Uhr'),
+            ('12', '12:00 – 13:00 Uhr'),
+            ('13', '13:00 – 14:00 Uhr'),
+            ('14', '14:00 – 15:00 Uhr'),
+            ('15', '15:00 – 16:00 Uhr'),
+            ('16', '16:00 – 17:00 Uhr'),
+            ('17', '17:00 – 18:00 Uhr'),
+            ('18', '18:00 – 19:00 Uhr'),
+            ('19', '19:00 – 20:00 Uhr'),
+        )),
     )
 
     # Pickup information
@@ -161,7 +168,7 @@ class Order(models.Model):
     from_zipcode = models.PositiveSmallIntegerField("PLZ")
     from_comment = models.CharField("Bemerkung", max_length=40, blank=True,
         help_text='Gebäude, Stockwerk, o.Ä.')
-    timeframe_pickup = models.TimeField("Zeitfenster Abholung **", choices=HOUR_CHOICES)
+    timeframe_pickup = models.CharField(max_length=8, verbose_name="Zeitfenster Abholung **", choices=HOUR_CHOICES)
 
     # Drop-off information
     to_person = models.CharField("Ansprechpartner_in", max_length=40)
@@ -171,7 +178,7 @@ class Order(models.Model):
     to_zipcode = models.PositiveSmallIntegerField("PLZ")
     to_comment = models.CharField("Bemerkung", max_length=40, blank=True,
         help_text='Gebäude, Stockwerk, o.Ä.')
-    timeframe_dropoff = models.TimeField("Zeitfenster Auslieferung **", choices=HOUR_CHOICES)
+    timeframe_dropoff = models.CharField(max_length=8, verbose_name="Zeitfenster Auslieferung **", choices=HOUR_CHOICES)
 
     # Delivery details
     distance = models.PositiveSmallIntegerField("Distanz", null=True)

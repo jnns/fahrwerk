@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+import re
 import logging
+import datetime
 
 from django import forms
 from django.conf import settings
@@ -48,23 +50,30 @@ class OrderForm(forms.ModelForm):
         )
 
     def clean_timeframe_pickup(self):
+        input = self.cleaned_data["timeframe_pickup"]
+
+        # don't do any special validation if it's not a time window
+        if input in ['ASAP', 'LOW', 'CUSTOM']:
+            return input
+
         # As the time datatype given by the form is naive in a way that it
         # can't be compared to UTC datetimes, we need to convert the current
         # timestampt to a localtime
         now = timezone.localtime(timezone.now())
 
-        input = self.cleaned_data["timeframe_pickup"]
-        given_time = now.replace(hour=input.hour, minute=0, second=0)
+        try:
+            desired_time = now.replace(hour=int(input), minute=0, second=0)
+        except TypeError:
+            raise ValidationError("Bitte einen korrekten Wert angeben.")
 
-        if given_time <= now:
+        if desired_time <= now:
             logger.info("Customer waited too long with submitting the form. \
                 No time travel possible.")
             raise ValidationError("Wir besitzen leider keine Zeitmaschine.")
 
-        time_until = given_time - now
-        if time_until.seconds / 60 < 60:
+        if (desired_time - now).seconds / 60 < 30:
             logger.info("Customer tried to order pickup too early.")
-            raise ValidationError("Bitte gewähre uns mindestens 1 Stunde bis \
+            raise ValidationError("Bitte gewähre uns mindestens 30 Minuten bis \
             zur Abholung, wenn du dieses Bestellformular nutzt. Für \
             zeitkritische Sendungen rufe uns bitte direkt an.")
         return input
@@ -106,16 +115,30 @@ class OrderForm(forms.ModelForm):
         pickup_time = data.get("timeframe_pickup")
         dropoff_time = data.get("timeframe_dropoff")
 
-        # As there are individual validation checks for the fields as well,
-        # they might be empty so we need to check for their existence first to
-        # prevent an exception
-        if pickup_time and dropoff_time and \
-        pickup_time > dropoff_time:
+        if all([str(s).isdigit() for s in [pickup_time, dropoff_time]]) and pickup_time > dropoff_time:
             logger.info("Customer wants us to travel back in time.")
             errors.append(ValidationError(
                 mark_safe("Zeitreisen können wir leider nicht. Bitte "
                 "gib einen Auslieferungszeitraum an, der <strong>nach</strong> "
                 "der Abholung liegt.")))
+
+        # if custom time windows are selected, ask user to supply more
+        # information
+        if self.cleaned_data.get("timeframe_pickup") == 'CUSTOM' \
+        and not self.cleaned_data["from_comment"].strip():
+            errors.append(
+                ValidationError({'from_comment':
+                    "Du hast eine spezifische Abholzeit ausgewählt. Bitte \
+                    erläutere dies näher für uns."}))
+
+        if self.cleaned_data.get("timeframe_dropoff") == 'CUSTOM' \
+        and not self.cleaned_data["to_comment"].strip():
+            errors.append(
+                ValidationError({'to_comment':
+                    "Du hast eine spezifische Auslieferungszeit ausgewählt. \
+                    Bitte erläutere dies näher für uns."}))
+
+
 
         if errors:
             raise ValidationError(errors)
