@@ -281,10 +281,20 @@ class Order(models.Model):
         I don't bother for now.
         """
 
+        # Django takes care of type-conversion when data is submitted via a
+        # form but when this function is called through the API we must check
+        # manually for the correct type.
         def force_int(s):
-            if not s.isdigit():
+            try:
+                return int(s)
+            except TypeError:
                 return None
-            return int(s)
+
+        S = force_int(self.packages_s)
+        M = force_int(self.packages_m)
+        L = force_int(self.packages_l)
+
+        logger.info("Rate has been calculated for %s" % self)
 
         # Package sizes as I would define them are as follows:
         #
@@ -296,12 +306,6 @@ class Order(models.Model):
         #
         # L:
         #   objects the size of moving boxes and the like
-
-        S = force_int(self.packages_s)
-        M = force_int(self.packages_m)
-        L = force_int(self.packages_l)
-
-        logger.info("Rate has been calculated for %s" % self)
 
         if L > 5:
             return Rate.RATE_TRANSPORTER
