@@ -103,17 +103,19 @@ class OrderForm(forms.ModelForm):
             errors.append(ValidationError("Bitte gib die Größe deiner Sendung an."))
 
         # Dropoff must be after pickup
-        try:
-            if data.get("timeframe_pickup") > data.get("timeframe_dropoff"):
-                logger.info("Customer wants us to travel back in time.")
-                errors.append(ValidationError(
-                    mark_safe("Zeitreisen können wir leider nicht. Bitte "
-                    "gib einen Auslieferungszeitraum an, der <strong>nach</strong> "
-                    "der Abholung liegt.")))
-        except TypeError:
-            # If clean_timeframe_pickup failed there's a failing comparison
-            # against NoneType.
-            pass
+        pickup_time = data.get("timeframe_pickup")
+        dropoff_time = data.get("timeframe_dropoff")
+
+        # As there are individual validation checks for the fields as well,
+        # they might be empty so we need to check for their existence first to
+        # prevent an exception
+        if pickup_time and dropoff_time and \
+        pickup_time > dropoff_time:
+            logger.info("Customer wants us to travel back in time.")
+            errors.append(ValidationError(
+                mark_safe("Zeitreisen können wir leider nicht. Bitte "
+                "gib einen Auslieferungszeitraum an, der <strong>nach</strong> "
+                "der Abholung liegt.")))
 
         if errors:
             raise ValidationError(errors)

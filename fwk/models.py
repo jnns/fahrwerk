@@ -281,6 +281,11 @@ class Order(models.Model):
         I don't bother for now.
         """
 
+        def force_int(s):
+            if not s.isdigit():
+                return None
+            return int(s)
+
         # Package sizes as I would define them are as follows:
         #
         # S:
@@ -291,8 +296,13 @@ class Order(models.Model):
         #
         # L:
         #   objects the size of moving boxes and the like
-        S, M, L = int(self.packages_s), int(self.packages_m), int(self.packages_l)
+
+        S = force_int(self.packages_s)
+        M = force_int(self.packages_m)
+        L = force_int(self.packages_l)
+
         logger.info("Rate has been calculated for %s" % self)
+
         if L > 5:
             return Rate.RATE_TRANSPORTER
         if L > 3 or M > 15:

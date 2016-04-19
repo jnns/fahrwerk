@@ -20,11 +20,4 @@ def price(request):
 		packages_l=request.GET.get("l")
 	)
 	price = o.calculate_price()
-	print ("%s km @ %s-%s-%s Pakete = %s" % (
-		o.distance,
-		o.packages_s,
-		o.packages_m,
-		o.packages_l,
-		price
-	))
 	return HttpResponse(JSONRenderer().render(price))
