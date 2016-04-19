@@ -307,7 +307,7 @@ class Order(models.Model):
             return Rate.RATE_TRANSPORTER
         if L > 3 or M > 15:
             return Rate.RATE_KOMBI
-        if L > 2 or M > 6:
+        if L > 1 or M > 6:
             return Rate.RATE_PKW
         if L > 0 or M > 2 or S > 10:
             return Rate.RATE_CARGO
