@@ -322,11 +322,15 @@ class Order(models.Model):
 
         if L > 5:
             return Rate.RATE_TRANSPORTER
-        if L > 3 or M > 15:
+        if L > 3 or M > 24:
             return Rate.RATE_KOMBI
-        if L > 1 or M > 6:
+        if L > 1 and M > 2:
+            return Rate.RATE_KOMBI
+        if L > 1 or M > 12:
             return Rate.RATE_PKW
-        if L > 0 or M > 2 or S > 10:
+        if L > 0 and M > 2:
+            return Rate.RATE_PKW
+        if L > 0 or M > 2 or S > 15:
             return Rate.RATE_CARGO
         return Rate.RATE_BIKE
 
