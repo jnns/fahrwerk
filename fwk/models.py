@@ -3,12 +3,11 @@
 from __future__ import unicode_literals
 import json
 import logging
-from datetime import time
 from decimal import Decimal
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.core.mail import send_mail
+from django.core import mail
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.loader import render_to_string
@@ -115,7 +114,7 @@ class Rate(models.Model):
         return self.name
 
     def price(self, distance=None):
-        distance = max(round(Decimal(distance)), 1)
+        distance = round(Decimal(max(distance, 1)))
 
         # German "netto" price
         net = self.price_base + self.price_per_km * Decimal(distance) - self.price_per_km + self.price_service
@@ -141,7 +140,7 @@ class Order(models.Model):
     HOUR_CHOICES = (
         ('Allgemein', (
             ('ASAP', 'schnellstmöglich'),
-            ('CUSTOM', 'spezifisch (bitte Bemerkung hinterlassen)'),
+            ('CUSTOM', 'individuell (bitte Bemerkung hinterlassen)'),
             ('LOW', 'entspannt ("im Laufe des Tages", "während Öffnungszeiten", …)'),
         )),
         ('Konkretes Zeitfenster', (
@@ -213,6 +212,7 @@ class Order(models.Model):
     ip_addr = models.GenericIPAddressField("IP-Adresse", blank=True, null=True)
     customer = models.CharField("Barzahlung bei", max_length=8, choices=PAYMENT_CHOICES,
         default=PAYMENT_CHOICES[0][0])
+    customer_email = models.EmailField("E-Mailadresse", blank=True)
 
     # Other
     directions_json = models.TextField("Maps API JSON result", blank=True)
@@ -258,6 +258,11 @@ class Order(models.Model):
 
     def get_absolute_url(self):
         return reverse("order_status", kwargs={'id': self.get_hash_id()})
+
+    def get_customer_name(self):
+        if self.customer == 'PICKUP':
+            return self.from_person
+        return self.to_person
 
     def geocode(self, street, zipcode):
         query = "%s, %s" % (street, zipcode)
@@ -334,12 +339,44 @@ class Order(models.Model):
         }
         return display_values[self.calculate_rate()]
 
+    def send_emails(self):
+        """
+        Sends confirmation emails to each the dispatchers and the customer.
+        """
+        context = {
+            "order": self,
+            "customer": self.get_customer_name().split()[0],
+            "phone_no": settings.FWK_PHONE_NO
+        }
+        emails = []
+        emails.append(mail.EmailMessage(
+            subject=render_to_string("fwk/email/dispatcher_subject.txt", context),
+            body=render_to_string("fwk/email/dispatcher_message.txt", context),
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            to=[settings.DEFAULT_FROM_EMAIL],
+            bcc=['jvajen@gmail.com'],
+            reply_to=[settings.FWK_INFO_EMAIL],
+            headers={'Return-Path': settings.FWK_INFO_EMAIL}
+        ))
+        if self.customer_email:
+            emails.append(mail.EmailMessage(
+                subject=render_to_string("fwk/email/customer_subject.txt", context),
+                body=render_to_string("fwk/email/customer_message.txt", context),
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[self.customer_email],
+                reply_to=[settings.FWK_INFO_EMAIL],
+                headers={'Return-Path': settings.FWK_INFO_EMAIL}
+            ))
+        mail.get_connection().send_messages(emails)
+        logger.info("Mail with new order was sent to dispatchers.")
+
     def save(self, *args, **kwargs):
         # TODO: The actions taking place in this method should be logged in
         # the database
 
         # TODO: Check for the order to be fully qualified by validating it
         # through a form before setting the status to confirmed.
+        created = not self.id
 
         self.get_directions()
 
@@ -360,17 +397,11 @@ class Order(models.Model):
             self.delivered = None
 
         super(Order, self).save(*args, **kwargs)
-        if not self.id:
-            logger.info("A new order has been placed: %s" % self)
-            context = {
-                "order": self,
-            }
-            subject = "Neue Bestellung: %s" % self
-            message = render_to_string("fwk/order_email.txt", context)
-            send_mail(subject, message,
-                settings.DEFAULT_FROM_EMAIL,
-                [settings.DEFAULT_FROM_EMAIL,
-                'jvajen+fahrwerk-bestellungen@gmail.com'])
+
+        if created:
+            self.send_emails()
+
+
 
 
 

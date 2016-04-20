@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="order-summary__field">
-                    <label>Abholung</label>
+                    <label>Auslieferung</label>
                     {{ order.get_timeframe_pickup_display }}
                 </div>
 
@@ -120,16 +120,23 @@
             </div>
 
             <div class="order-summary__field">
-                Bezahlung
+                <label>Bezahlung bei</label>
                 {% if order.customer == 'PICKUP' %}
-                    bei Abholung ({{ order.from_person}})
+                    Abholung ({{ order.from_person}})
                 {% else %}
-                    bei Abgabe ({{ order.to_person}})
+                    Abgabe ({{ order.to_person}})
                 {% endif %}
             </div>
 
+            {% if order.customer_email %}
+            <div class="order-summary__field">
+                <label>Bestätigungs-E-Mail an</label>
+                {{ order.customer_email }}
+            </div>
+            {% endif %}
 
-        <h2 class="order-detail__map-header">Karte <span style="font-size: .8em" class="mute">(noch in Arbeit)</span></h2>
+
+        <h2 class="order-detail__map-header">Karte</h2>
 
         <div id="map" class="order-detail__map">
         </div>

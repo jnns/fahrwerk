@@ -4,6 +4,8 @@ from .base import *
 # root access can change it anyway.
 ADMINS = eval(os.environ["ADMINS"])
 
+DEBUG = True
+
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "bestellen.fahrwerk-berlin.de", "fahrwerk.regulus.uberspace.de"]
 USE_X_FORWARDED_HOST = True
 

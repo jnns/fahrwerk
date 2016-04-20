@@ -1,4 +1,11 @@
-Hej! Es gibt eine neue Bestellung:
+Hallo {{ customer }}!
+
+Soeben ist eine Bestellung bei uns eingegangen, bei der deine E-Mail-Adresse
+angegeben wurde.
+
+Falls der untenstehende Auftrag verändert oder storniert werden soll, ruf' uns
+einfach an: {{ phone_no }}.
+
 
 ABHOLUNG:{% if order.from_company %}
    {{ order.from_company }}{% endif %}
@@ -6,7 +13,7 @@ ABHOLUNG:{% if order.from_company %}
    {{ order.from_phone_no }}
    {{ order.from_street }}, {{ order.from_zipcode }}{% if order.from_comment %}
    {{ order.from_comment }}{% endif %}
-   {{ order.get_timeframe_pickup_display }} Uhr
+   {{ order.get_timeframe_pickup_display|safe }}
 
 ZUSTELLUNG:{% if order.to_company %}
    {{ order.to_company }}{% endif %}
@@ -14,7 +21,7 @@ ZUSTELLUNG:{% if order.to_company %}
    {{ order.to_phone_no }}
    {{ order.to_street }}, {{ order.to_zipcode }}{% if order.to_comment %}
    {{ order.to_comment }}{% endif %}
-   {{ order.get_timeframe_dropoff_display }} Uhr
+   {{ order.get_timeframe_dropoff_display|safe }}
 
 SENDUNG & TARIF:{% if order.package_details %}
    {{ order.package_details }}{% endif %}
@@ -22,6 +29,8 @@ SENDUNG & TARIF:{% if order.package_details %}
    {{ order.get_rate_display }}-Tarif
 
 PREIS:
-   {{ order.price|floatformat:2 }} EUR (inkl. 19% MwSt.) für {{ order.distance }} km
+   {{ order.price|floatformat:2 }} EUR (inkl. 19% MwSt.)
 
-Viel Spaß damit!
+
+Danke für deine Bestellug und viele Grüße
+das Fahrwerk Kurierkollektiv

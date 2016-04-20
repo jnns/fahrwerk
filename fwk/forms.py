@@ -47,6 +47,7 @@ class OrderForm(forms.ModelForm):
             'packages_l',
             'package_detail',
             'customer',
+            'customer_email'
         )
 
     def clean_timeframe_pickup(self):

@@ -7,7 +7,7 @@ from django.contrib.admin.sites import AdminSite
 from django.core.validators import ValidationError
 
 
-from .models import Order
+from .models import Order, Rate
 from .admin import OrderAdmin
 
 # Fake a request object and a user object with admin privileges for easier
@@ -21,6 +21,15 @@ class MockSuperUser(object):
 
 request = MockRequest()
 request.user = MockSuperUser()
+
+
+class RateTestCases(TestCase):
+	def test_zero_distance(self):
+		# Providing a distance of 0 should not result in an error
+		data = {'distance': 0, 'rate': Rate.objects.get(pk=1)}
+		o = Order(**data)
+		self.assertEqual(o.rate.price(), 8.39)
+
 
 
 
@@ -42,20 +51,22 @@ class OrderTestCases(TestCase):
 		self.assertTrue('Tournummer' in str(exc_info.exception))
 
 	def test_calculate_rate(self):
-		data = {'distance': 10,
-			'from_person': 'a',
-			'from_street': 'b',
+		data = {
+			'distance': 10,
+			'from_person': 'A',
+			'from_street': 'A Strasse 1',
 			'from_zipcode': 10999,
 			'from_phone_no': '+49 000 000000',
-			'to_person': 'b',
-			'to_street': 'a',
+			'to_person': 'B',
+			'to_street': 'B Strasse 2',
 			'to_zipcode': 10999,
 			'to_phone_no': '+49 000 000000',
 			'packages_s': 0,
 			'packages_m': 1,
 			'packages_l': 0,
-			'timeframe_pickup': time(8),
-			'timeframe_dropoff': time(9)
+			'timeframe_pickup': "8",
+			'timeframe_dropoff': "9",
+			'customer': 'PICKUP',
 		}
 		ma = OrderAdmin(Order, AdminSite())
 

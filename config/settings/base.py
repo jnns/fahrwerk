@@ -217,8 +217,9 @@ PIPELINE = {
     'DISABLE_WRAPPER': True
 }
 
-EMAIL_SUBJECT_PREFIX = "[FWK]"
+EMAIL_SUBJECT_PREFIX = "[FWK] "
 
 # This is Fahrwerk's landline that's used in several places throughout the
 # codebase.
 FWK_PHONE_NO = "(030) 40 58 51 00"
+FWK_INFO_EMAIL = "info@fahrwerk-berlin.de"
