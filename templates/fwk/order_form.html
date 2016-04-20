@@ -64,21 +64,30 @@
 	<h2 class="order-form__header">Sendungsdetails</h2>
 
 		<div class="order-form__form-field-wrapper">
-			<div class="order-form__form-field">
+			{% with form.packages_s as field %}
+			<div class="order-form__form-field {% if field.errors %}error{% endif %}">
 				<img src="{% static 'svg/letter.svg' %}" width=40 height=40 />
-				{{ form.packages_s.label_tag }}
-				<input id="{{ form.packages_s.id_for_label }}" min="0" name="{{ form.packages_s.html_name }}" type="number" value="{{ form.packages_s.value }}" onchange=quickstartBox.handlePackageSChange() >
+				{{ field.label_tag }}
+				<input id="{{ field.id_for_label }}" min="0" name="{{ field.html_name }}" type="number" value="{{ field.value }}" onchange=quickstartBox.handlePackageSChange() >
+				{{ field.errors }}
 			</div>
-			<div class="order-form__form-field">
+			{% endwith %}
+			{% with form.packages_m as field %}
+			<div class="order-form__form-field {% if field.errors %}error{% endif %}">
 				<img src="{% static 'svg/folder.svg' %}" width=40 height=40 />
-				{{ form.packages_m.label_tag }}
-				<input id="{{ form.packages_m.id_for_label }}" min="0" name="{{ form.packages_m.html_name }}" type="number" value="{{ form.packages_m.value }}" onchange=quickstartBox.handlePackageMChange() >
+				{{ field.label_tag }}
+				<input id="{{ field.id_for_label }}" min="0" name="{{ field.html_name }}" type="number" value="{{ field.value }}" onchange=quickstartBox.handlePackageMChange() >
+				{{ field.errors }}
 			</div>
-			<div class="order-form__form-field">
+			{% endwith %}
+			{% with form.packages_l as field %}
+			<div class="order-form__form-field {% if field.errors %}error{% endif %}">
 				<img src="{% static 'svg/box.svg' %}" width=40 height=40 />
-				{{ form.packages_l.label_tag }}
-				<input id="{{ form.packages_l.id_for_label }}" min="0" name="{{ form.packages_l.html_name }}" type="number" value="{{ form.packages_l.value }}" onchange=quickstartBox.handlePackageLChange() >
+				{{ field.label_tag }}
+				<input id="{{ field.id_for_label }}" min="0" name="{{ field.html_name }}" type="number" value="{{ field.value }}" onchange=quickstartBox.handlePackageLChange() >
+				{{ field.errors }}
 			</div>
+			{% endwith %}
 		</div>
 
 		{% include 'fwk/_order_form-field.html' with field=form.package_detail %}

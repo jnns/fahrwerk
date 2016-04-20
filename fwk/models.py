@@ -212,7 +212,8 @@ class Order(models.Model):
     ip_addr = models.GenericIPAddressField("IP-Adresse", blank=True, null=True)
     customer = models.CharField("Barzahlung bei", max_length=8, choices=PAYMENT_CHOICES,
         default=PAYMENT_CHOICES[0][0])
-    customer_email = models.EmailField("E-Mailadresse", blank=True)
+    customer_email = models.EmailField("E-Mailadresse", blank=True,
+        help_text='Falls du eine Auftragsbestätigung per E-Mail erhalten möchtest.')
 
     # Other
     directions_json = models.TextField("Maps API JSON result", blank=True)
