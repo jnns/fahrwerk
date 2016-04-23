@@ -8,6 +8,7 @@ hashids
 brotlipy>=0.2.0  # See README in case of failing build
 whitenoise
 mapbox
+django-constance
 
 # The following packages are only suggested for development
 

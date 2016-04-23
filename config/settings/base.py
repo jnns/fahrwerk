@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'pipeline',
     'rest_framework',
     'formtools',
+    'constance',
+    'constance.backends.database',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -218,6 +220,25 @@ PIPELINE = {
 }
 
 EMAIL_SUBJECT_PREFIX = "[FWK] "
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_CONFIG = {
+    'FWK_PHONE_NO': ("(030) 40 58 51 00",
+        'Our default phone number where clients can reach us.'),
+    'FWK_INFO_EMAIL': ("info@fahrwerk-berlin.de",
+        "Our default email where clients can reach us."),
+    'FWK_OPENING_HOURS': ({
+            'Mon': ("07:30", "20:00"),
+            'Tue': ("07:30", "20:00"),
+            'Wed': ("07:30", "20:00"),
+            'Thu': ("07:30", "20:00"),
+            'Fri': ("07:30", "20:00"),
+            'Sat': ("18:00", "20:00"),
+            'Sun': (), # we're closed the whole day
+        },
+        "Our opening hours. Out of opening hours clients will see a message \
+        informing them about when we're back in office.", str)
+}
 
 # This is Fahrwerk's landline that's used in several places throughout the
 # codebase.

@@ -1,17 +1,24 @@
+import ast
 import datetime
 
 from django import template
-from django.conf import settings
+try:
+    from constance import config as settings
+except ImportError:
+    from django.conf import settings
 from django.utils import timezone
 
 register = template.Library()
 
 
 def opening_hours(weekday):
+    OPENING_HOURS = settings.FWK_OPENING_HOURS
+    if isinstance(OPENING_HOURS, basestring):
+        OPENING_HOURS = ast.literal_eval(OPENING_HOURS)
     return [datetime.time(**{
         'hour': int(i.split(":")[0]),
         'minute': int(i.split(":")[1])
-    }) for i in settings.FWK_OPENING_HOURS[weekday]]
+    }) for i in OPENING_HOURS[weekday]]
 
 
 @register.inclusion_tag("fwk/_opening_hours_reminder.html")
