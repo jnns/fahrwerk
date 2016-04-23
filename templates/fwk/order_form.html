@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load pipeline %}
+{% load fwk_extras %}
 
 
 {% block javascript %}
@@ -27,6 +28,8 @@
 <div class="order-form__map" id='map'></div>
 
 <!-- Form -->
+
+{% opening_hours_reminder %}
 
 <form method="post" action="/" class="order-form">
 	{% csrf_token %}

@@ -157,6 +157,7 @@ body {
 }
 
 
+.opening_hours_reminder,
 .error-page,
 .order-form,
 .footer {
@@ -459,3 +460,18 @@ body {
  */
 
 .mute { color: rgba(0,0,0,.5) }
+
+/*
+ * Other
+ */
+
+.opening_hours_reminder__wrapper {
+    background-color: hsl(0, 100%, 72%);
+}
+.opening_hours_reminder {
+    padding: 1.5em;
+    background-color: hsl(0, 100%, 62%);
+    color: #fff;
+    font-size: 1.2em;
+    text-align: center;
+}

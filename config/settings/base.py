@@ -222,4 +222,17 @@ EMAIL_SUBJECT_PREFIX = "[FWK] "
 # This is Fahrwerk's landline that's used in several places throughout the
 # codebase.
 FWK_PHONE_NO = "(030) 40 58 51 00"
+
 FWK_INFO_EMAIL = "info@fahrwerk-berlin.de"
+
+# When NOT to display a page that says we're closed and that they should come
+# back later.
+FWK_OPENING_HOURS = {
+    'Mon': ("07:30", "20:00"),
+    'Tue': ("07:30", "20:00"),
+    'Wed': ("07:30", "20:00"),
+    'Thu': ("07:30", "20:00"),
+    'Fri': ("07:30", "20:00"),
+    'Sat': ("18:00", "20:00"),
+    'Sun': (), # we're closed the whole day
+}

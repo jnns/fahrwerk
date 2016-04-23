@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load fwk_extras %}
+
 {% block head %}
 <script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
 <link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
@@ -8,7 +10,10 @@
 </style>
 {% endblock head %}
 
+
 {% block content %}
+
+    {% opening_hours_reminder %}
 
     <div class="order-detail">
         <h1 class="order-detail__header">Bestätige deinen Auftrag</h1>
