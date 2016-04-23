@@ -149,7 +149,6 @@ LOGGING = {
     'handlers': {
         'console': {
             'level': 'INFO',
-            'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
         },
         'django.server': {
@@ -233,7 +232,7 @@ CONSTANCE_CONFIG = {
             'Wed': ("07:30", "20:00"),
             'Thu': ("07:30", "20:00"),
             'Fri': ("07:30", "20:00"),
-            'Sat': ("18:00", "20:00"),
+            'Sat': ("12:00", "20:00"),
             'Sun': (), # we're closed the whole day
         },
         "Our opening hours. Out of opening hours clients will see a message \
@@ -254,6 +253,6 @@ FWK_OPENING_HOURS = {
     'Wed': ("07:30", "20:00"),
     'Thu': ("07:30", "20:00"),
     'Fri': ("07:30", "20:00"),
-    'Sat': ("18:00", "20:00"),
+    'Sat': ("12:00", "20:00"),
     'Sun': (), # we're closed the whole day
 }
