@@ -29,6 +29,10 @@ var QuickstartBox = React.createClass({
         var pickup = ($("#id_order-from_street").val() +" "+ $("#id_order-from_zipcode").val()).trim();
         var dropoff = ($("#id_order-to_street").val() +" "+ $("#id_order-to_zipcode").val()).trim();
 
+        var packages_s = $("#id_order-packages_s").val() || 0;
+        var packages_m = $("#id_order-packages_m").val() || 0;
+        var packages_l = $("#id_order-packages_l").val() || 0;
+
         return {
             pickup: pickup || "",
             dropoff: dropoff || "",
@@ -37,9 +41,9 @@ var QuickstartBox = React.createClass({
                 dropoff: {}
             },
             markers: {},  //  L.marker information
-            packages_s: 0,
-            packages_m: 0,
-            packages_l: 0
+            packages_s: packages_s,
+            packages_m: packages_m,
+            packages_l: packages_l
         }
     },
     geocode: function (input, pu_or_do) {
