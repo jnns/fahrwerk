@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 import json
 import logging
+import math
 from decimal import Decimal
 
 from django.conf import settings
@@ -114,7 +115,9 @@ class Rate(models.Model):
         return self.name
 
     def price(self, distance=None):
-        distance = round(Decimal(max(distance, 1)))
+        # Ceil, for example, 6.2 to 7 as this is the way ecourier software
+        # handles distances. ``ceil`` required float as argument.
+        distance = math.ceil(float(max(distance, 1)))
 
         # German "netto" price
         net = self.price_base + self.price_per_km * Decimal(distance) - self.price_per_km + self.price_service
@@ -274,8 +277,8 @@ class Order(models.Model):
         destination = self.geocode(self.to_street, self.to_zipcode)
         self.directions_json = directions(origin, destination)
 
-        distance_in_m = json.loads(self.directions_json)['properties']['distance']
-        self.distance = Decimal.from_float(round(distance_in_m / 1000.0))
+        meters = json.loads(self.directions_json)['properties']['distance']
+        self.distance = math.ceil(meters / 1000.0)
         logger.info("Route has been calculated for %s" % self)
 
     def calculate_price(self):

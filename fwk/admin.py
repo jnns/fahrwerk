@@ -75,6 +75,12 @@ class OrderAdmin(admin.ModelAdmin):
 				'price',
 			)
 		}),
+		('Kundeninformationen', {
+			'fields': (
+				'customer',
+				'customer_email',
+			)
+		}),
 		('Meta-Informationen', {
 			'fields': (
 				'ecourier_id',

@@ -16,12 +16,13 @@ ZUSTELLUNG:{% if order.to_company %}
    {{ order.to_comment }}{% endif %}
    {{ order.get_timeframe_dropoff_display|safe }}
 
-SENDUNG & TARIF:{% if order.package_details %}
-   {{ order.package_details }}{% endif %}
+SENDUNG & TARIF:{% if order.package_detail %}
+   {{ order.package_detail }}{% endif %}
    Packstücke (S/M/L): {{ order.packages_s }} / {{ order.packages_m }} / {{ order.packages_l }}
    {{ order.get_rate_display }}-Tarif
 
 PREIS:
    {{ order.price|floatformat:2 }} EUR (inkl. 19% MwSt.) für {{ order.distance }} km
+   Barzahlung bei {{ order.get_customer_display }}.
 
 Viel Spaß damit!
