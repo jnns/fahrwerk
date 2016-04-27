@@ -1,5 +1,9 @@
+import logging
+
 from django.conf import settings
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
+from django.utils import translation
 from django.views.generic import CreateView, DetailView
 
 from formtools.wizard.views import SessionWizardView
@@ -7,7 +11,7 @@ from formtools.wizard.views import SessionWizardView
 from .models import Order, hashids
 from . import forms
 
-
+logger = logging.getLogger(__name__)
 
 FORMS = [
     ("order", forms.OrderForm),

@@ -13,18 +13,28 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url #, include
+from django.conf.urls import url
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
-
-from django.conf import settings
+from django.views.i18n import javascript_catalog
 
 from fwk.views import OrderWizardView, FORMS
 from fwk.api import price
 
+js_info_dict = {
+    'domain': 'djangojs',
+    'packages': ('fwk',),
+}
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/v1/price/$', price , name="price"),
     #url(r'^(?P<id>[A-z0-9]{4,})$', OrderStatusView.as_view(), name="order_status"),
-    url(r'^$', OrderWizardView.as_view(FORMS), name="order",)
+    url(r'^api/v1/price/$', price , name="price"),
+    #url(r'^language/$', change_language, name="language")
 ]
+
+urlpatterns += i18n_patterns(
+    url(r'^$', OrderWizardView.as_view(FORMS), name="order"),
+    url(r'^jsi18n/$', javascript_catalog, js_info_dict, name='javascript-catalog'),
+)

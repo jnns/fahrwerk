@@ -1,0 +1,18 @@
+{% load i18n %}
+
+{% if not now_open %}
+	<div class="opening_hours_reminder__wrapper">
+		<div class="opening_hours_reminder">
+			{% trans 'Du rufst diese Seite außerhalb unserer Öffnungszeiten auf.' %}
+			{% if open_later_today %}
+				{% blocktrans with time=open_again|date:"H:i" %}
+					Ab <strong><nobr>{{ time }} Uhr</nobr></strong> sind wir startklar.
+				{% endblocktrans %}
+			{% else %}
+				{% blocktrans with day=open_again|date:"l" time=open_again|date:"H:i" %}
+					Neue Aufträge können wir erst wieder ab <strong>{{ day }} um <nobr>{{ time }} Uhr</nobr></strong> bearbeiten.
+				{% endblocktrans %}
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

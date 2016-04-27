@@ -215,12 +215,14 @@ var QuickstartBox = React.createClass({
         return false;
     },
     render: function () {
+        var placeholder_pu = gettext("Abholadresse");
+        var placeholder_do = gettext("Zustelladresse");
         return (
             <div className="quickstart__wrapper">
                 <form className="quickstart">
-                    <input type="text" className="quickstart__from" placeholder="Abholadresse" value={this.state.pickup} onChange={this.handlePickupChange} />
+                    <input type="text" className="quickstart__from" placeholder={placeholder_pu} value={this.state.pickup} onChange={this.handlePickupChange} />
                     <span className="quickstart__arrow">&rarr;</span>
-                    <input type="text" className="quickstart__to" placeholder="Zustelladresse" value={this.state.dropoff} onChange={this.handleDropoffChange} />
+                    <input type="text" className="quickstart__to" placeholder={placeholder_do} value={this.state.dropoff} onChange={this.handleDropoffChange} />
                 </form>
                 <Price />
             </div>
@@ -250,9 +252,9 @@ var Price = React.createClass({
         return { price: 0 };
     },
     render: function () {
-        var price = (this.state.price || 0).toLocaleString("de", {style: "currency", currency: "EUR", minimumFractionDigits: 2})
+        var price_str = gettext("Preis") + ": " + (this.state.price || 0).toLocaleString("de", {style: "currency", currency: "EUR", minimumFractionDigits: 2})
         return (
-            <div className="quickstart__price">Preis: {price} <a href="#*">*</a></div>
+            <div className="quickstart__price">{price_str} <a href="#*">*</a></div>
         )
     }
 });

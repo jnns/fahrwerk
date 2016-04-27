@@ -1,0 +1,448 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-27 17:07+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: forms.py:69
+msgid "Bitte einen korrekten Wert angeben."
+msgstr ""
+
+#: forms.py:74
+msgid "Wir besitzen leider keine Zeitmaschine."
+msgstr ""
+
+#: forms.py:78
+msgid ""
+"Bitte gewähre uns mindestens 30 Minuten bis             zur Abholung, wenn "
+"du dieses Bestellformular nutzt. Für             zeitkritische Sendungen "
+"rufe uns bitte direkt an."
+msgstr ""
+
+#: forms.py:88
+#, python-format
+msgid ""
+"Dieser Ort liegt außerhalb unseres regulären "
+"Zustellgebietes.                 Ruf uns doch an, damit wir über "
+"Transportmöglichkeiten                 dorthin sprechen können: %s"
+msgstr ""
+
+#: forms.py:98
+#, python-format
+msgid ""
+"Dieser Ort liegt außerhalb unseres regulären Abholgebietes.                 "
+"Ruf uns doch an, damit wir über Transportmöglichkeiten von                 "
+"dort aus sprechen können: %s "
+msgstr ""
+
+#: forms.py:114
+msgid "Bitte gib die Größe deiner Sendung an."
+msgstr ""
+
+#: forms.py:133
+msgid ""
+"Du hast eine spezifische Abholzeit ausgewählt. Bitte                     "
+"erläutere dies näher für uns."
+msgstr ""
+
+#: forms.py:140
+msgid ""
+"Du hast eine spezifische Auslieferungszeit ausgewählt.                     "
+"Bitte erläutere dies näher für uns."
+msgstr ""
+
+#: forms.py:155
+msgid ""
+"Der Auftrag kann nicht bestätigt                 werden, solange keine "
+"Tournummer aus eCourier angegeben wurde."
+msgstr ""
+
+#: models.py:65 templates/fwk/order_confirmation.html.py:41
+#: templates/fwk/order_confirmation.html:142
+msgid "Abholung"
+msgstr ""
+
+#: models.py:66 templates/fwk/order_confirmation.html.py:71
+msgid "Auslieferung"
+msgstr ""
+
+#: models.py:146
+msgid "schnellstmöglich"
+msgstr ""
+
+#: models.py:147
+msgid "individuell (bitte Bemerkung hinterlassen)"
+msgstr ""
+
+#: models.py:148
+msgid "entspannt (\"im Laufe des Tages\", \"während Öffnungszeiten\", …)"
+msgstr ""
+
+#: models.py:151
+msgid "8:00 –  9:00 Uhr"
+msgstr ""
+
+#: models.py:152
+msgid "9:00 – 10:00 Uhr"
+msgstr ""
+
+#: models.py:153
+msgid "10:00 – 11:00 Uhr"
+msgstr ""
+
+#: models.py:154
+msgid "11:00 – 12:00 Uhr"
+msgstr ""
+
+#: models.py:155
+msgid "12:00 – 13:00 Uhr"
+msgstr ""
+
+#: models.py:156
+msgid "13:00 – 14:00 Uhr"
+msgstr ""
+
+#: models.py:157
+msgid "14:00 – 15:00 Uhr"
+msgstr ""
+
+#: models.py:158
+msgid "15:00 – 16:00 Uhr"
+msgstr ""
+
+#: models.py:159
+msgid "16:00 – 17:00 Uhr"
+msgstr ""
+
+#: models.py:160
+msgid "17:00 – 18:00 Uhr"
+msgstr ""
+
+#: models.py:161
+msgid "18:00 – 19:00 Uhr"
+msgstr ""
+
+#: models.py:162
+msgid "19:00 – 20:00 Uhr"
+msgstr ""
+
+#: models.py:167 models.py:177
+msgid "Ansprechpartner_in"
+msgstr ""
+
+#: models.py:168 models.py:178
+msgid "Firma"
+msgstr ""
+
+#: models.py:169 models.py:179
+msgid "Telefonnummer"
+msgstr ""
+
+#: models.py:170 models.py:180
+msgid "Straße und Hausnummer"
+msgstr ""
+
+#: models.py:171 models.py:181
+msgid "PLZ"
+msgstr ""
+
+#: models.py:172 models.py:182 templates/fwk/order_confirmation.html.py:47
+#: templates/fwk/order_confirmation.html:77
+msgid "Bemerkung"
+msgstr ""
+
+#: models.py:173 models.py:183
+msgid "Gebäude, Stockwerk, o.Ä."
+msgstr ""
+
+#: models.py:174
+msgid "Zeitfenster Abholung **"
+msgstr ""
+
+#: models.py:184
+msgid "Zeitfenster Auslieferung **"
+msgstr ""
+
+#: models.py:187
+msgid "Distanz"
+msgstr ""
+
+#: models.py:188
+msgid "Preis"
+msgstr ""
+
+#: models.py:189
+msgid ""
+"Der Preis dieses Auftrags inkl. Mehrwertsteuer. Wird automatisch "
+"anhand         des Tarifs und der Strecke berechnet, kann aber überschrieben "
+"werden."
+msgstr ""
+
+#: models.py:194
+msgid "Tarif"
+msgstr ""
+
+#: models.py:196
+msgid ""
+"Der Tarif wird automatisch anhand der Packstücke berechnet, kann         "
+"aber überschrieben werden."
+msgstr ""
+
+#: models.py:200 templates/fwk/order_confirmation.html.py:124
+msgid "Was wird transportiert?"
+msgstr ""
+
+#: models.py:201
+msgid "Packstücke klein"
+msgstr ""
+
+#: models.py:202
+msgid "Packstücke mittel"
+msgstr ""
+
+#: models.py:203
+msgid "Packstücke groß"
+msgstr ""
+
+#: models.py:217
+msgid "Barzahlung bei"
+msgstr ""
+
+#: models.py:219
+msgid "E-Mailadresse"
+msgstr ""
+
+#: models.py:220
+msgid "Falls du eine Auftragsbestätigung per E-Mail erhalten möchtest."
+msgstr ""
+
+#: templates/fwk/_opening_hours_reminder.html:4
+msgid "Du rufst diese Seite außerhalb unserer Öffnungszeiten auf."
+msgstr ""
+
+#: templates/fwk/_opening_hours_reminder.html:6
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\tAb <strong><nobr>%(time)s Uhr</nobr></strong> sind wir startklar.\n"
+"\t\t\t\t"
+msgstr ""
+
+#: templates/fwk/_opening_hours_reminder.html:10
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\tNeue Aufträge können wir erst wieder ab <strong>%(day)s um <nobr>"
+"%(time)s Uhr</nobr></strong> bearbeiten.\n"
+"\t\t\t\t"
+msgstr ""
+
+#: templates/fwk/done.html:12
+msgid "Auftrag erteilt."
+msgstr ""
+
+#: templates/fwk/done.html:18
+msgid ""
+"Falls Rückfragen auftreten oder es zu Problemen bei Abholung oder "
+"Auslieferung kommt, werden wir euch unter den folgenden Rufnummern zu "
+"erreichen versuchen:"
+msgstr ""
+
+#: templates/fwk/done.html:53
+msgid "Neuer Auftrag"
+msgstr ""
+
+#: templates/fwk/email/customer_message.txt:1
+#, python-format
+msgid ""
+"Hallo %(customer)s!\n"
+"\n"
+"Soeben ist eine Bestellung bei uns eingegangen, bei der deine E-Mail-"
+"Adresse\n"
+"angegeben wurde.\n"
+"\n"
+"Falls der untenstehende Auftrag verändert oder storniert werden soll, ruf' "
+"uns\n"
+"einfach an: %(phone_no)s."
+msgstr ""
+
+#: templates/fwk/email/customer_message.txt:10
+msgid "ABHOLUNG:"
+msgstr ""
+
+#: templates/fwk/email/customer_message.txt:18
+msgid "ZUSTELLUNG:"
+msgstr ""
+
+#: templates/fwk/email/customer_message.txt:26
+msgid "SENDUNG & TARIF:"
+msgstr ""
+
+#: templates/fwk/email/customer_message.txt:31
+#, python-format
+msgid ""
+"PREIS:\n"
+"   %(price)s EUR (inkl. 19%% MwSt.)\n"
+"   Es wurde Barzahlung bei %(order.get_customer_display)s gewählt.\n"
+msgstr ""
+
+#: templates/fwk/email/customer_message.txt:36
+msgid ""
+"Danke für deine Bestellung und viele Grüße\n"
+"das Fahrwerk Kurierkollektiv"
+msgstr ""
+
+#: templates/fwk/email/customer_subject.txt:1
+msgid "Bestätigung deiner Bestellung bei Fahrwerk"
+msgstr ""
+
+#: templates/fwk/order_confirmation.html:19
+msgid "Bestätige deinen Auftrag"
+msgstr ""
+
+#: templates/fwk/order_confirmation.html:21
+msgid ""
+"Bitte schau dir deine Angaben noch einmal ganz genau an, bevor du deinen "
+"Auftrag an uns übermittelst."
+msgstr ""
+
+#: templates/fwk/order_confirmation.html:26
+msgid "Abholadresse"
+msgstr ""
+
+#: templates/fwk/order_confirmation.html:36
+#: templates/fwk/order_confirmation.html:66
+msgid "Telefon"
+msgstr ""
+
+#: templates/fwk/order_confirmation.html:56
+msgid "Zustelladresse"
+msgstr ""
+
+#: templates/fwk/order_confirmation.html:90
+msgid "Packstücke"
+msgstr ""
+
+#: templates/fwk/order_confirmation.html:93
+#, python-format
+msgid ""
+"\n"
+"                            1 kleines Packstück<br>\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            %(s)s kleine Packstücke<br>\n"
+"                        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/fwk/order_confirmation.html:103
+#, python-format
+msgid ""
+"\n"
+"                            1 mittelgroßes Packstück<br>\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            %(m)s mittelgroße Packstücke<br>\n"
+"                        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/fwk/order_confirmation.html:113
+#, python-format
+msgid ""
+"\n"
+"                            1 großes Packstück<br>\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            %(l)s große Packstücke<br>\n"
+"                        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/fwk/order_confirmation.html:140
+msgid "Bezahlung bei"
+msgstr ""
+
+#: templates/fwk/order_confirmation.html:144
+msgid "Abgabe"
+msgstr ""
+
+#: templates/fwk/order_confirmation.html:150
+msgid "Bestätigungs-E-Mail an"
+msgstr ""
+
+#: templates/fwk/order_confirmation.html:156
+msgid "Karte"
+msgstr ""
+
+#: templates/fwk/order_confirmation.html:165
+msgid "Auftrag bearbeiten"
+msgstr ""
+
+#: templates/fwk/order_confirmation.html:167
+msgid "Auftrag abschicken"
+msgstr ""
+
+#: templates/fwk/order_form.html:40
+msgid ""
+"Es befinden sich Fehler im Formular. Bitte korrigiere die markierten Felder."
+msgstr ""
+
+#: templates/fwk/order_form.html:67
+msgid "Sendungsdetails"
+msgstr ""
+
+#: templates/fwk/order_form.html:113
+msgid ""
+"Bei Fragen aller Art stehen wir euch gerne telefonisch Rede und Antwort. "
+"Ruft einfach durch:"
+msgstr ""
+
+#: templates/fwk/order_form.html:122
+msgid ""
+"\n"
+"\t\t\tEs kann aufgrund von nötiger Geldauslage, falsch angegebener\n"
+"\t\t\tSendungsgröße, entstandener Wartezeit o.ä. zu anderen Preisen als den\n"
+"\t\t\thier angegebenen kommen. Wir informieren euch, falls unvorhergesehene\n"
+"\t\t\tKosten entstehen würden, darüber schnellstmöglich telefonisch.\n"
+"\t\t\t"
+msgstr ""
+
+#: templates/fwk/order_form.html:130
+#, python-format
+msgid ""
+"\n"
+"\t\t\tDie hier dargestellten Preise verstehen sich &mdash; anders als in "
+"unserem <a\n"
+"\t\t\thref=\"http://www.fahrwerk-berlin.de/wp/preise/\">Preis- und\n"
+"\t\t\tLeistungsverzeichnis</a> &mdash; inkl. 19%% MwSt.\n"
+"\t\t\t"
+msgstr ""
+
+#: templates/fwk/order_form.html:139
+msgid ""
+"\n"
+"\t\t\tJe nach Auftragslage und Ort der Abholung und Zustellung können\n"
+"\t\t\tbis zur Abholung <nobr>120 Min</nobr> und bis zur Auslieferung\n"
+"\t\t\t<nobr>180 Min</nobr> vergehen. Sollten eure angegebenen\n"
+"\t\t\tZeitfenster nicht eingehalten werden können, melden wir uns\n"
+"\t\t\tfrühzeitig telefonisch bei euch!\n"
+"\t\t\t"
+msgstr ""

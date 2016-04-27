@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
 {% load fwk_extras %}
 
 {% block head %}
@@ -16,14 +17,14 @@
     {% opening_hours_reminder %}
 
     <div class="order-detail">
-        <h1 class="order-detail__header">Bestätige deinen Auftrag</h1>
+        <h1 class="order-detail__header">{% trans 'Bestätige deinen Auftrag' %}</h1>
 
-        <p>Bitte schau dir deine Angaben noch einmal ganz genau an, bevor du deinen Auftrag an uns übermittelst.</p>
+        <p>{% trans 'Bitte schau dir deine Angaben noch einmal ganz genau an, bevor du deinen Auftrag an uns übermittelst.' %}</p>
 
         <div class="order-detail__summary">
             <div class="order-detail__address">
 
-                <h3 class="address__header">Abholadresse</h3>
+                <h3 class="address__header">{% trans 'Abholadresse' %}</h3>
 
                 {% if order.from_company %}{{ order.from_company }}<br>{% endif %}
 
@@ -33,18 +34,18 @@
                 {{ order.from_zipcode }} Berlin<br>
 
                 <div class="order-summary__field">
-                    <label>Telefon</label>
+                    <label>{% trans 'Telefon' %}</label>
                     {{ order.from_phone_no }}<br>
                 </div>
 
                 <div class="order-summary__field">
-                    <label>Abholung</label>
+                    <label>{% trans 'Abholung' %}</label>
                     {{ order.get_timeframe_pickup_display }}
                 </div>
 
                 {% if order.from_comment %}
                 <div class="order-summary__field">
-                    <label>Bemerkung</label>
+                    <label>{% trans 'Bemerkung' %}</label>
                     {{ order.from_comment }}</p>
                 </div>
                 {% endif %}
@@ -53,7 +54,7 @@
 
             <div class="order-detail__address">
 
-                <h3 class="address__header">Zustelladresse</h3>
+                <h3 class="address__header">{% trans 'Zustelladresse' %}</h3>
 
                 {% if order.to_company %}{{ order.to_company }}<br>{% endif %}
 
@@ -63,18 +64,18 @@
                 {{ order.to_zipcode }} Berlin<br>
 
                 <div class="order-summary__field">
-                    <label>Telefon</label>
+                    <label>{% trans 'Telefon' %}</label>
                     {{ order.to_phone_no }}<br>
                 </div>
 
                 <div class="order-summary__field">
-                    <label>Auslieferung</label>
+                    <label>{% trans 'Auslieferung' %}</label>
                     {{ order.get_timeframe_pickup_display }}
                 </div>
 
                 {% if order.to_comment %}
                 <div class="order-summary__field">
-                    <label>Bemerkung</label>
+                    <label>{% trans 'Bemerkung' %}</label>
                     {{ order.to_comment }}</p>
                 </div>
                 {% endif %}
@@ -87,29 +88,41 @@
         <div class="order-detail__details">
 
             <div class="order-summary__field">
-                <label>Packstücke</label>
+                <label>{% trans 'Packstücke' %}</label>
                 {% with order.packages_s as s %}
                     {% if s %}
-                        {{ s }} klein{{ s|pluralize:"es,e"}} Packstück{{ p|pluralize:"e" }}<br>
+                        {% blocktrans count s=s %}
+                            1 kleines Packstück<br>
+                        {% plural %}
+                            {{ s }} kleine Packstücke<br>
+                        {% endblocktrans %}
                     {% endif %}
                 {% endwith %}
 
-                {% with order.packages_m as p %}
-                    {% if p %}
-                        {{ p }} mittelgroß{{ p|pluralize:"es,e"}} Packstück{{ p|pluralize:"e" }}<br>
+                {% with order.packages_m as m %}
+                    {% if m %}
+                        {% blocktrans count m=m %}
+                            1 mittelgroßes Packstück<br>
+                        {% plural %}
+                            {{ m }} mittelgroße Packstücke<br>
+                        {% endblocktrans %}
                     {% endif %}
                 {% endwith %}
 
-                {% with order.packages_l as p %}
-                    {% if p %}
-                        {{ p }} groß{{ p|pluralize:"es,e"}} Packtück{{ p|pluralize:"e" }}<br>
+                {% with order.packages_l as l %}
+                    {% if l %}
+                        {% blocktrans count l=l %}
+                            1 großes Packstück<br>
+                        {% plural %}
+                            {{ l }} große Packstücke<br>
+                        {% endblocktrans %}
                     {% endif %}
                 {% endwith %}
             </div>
 
             {% if order.package_detail %}
                 <div class="order-summary__field">
-                    <label>Was wird transportiert?</label>
+                    <label>{% trans 'Was wird transportiert?' %}</label>
                     {{ order.package_detail }}
                 </div>
             {% endif %}
@@ -120,28 +133,28 @@
 
             <div class="order-detail__calculation">
                 <span class="order-detail__rate">{{ order.get_rate_display }}</span>
-                für
+                {% trans 'für' %}
                 <span class="order-detail__price">{{ order.calculate_price|floatformat:"2" }} €</span>
             </div>
 
             <div class="order-summary__field">
-                <label>Bezahlung bei</label>
+                <label>{% trans 'Bezahlung bei' %}</label>
                 {% if order.customer == 'PICKUP' %}
-                    Abholung ({{ order.from_person}})
+                    {% trans 'Abholung' %} ({{ order.from_person}})
                 {% else %}
-                    Abgabe ({{ order.to_person}})
+                    {% trans 'Abgabe' %} ({{ order.to_person}})
                 {% endif %}
             </div>
 
             {% if order.customer_email %}
             <div class="order-summary__field">
-                <label>Bestätigungs-E-Mail an</label>
+                <label>{% trans 'Bestätigungs-E-Mail an' %}</label>
                 {{ order.customer_email }}
             </div>
             {% endif %}
 
 
-        <h2 class="order-detail__map-header">Karte</h2>
+        <h2 class="order-detail__map-header">{% trans 'Karte' %}</h2>
 
         <div id="map" class="order-detail__map">
         </div>
@@ -149,8 +162,10 @@
         <form method="post">
             {{ wizard.management_form }}
             {% csrf_token %}
-            <button name="wizard_goto_step" class="order-form__button" type="submit" value="{{ wizard.steps.first }}">Auftrag bearbeiten</button>
-            <input class="order-form__submit" type="submit" value="Auftrag abschicken" />
+            <button name="wizard_goto_step" class="order-form__button" type="submit" value="{{ wizard.steps.first }}">
+                {% trans 'Auftrag bearbeiten' %}
+            </button>
+            <input class="order-form__submit" type="submit" value="{% trans 'Auftrag abschicken' %}" />
         </form>
 
         <script>
@@ -162,7 +177,5 @@
         </script>
 
     </div>
-
-
 
 {% endblock %}

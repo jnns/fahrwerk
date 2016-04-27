@@ -1,0 +1,537 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Jannis Vajen, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: fwk\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-27 18:41+0200\n"
+"PO-Revision-Date: 2016-04-27 18:42+0200\n"
+"Last-Translator: Jannis <jvajen@gmail.com>\n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: forms.py:72
+msgid "Bitte einen korrekten Wert angeben."
+msgstr "Please enter a correct value."
+
+#: forms.py:77
+msgid "Wir besitzen leider keine Zeitmaschine."
+msgstr "We can't fly back in time."
+
+#: forms.py:81
+msgid ""
+"Bitte gewähre uns mindestens 30 Minuten bis             zur Abholung, wenn "
+"du dieses Bestellformular nutzt. Für             zeitkritische Sendungen "
+"rufe uns bitte direkt an."
+msgstr ""
+"Please allow us at least 30 minutes for pickup if you're ordering via this "
+"form. If you need a very urgent delivery, please give us a call. "
+
+#: forms.py:91
+#, python-format
+msgid ""
+"Dieser Ort liegt außerhalb unseres regulären "
+"Zustellgebietes.                 Ruf uns doch an, damit wir über "
+"Transportmöglichkeiten                 dorthin sprechen können: %s"
+msgstr ""
+"The given location is outside our regular delivery area. Please give us a "
+"call to discuss delivery options for the given destination: %s"
+
+#: forms.py:101
+#, python-format
+msgid ""
+"Dieser Ort liegt außerhalb unseres regulären Abholgebietes.                 "
+"Ruf uns doch an, damit wir über Transportmöglichkeiten von                 "
+"dort aus sprechen können: %s "
+msgstr ""
+"The given location is outside our regular delivery area. Please give us a "
+"call to discuss pickup options for the given location: %s"
+
+#: forms.py:117
+msgid "Bitte gib die Größe deiner Sendung an."
+msgstr "Please supply the size of your goods."
+
+#: forms.py:136
+msgid ""
+"Du hast eine spezifische Abholzeit ausgewählt. Bitte                     "
+"erläutere dies näher für uns."
+msgstr "You selected a specific pickup time. Please give us further details."
+
+#: forms.py:143
+msgid ""
+"Du hast eine spezifische Auslieferungszeit ausgewählt.                     "
+"Bitte erläutere dies näher für uns."
+msgstr "You selected a specific delivery time. Please give us further details."
+
+#: forms.py:158
+msgid ""
+"Der Auftrag kann nicht bestätigt                 werden, solange keine "
+"Tournummer aus eCourier angegeben wurde."
+msgstr ""
+"The order can't be verified as long as there's no eCourier order number "
+"associated."
+
+#: models.py:68 templates/fwk/order_confirmation.html.py:42
+#: templates/fwk/order_confirmation.html:143 templates/fwk/order_form.html:49
+msgid "Abholung"
+msgstr "Pickup"
+
+#: models.py:69 templates/fwk/order_confirmation.html.py:72
+msgid "Auslieferung"
+msgstr "Delivery"
+
+#: models.py:148
+msgid "Allgemein"
+msgstr "General"
+
+#: models.py:149
+msgid "schnellstmöglich"
+msgstr "fastest possible"
+
+#: models.py:150
+msgid "individuell (bitte Bemerkung hinterlassen)"
+msgstr "custom (please specify in comment)"
+
+#: models.py:151
+msgid "entspannt (\"im Laufe des Tages\", \"während Öffnungszeiten\", …)"
+msgstr "same-day"
+
+#: models.py:153
+msgid "Konkretes Zeitfenster"
+msgstr "Specific time frames"
+
+#: models.py:154
+msgid "8:00 –  9:00 Uhr"
+msgstr "8 am – 9 am"
+
+#: models.py:155
+msgid "9:00 – 10:00 Uhr"
+msgstr "9 am – 10 am"
+
+#: models.py:156
+msgid "10:00 – 11:00 Uhr"
+msgstr "10 am – 11 am"
+
+#: models.py:157
+msgid "11:00 – 12:00 Uhr"
+msgstr "11 am – 12 pm"
+
+#: models.py:158
+msgid "12:00 – 13:00 Uhr"
+msgstr "12 pm – 1 pm"
+
+#: models.py:159
+msgid "13:00 – 14:00 Uhr"
+msgstr "1 pm – 2 pm"
+
+#: models.py:160
+msgid "14:00 – 15:00 Uhr"
+msgstr "2 pm – 3 pm"
+
+#: models.py:161
+msgid "15:00 – 16:00 Uhr"
+msgstr "3 pm – 4 pm"
+
+#: models.py:162
+msgid "16:00 – 17:00 Uhr"
+msgstr "4 pm – 5 pm"
+
+#: models.py:163
+msgid "17:00 – 18:00 Uhr"
+msgstr "5 pm – 6 pm"
+
+#: models.py:164
+msgid "18:00 – 19:00 Uhr"
+msgstr "6 pm – 7 pm"
+
+#: models.py:165
+msgid "19:00 – 20:00 Uhr"
+msgstr "7 pm – 8 pm"
+
+#: models.py:170 models.py:180
+msgid "Ansprechpartner_in"
+msgstr "Client name"
+
+#: models.py:171 models.py:181
+msgid "Firma"
+msgstr "Company"
+
+#: models.py:172 models.py:182
+msgid "Telefonnummer"
+msgstr "Phone number"
+
+#: models.py:173 models.py:183
+msgid "Straße und Hausnummer"
+msgstr "Street and house number"
+
+#: models.py:174 models.py:184
+msgid "PLZ"
+msgstr "Postal code"
+
+#: models.py:175 models.py:185 templates/fwk/order_confirmation.html.py:48
+#: templates/fwk/order_confirmation.html:78
+msgid "Bemerkung"
+msgstr "Comment"
+
+#: models.py:176 models.py:186
+msgid "Gebäude, Stockwerk, o.Ä."
+msgstr "Building, floor, etc."
+
+#: models.py:177
+msgid "Zeitfenster Abholung **"
+msgstr "Time of pickup **"
+
+#: models.py:187
+msgid "Zeitfenster Auslieferung **"
+msgstr "Time of delivery **"
+
+#: models.py:190
+msgid "Distanz"
+msgstr "Distance"
+
+#: models.py:191
+msgid "Preis"
+msgstr "Price"
+
+#: models.py:192
+msgid ""
+"Der Preis dieses Auftrags inkl. Mehrwertsteuer. Wird automatisch "
+"anhand         des Tarifs und der Strecke berechnet, kann aber überschrieben "
+"werden."
+msgstr ""
+"This order's price contains VAT. It's calculated automatically according to "
+"the rate and the distance but can be overwritten."
+
+#: models.py:197
+msgid "Tarif"
+msgstr "Rate"
+
+#: models.py:199
+msgid ""
+"Der Tarif wird automatisch anhand der Packstücke berechnet, kann         "
+"aber überschrieben werden."
+msgstr ""
+"The rate is automatically inferred from the specified size of the packages "
+"but can be overwritten."
+
+#: models.py:203 templates/fwk/order_confirmation.html.py:125
+msgid "Was wird transportiert?"
+msgstr "What do we deliver?"
+
+#: models.py:204
+msgid "Packstücke klein"
+msgstr "Packages small"
+
+#: models.py:205
+msgid "Packstücke mittel"
+msgstr "Packages medium"
+
+#: models.py:206
+msgid "Packstücke groß"
+msgstr "Package big"
+
+#: models.py:220
+msgid "Barzahlung bei"
+msgstr "Cash payment upon"
+
+#: models.py:222
+msgid "E-Mailadresse"
+msgstr "Email address"
+
+#: models.py:223
+msgid "Falls du eine Auftragsbestätigung per E-Mail erhalten möchtest."
+msgstr "In case you want to receive an order confirmation via email."
+
+#: templates/fwk/_opening_hours_reminder.html:6
+msgid "Du rufst diese Seite außerhalb unserer Öffnungszeiten auf."
+msgstr "You're accessing this site outside our business hours."
+
+#: templates/fwk/_opening_hours_reminder.html:8
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\tAb <strong><nobr>%(time)s Uhr</nobr></strong> sind wir startklar.\n"
+"\t\t\t\t"
+msgstr ""
+"\n"
+"We're back on the streets for you again at <strong><nobr>%(time)s</nobr></"
+"strong>."
+
+#: templates/fwk/_opening_hours_reminder.html:12
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\t\tNeue Aufträge können wir erst wieder ab <strong>%(day)s um <nobr>"
+"%(time)s Uhr</nobr></strong> bearbeiten.\n"
+"\t\t\t\t"
+msgstr ""
+"\n"
+"New deliveries can't be processed until <strong><nobr>%(time)s</nobr> on "
+"%(day)s</strong>."
+
+#: templates/fwk/done.html:13
+msgid "Auftrag erteilt."
+msgstr "Order submitted."
+
+#: templates/fwk/done.html:15
+msgid ""
+"Dein Auftrag ist erfolgreich bei uns eingegangen und wird schnellstmöglich "
+"bearbeitet."
+msgstr ""
+"Your order was submitted successfully and a courier will be on their way as "
+"quickly as possible."
+
+#: templates/fwk/done.html:18
+msgid ""
+"Falls Rückfragen auftreten oder es zu Problemen bei Abholung oder "
+"Auslieferung kommt, werden wir euch unter den folgenden Rufnummern zu "
+"erreichen versuchen:"
+msgstr ""
+"In case we have questions about the delivery, or our couriers need to "
+"contact you for pickup or delivery, we'll try to call you on the following "
+"phone numbers:"
+
+#: templates/fwk/done.html:53
+msgid "Neuer Auftrag"
+msgstr "New order"
+
+#: templates/fwk/email/customer_message.txt:1
+#, python-format
+msgid ""
+"Hallo %(customer)s!\n"
+"\n"
+"Soeben ist eine Bestellung bei uns eingegangen, bei der deine E-Mail-"
+"Adresse\n"
+"angegeben wurde.\n"
+"\n"
+"Falls der untenstehende Auftrag verändert oder storniert werden soll, ruf' "
+"uns\n"
+"einfach an: %(phone_no)s."
+msgstr ""
+"Hi %(customer)s!\n"
+"\n"
+"We just received an order from this email address.\n"
+"\n"
+"If details of the following delivery need to be changed, or the order as a "
+"whole should be canceled, please give us a call: %(phone_no)s.  "
+
+#: templates/fwk/email/customer_message.txt:10
+msgid "ABHOLUNG:"
+msgstr "PICKUP:\t"
+
+#: templates/fwk/email/customer_message.txt:18
+msgid "ZUSTELLUNG:"
+msgstr "DELIVERY:"
+
+#: templates/fwk/email/customer_message.txt:26
+msgid "SENDUNG & TARIF:"
+msgstr "PACKAGES & RATE:"
+
+#: templates/fwk/email/customer_message.txt:31
+#, python-format
+msgid ""
+"PREIS:\n"
+"   %(price)s EUR (inkl. 19%% MwSt.)\n"
+"   Es wurde Barzahlung bei %(order.get_customer_display)s gewählt.\n"
+msgstr ""
+"PRICE:\n"
+"%(price)s EUR (incl. 19%% VAT).\n"
+"Cash payment upon %(order.get_customer_display)s has been selected.\n"
+
+#: templates/fwk/email/customer_message.txt:36
+msgid ""
+"Danke für deine Bestellung und viele Grüße\n"
+"das Fahrwerk Kurierkollektiv"
+msgstr ""
+"Thank you and have a great day,\n"
+"Fahrwerk Kurierkollektiv"
+
+#: templates/fwk/email/customer_subject.txt:1
+msgid "Bestätigung deiner Bestellung bei Fahrwerk"
+msgstr "Confirmation of your delivery with Fahrwerk"
+
+#: templates/fwk/order_confirmation.html:20
+msgid "Bestätige deinen Auftrag"
+msgstr "Confirm your order"
+
+#: templates/fwk/order_confirmation.html:22
+msgid ""
+"Bitte schau dir deine Angaben noch einmal ganz genau an, bevor du deinen "
+"Auftrag an uns übermittelst."
+msgstr ""
+"Please have a close look at all the details of your order before finally "
+"submitting it."
+
+#: templates/fwk/order_confirmation.html:27
+msgid "Abholadresse"
+msgstr "Pickup address"
+
+#: templates/fwk/order_confirmation.html:37
+#: templates/fwk/order_confirmation.html:67
+msgid "Telefon"
+msgstr "Phone number"
+
+#: templates/fwk/order_confirmation.html:57
+msgid "Zustelladresse"
+msgstr "Delivery address"
+
+#: templates/fwk/order_confirmation.html:91
+msgid "Packstücke"
+msgstr "Packages"
+
+#: templates/fwk/order_confirmation.html:94
+#, python-format
+msgid ""
+"\n"
+"                            1 kleines Packstück<br>\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            %(s)s kleine Packstücke<br>\n"
+"                        "
+msgstr[0] ""
+"\n"
+"1 small package<br>"
+msgstr[1] ""
+"\n"
+"%(s)s small packages<br>"
+
+#: templates/fwk/order_confirmation.html:104
+#, python-format
+msgid ""
+"\n"
+"                            1 mittelgroßes Packstück<br>\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            %(m)s mittelgroße Packstücke<br>\n"
+"                        "
+msgstr[0] ""
+"\n"
+"1 medium package<br>"
+msgstr[1] ""
+"\n"
+"%(m)s medium packages<br>"
+
+#: templates/fwk/order_confirmation.html:114
+#, python-format
+msgid ""
+"\n"
+"                            1 großes Packstück<br>\n"
+"                        "
+msgid_plural ""
+"\n"
+"                            %(l)s große Packstücke<br>\n"
+"                        "
+msgstr[0] ""
+"\n"
+"1 big package<br>"
+msgstr[1] ""
+"\n"
+"%(l)s big packages<br>"
+
+#: templates/fwk/order_confirmation.html:136
+msgid "für"
+msgstr "for"
+
+#: templates/fwk/order_confirmation.html:141
+msgid "Bezahlung bei"
+msgstr "Payment upon"
+
+#: templates/fwk/order_confirmation.html:145
+msgid "Abgabe"
+msgstr "Delivery"
+
+#: templates/fwk/order_confirmation.html:151
+msgid "Bestätigungs-E-Mail an"
+msgstr "Confirmation email to"
+
+#: templates/fwk/order_confirmation.html:157
+msgid "Karte"
+msgstr "Map"
+
+#: templates/fwk/order_confirmation.html:166
+msgid "Auftrag bearbeiten"
+msgstr "Edit order details"
+
+#: templates/fwk/order_confirmation.html:168
+msgid "Auftrag abschicken"
+msgstr "Submit order"
+
+#: templates/fwk/order_form.html:42
+msgid ""
+"Es befinden sich Fehler im Formular. Bitte korrigiere die markierten Felder."
+msgstr "Some fields did not validate. Please correct the errors below."
+
+#: templates/fwk/order_form.html:60
+msgid "Zustellung"
+msgstr "Delivery"
+
+#: templates/fwk/order_form.html:69
+msgid "Sendungsdetails"
+msgstr "Delivery details"
+
+#: templates/fwk/order_form.html:104
+msgid "Bestellung überprüfen"
+msgstr "Review your order"
+
+#: templates/fwk/order_form.html:115
+msgid ""
+"Bei Fragen aller Art stehen wir euch gerne telefonisch Rede und Antwort. "
+"Ruft einfach durch:"
+msgstr "If you have questions of any kind, don’t hesitate giving us a call:"
+
+#: templates/fwk/order_form.html:124
+msgid ""
+"\n"
+"\t\t\tEs kann aufgrund von nötiger Geldauslage, falsch angegebener\n"
+"\t\t\tSendungsgröße, entstandener Wartezeit o.ä. zu anderen Preisen als den\n"
+"\t\t\thier angegebenen kommen. Wir informieren euch, falls unvorhergesehene\n"
+"\t\t\tKosten entstehen würden, darüber schnellstmöglich telefonisch.\n"
+"\t\t\t"
+msgstr ""
+"\n"
+"In case our couriers need to front cash, package sizes have been specified "
+"incorrectly, or there's waiting time upon pickup or delivery, the herein "
+"stated price may change. We'll contact you immediately via phone in case "
+"unforeseen costs emerge."
+
+#: templates/fwk/order_form.html:132
+#, python-format
+msgid ""
+"\n"
+"\t\t\tDie hier dargestellten Preise verstehen sich &mdash; anders als in "
+"unserem <a\n"
+"\t\t\thref=\"http://www.fahrwerk-berlin.de/wp/preise/\">Preis- und\n"
+"\t\t\tLeistungsverzeichnis</a> &mdash; inkl. 19%% MwSt.\n"
+"\t\t\t"
+msgstr ""
+"\n"
+"All prices listed on this site contain &mdash; contrary to our  <a\n"
+"href=\"http://www.fahrwerk-berlin.de/wp/preise/\">rate sheet</a> &mdash;  "
+"19%% VAT."
+
+#: templates/fwk/order_form.html:141
+msgid ""
+"\n"
+"\t\t\tJe nach Auftragslage und Ort der Abholung und Zustellung können\n"
+"\t\t\tbis zur Abholung <nobr>120 Min</nobr> und bis zur Auslieferung\n"
+"\t\t\t<nobr>180 Min</nobr> vergehen. Sollten eure angegebenen\n"
+"\t\t\tZeitfenster nicht eingehalten werden können, melden wir uns\n"
+"\t\t\tfrühzeitig telefonisch bei euch!\n"
+"\t\t\t"
+msgstr ""
+"\n"
+"Depending on order situation and location of pickup and delivery there can "
+"be a delay of <nobr>120 min.<nobr> until pickup and <nobr>180 min.</nobr> "
+"until delivery. In case we can't guarantee delivery within your desired time "
+"frames, we'll contact you as soon as possible via phone."

@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
+# expect all string literals to be unicode because I'm too lazy to prepend u''
+# to all my strings and ugettext breaks otherwise.
 from __future__ import unicode_literals
+
 import json
 import logging
 import math
@@ -13,6 +16,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _, ugettext as __
 
 from hashids import Hashids
 
@@ -61,8 +65,8 @@ STATUS_CHOICES = (
 )
 
 PAYMENT_CHOICES = (
-    ('PICKUP', 'Abholung'),
-    ('DROPOFF', 'Auslieferung'),
+    ('PICKUP', _('Abholung')),
+    ('DROPOFF', _('Auslieferung')),
 )
 
 # Keep field definitions clean because this gets repeated a lot
@@ -141,65 +145,65 @@ class Order(models.Model):
     In the future, they will eventually be transferable to eCourier via API.
     """
     HOUR_CHOICES = (
-        ('Allgemein', (
-            ('ASAP', 'schnellstmöglich'),
-            ('CUSTOM', 'individuell (bitte Bemerkung hinterlassen)'),
-            ('LOW', 'entspannt ("im Laufe des Tages", "während Öffnungszeiten", …)'),
+        (_('Allgemein'), (
+            ('ASAP', _('schnellstmöglich')),
+            ('CUSTOM', _('individuell (bitte Bemerkung hinterlassen)')),
+            ('LOW', _('entspannt ("im Laufe des Tages", "während Öffnungszeiten", …)')),
         )),
-        ('Konkretes Zeitfenster', (
-            ('8', ' 8:00 –  9:00 Uhr'),
-            ('9', ' 9:00 – 10:00 Uhr'),
-            ('10', '10:00 – 11:00 Uhr'),
-            ('11', '11:00 – 12:00 Uhr'),
-            ('12', '12:00 – 13:00 Uhr'),
-            ('13', '13:00 – 14:00 Uhr'),
-            ('14', '14:00 – 15:00 Uhr'),
-            ('15', '15:00 – 16:00 Uhr'),
-            ('16', '16:00 – 17:00 Uhr'),
-            ('17', '17:00 – 18:00 Uhr'),
-            ('18', '18:00 – 19:00 Uhr'),
-            ('19', '19:00 – 20:00 Uhr'),
+        (_('Konkretes Zeitfenster'), (
+            ('8',  _('8:00 –  9:00 Uhr')),
+            ('9',  _('9:00 – 10:00 Uhr')),
+            ('10', _('10:00 – 11:00 Uhr')),
+            ('11', _('11:00 – 12:00 Uhr')),
+            ('12', _('12:00 – 13:00 Uhr')),
+            ('13', _('13:00 – 14:00 Uhr')),
+            ('14', _('14:00 – 15:00 Uhr')),
+            ('15', _('15:00 – 16:00 Uhr')),
+            ('16', _('16:00 – 17:00 Uhr')),
+            ('17', _('17:00 – 18:00 Uhr')),
+            ('18', _('18:00 – 19:00 Uhr')),
+            ('19', _('19:00 – 20:00 Uhr')),
         )),
     )
 
     # Pickup information
-    from_person = models.CharField("Ansprechpartner_in", max_length=40)
-    from_company = models.CharField("Firma", max_length=40, blank=True)
-    from_phone_no = models.CharField("Telefonnummer", max_length=15, validators=[validate_phone_no])
-    from_street = models.CharField("Straße und Hausnummer", max_length=30)
-    from_zipcode = models.PositiveSmallIntegerField("PLZ")
-    from_comment = models.CharField("Bemerkung", max_length=40, blank=True,
-        help_text='Gebäude, Stockwerk, o.Ä.')
-    timeframe_pickup = models.CharField(max_length=8, verbose_name="Zeitfenster Abholung **", choices=HOUR_CHOICES)
+    from_person = models.CharField(_("Ansprechpartner_in"), max_length=40)
+    from_company = models.CharField(_("Firma"), max_length=40, blank=True)
+    from_phone_no = models.CharField(_("Telefonnummer"), max_length=15, validators=[validate_phone_no])
+    from_street = models.CharField(_("Straße und Hausnummer"), max_length=30)
+    from_zipcode = models.PositiveSmallIntegerField(_("PLZ"))
+    from_comment = models.CharField(_("Bemerkung"), max_length=40, blank=True,
+        help_text=_('Gebäude, Stockwerk, o.Ä.'))
+    timeframe_pickup = models.CharField(max_length=8, verbose_name=_("Zeitfenster Abholung **"), choices=HOUR_CHOICES)
 
     # Drop-off information
-    to_person = models.CharField("Ansprechpartner_in", max_length=40)
-    to_company = models.CharField("Firma", max_length=40, blank=True)
-    to_phone_no = models.CharField("Telefonnummer", max_length=15, validators=[validate_phone_no])
-    to_street = models.CharField("Straße und Hausnummer", max_length=30)
-    to_zipcode = models.PositiveSmallIntegerField("PLZ")
-    to_comment = models.CharField("Bemerkung", max_length=40, blank=True,
-        help_text='Gebäude, Stockwerk, o.Ä.')
-    timeframe_dropoff = models.CharField(max_length=8, verbose_name="Zeitfenster Auslieferung **", choices=HOUR_CHOICES)
+    to_person = models.CharField(_("Ansprechpartner_in"), max_length=40)
+    to_company = models.CharField(_("Firma"), max_length=40, blank=True)
+    to_phone_no = models.CharField(_("Telefonnummer"), max_length=15, validators=[validate_phone_no])
+    to_street = models.CharField(_("Straße und Hausnummer"), max_length=30)
+    to_zipcode = models.PositiveSmallIntegerField(_("PLZ"))
+    to_comment = models.CharField(_("Bemerkung"), max_length=40, blank=True,
+        help_text=_('Gebäude, Stockwerk, o.Ä.'))
+    timeframe_dropoff = models.CharField(max_length=8, verbose_name=_("Zeitfenster Auslieferung **"), choices=HOUR_CHOICES)
 
     # Delivery details
-    distance = models.PositiveSmallIntegerField("Distanz", null=True)
-    price = models.DecimalField('Preis',
-        help_text="Der Preis dieses Auftrags inkl. Mehrwertsteuer. Wird automatisch anhand \
-        des Tarifs und der Strecke berechnet, kann aber überschrieben werden.",
+    distance = models.PositiveSmallIntegerField(_("Distanz"), null=True)
+    price = models.DecimalField(_('Preis'),
+        help_text=_("Der Preis dieses Auftrags inkl. Mehrwertsteuer. Wird automatisch anhand \
+        des Tarifs und der Strecke berechnet, kann aber überschrieben werden."),
         null=True, blank=True,
         **DECIMAL_KWARGS
         )
-    rate = models.ForeignKey('fwk.rate', verbose_name="Tarif",
+    rate = models.ForeignKey('fwk.rate', verbose_name=_("Tarif"),
         null=True, blank=True,
-        help_text="Der Tarif wird automatisch anhand der Packstücke berechnet, kann \
-        aber überschrieben werden.")
+        help_text=_("Der Tarif wird automatisch anhand der Packstücke berechnet, kann \
+        aber überschrieben werden."))
 
     # Package sizes
-    package_detail = models.CharField("Was wird transportiert?", max_length=40, blank=True)
-    packages_s = models.PositiveSmallIntegerField("Packstücke klein", default=0)
-    packages_m = models.PositiveSmallIntegerField("Packstücke mittel", default=0)
-    packages_l = models.PositiveSmallIntegerField("Packstücke groß", default=0)
+    package_detail = models.CharField(_("Was wird transportiert?"), max_length=40, blank=True)
+    packages_s = models.PositiveSmallIntegerField(_("Packstücke klein"), default=0)
+    packages_m = models.PositiveSmallIntegerField(_("Packstücke mittel"), default=0)
+    packages_l = models.PositiveSmallIntegerField(_("Packstücke groß"), default=0)
 
     # Meta information
     ecourier_id = models.PositiveIntegerField("Tournummer", blank=True, null=True,
@@ -213,10 +217,10 @@ class Order(models.Model):
     ordered = models.DateTimeField("Bestelldatum", auto_now_add=True)
     delivered = models.DateTimeField("Auslieferungsdatum", blank=True, null=True)
     ip_addr = models.GenericIPAddressField("IP-Adresse", blank=True, null=True)
-    customer = models.CharField("Barzahlung bei", max_length=8, choices=PAYMENT_CHOICES,
+    customer = models.CharField(_("Barzahlung bei"), max_length=8, choices=PAYMENT_CHOICES,
         default=PAYMENT_CHOICES[0][0])
-    customer_email = models.EmailField("E-Mailadresse", blank=True,
-        help_text='Falls du eine Auftragsbestätigung per E-Mail erhalten möchtest.')
+    customer_email = models.EmailField(_("E-Mailadresse"), blank=True,
+        help_text=_('Falls du eine Auftragsbestätigung per E-Mail erhalten möchtest.'))
 
     # Other
     directions_json = models.TextField("Maps API JSON result", blank=True)
@@ -242,8 +246,8 @@ class Order(models.Model):
                 pass
 
     def __unicode__(self):
-        _from = getattr(self, "from_street", "?")
-        _to = getattr(self, "to_street", "?")
+        _from = self.from_street or "?"
+        _to = self.to_street or "?"
         return "%s → %s" % (_from, _to)
 
 
@@ -339,11 +343,11 @@ class Order(models.Model):
 
     def get_rate_display(self):
         display_values = {
-            Rate.RATE_BIKE: 'Fahrrad',
-            Rate.RATE_CARGO: 'Lastenrad',
-            Rate.RATE_PKW: 'E-PKW',
-            Rate.RATE_KOMBI: 'E-Kombi',
-            Rate.RATE_TRANSPORTER: 'E-Transporter'
+            Rate.RATE_BIKE: __('Fahrrad'),
+            Rate.RATE_CARGO: __('Lastenrad'),
+            Rate.RATE_PKW: __('E-PKW'),
+            Rate.RATE_KOMBI: __('E-Kombi'),
+            Rate.RATE_TRANSPORTER: __('E-Transporter')
         }
         return display_values[self.calculate_rate()]
 
@@ -361,19 +365,15 @@ class Order(models.Model):
             subject=render_to_string("fwk/email/dispatcher_subject.txt", context),
             body=render_to_string("fwk/email/dispatcher_message.txt", context),
             from_email=settings.DEFAULT_FROM_EMAIL,
-            to=[settings.DEFAULT_FROM_EMAIL],
-            bcc=['jvajen@gmail.com'],
-            reply_to=[settings.FWK_INFO_EMAIL],
-            headers={'Return-Path': settings.FWK_INFO_EMAIL}
+            #to=[settings.DEFAULT_FROM_EMAIL],
+            bcc=['jvajen@gmail.com']
         ))
         if self.customer_email:
             emails.append(mail.EmailMessage(
                 subject=render_to_string("fwk/email/customer_subject.txt", context),
                 body=render_to_string("fwk/email/customer_message.txt", context),
                 from_email=settings.DEFAULT_FROM_EMAIL,
-                to=[self.customer_email],
-                reply_to=[settings.FWK_INFO_EMAIL],
-                headers={'Return-Path': settings.FWK_INFO_EMAIL}
+                to=[self.customer_email]
             ))
         mail.get_connection().send_messages(emails)
         logger.info("Mail with new order was sent to dispatchers.")

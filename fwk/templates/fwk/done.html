@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
 {% load fwk_extras %}
 
 
@@ -9,13 +10,12 @@
 
 <div class="confirmation">
 	<header>
-		<h1 class="confirmation__header">Auftrag erteilt.</h1>
+		<h1 class="confirmation__header">{% trans 'Auftrag erteilt.' %}</h1>
 
-		<h2 class="confirmation__subheader">Dein Auftrag ist erfolgreich bei uns eingegangen und wird schnellstmöglich
-		bearbeitet.</h2>
+		<h2 class="confirmation__subheader">{% trans 'Dein Auftrag ist erfolgreich bei uns eingegangen und wird schnellstmöglich bearbeitet.' %}</h2>
 	</header>
 
-	<p>Falls Rückfragen auftreten oder es zu Problemen bei Abholung oder Auslieferung kommt, werden wir euch unter den folgenden Rufnummern zu erreichen versuchen:
+	<p>{% trans 'Falls Rückfragen auftreten oder es zu Problemen bei Abholung oder Auslieferung kommt, werden wir euch unter den folgenden Rufnummern zu erreichen versuchen:' %}
 
 	<table class="confirmation__phone-numbers">
 		<tr>
@@ -35,22 +35,22 @@
 	</table>
 	</p>
 
-	<p>Sofern du Fragen zum Auftrag hast, sich Angaben ändern oder
+	<p>{% trans 'Sofern du Fragen zum Auftrag hast, sich Angaben ändern oder
 	du den Auftrag stornieren möchtest, kannst du uns unter folgender
-	Telefonnummer erreichen:
+	Telefonnummer erreichen:' %}
 
 	<a class="confirmation__our-phone-no" href="tel:{{ our_phone_no }}">
 		{{ our_phone_no }}
 	</a>
 	</p>
 
-	<p>Viele Grüße<br>
-	das Fahrwerk Kurierkollektiv</p>
+	<p>{% trans 'Viele Grüße<br>
+	das Fahrwerk Kurierkollektiv' %}</p>
 </div>
 
 <footer class="confirmation__footer">
 	<a href="http://fahrwerk-berlin.de">fahrwerk-berlin.de</a>
-	<a href="/">Neuer Auftrag</a>
+	<a href="/">{% trans 'Neuer Auftrag' %}</a>
 </footer>
 
 {% endblock %}

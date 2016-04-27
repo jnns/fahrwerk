@@ -1,5 +1,6 @@
 ### Project specific stuff ###
 config/settings/env
+node_modules
 
 
 

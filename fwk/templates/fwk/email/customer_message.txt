@@ -1,13 +1,13 @@
-Hallo {{ customer }}!
+{% blocktrans %}Hallo {{ customer }}!
 
 Soeben ist eine Bestellung bei uns eingegangen, bei der deine E-Mail-Adresse
 angegeben wurde.
 
 Falls der untenstehende Auftrag verändert oder storniert werden soll, ruf' uns
-einfach an: {{ phone_no }}.
+einfach an: {{ phone_no }}.{% endblocktrans %}
 
 
-ABHOLUNG:{% if order.from_company %}
+{% trans 'ABHOLUNG:' %}{% if order.from_company %}
    {{ order.from_company }}{% endif %}
    {{ order.from_person }}
    {{ order.from_phone_no }}
@@ -15,7 +15,7 @@ ABHOLUNG:{% if order.from_company %}
    {{ order.from_comment }}{% endif %}
    {{ order.get_timeframe_pickup_display|safe }}
 
-ZUSTELLUNG:{% if order.to_company %}
+{% trans 'ZUSTELLUNG:' %}{% if order.to_company %}
    {{ order.to_company }}{% endif %}
    {{ order.to_person }}
    {{ order.to_phone_no }}
@@ -23,15 +23,15 @@ ZUSTELLUNG:{% if order.to_company %}
    {{ order.to_comment }}{% endif %}
    {{ order.get_timeframe_dropoff_display|safe }}
 
-SENDUNG & TARIF:{% if order.package_detail %}
+{% trans 'SENDUNG & TARIF:' %}{% if order.package_detail %}
    {{ order.package_detail }}{% endif %}
-   Packstücke (S/M/L): {{ order.packages_s }} / {{ order.packages_m }} / {{ order.packages_l }}
-   {{ order.get_rate_display }}-Tarif
+   {% blockstrans %}Packstücke (S/M/L): {{ order.packages_s }} / {{ order.packages_m }} / {{ order.packages_l }}
+   {{ order.get_rate_display }}-Tarif{% endblocktrans %}
 
-PREIS:
-   {{ order.price|floatformat:2 }} EUR (inkl. 19% MwSt.)
+{% blocktrans price=order.price|floatformat:2 %}PREIS:
+   {{ price }} EUR (inkl. 19% MwSt.)
    Es wurde Barzahlung bei {{ order.get_customer_display }} gewählt.
+{% endblocktrans %}
 
-
-Danke für deine Bestellug und viele Grüße
-das Fahrwerk Kurierkollektiv
+{% blocktrans %}Danke für deine Bestellung und viele Grüße
+das Fahrwerk Kurierkollektiv{% endblocktrans %}
