@@ -5,52 +5,50 @@
 
 
 {% block content %}
+	{% opening_hours_reminder %}
 
-{% opening_hours_reminder %}
+	<div class="confirmation">
+		<header>
+			<h1 class="confirmation__header">{% block title %}{% trans 'Auftrag erteilt.' %}{% endblock %}</h1>
 
-<div class="confirmation">
-	<header>
-		<h1 class="confirmation__header">{% trans 'Auftrag erteilt.' %}</h1>
+			<h2 class="confirmation__subheader">{% trans 'Dein Auftrag ist erfolgreich bei uns eingegangen und wird schnellstmöglich bearbeitet.' %}</h2>
+		</header>
 
-		<h2 class="confirmation__subheader">{% trans 'Dein Auftrag ist erfolgreich bei uns eingegangen und wird schnellstmöglich bearbeitet.' %}</h2>
-	</header>
+		<p>{% trans 'Falls Rückfragen auftreten oder es zu Problemen bei Abholung oder Auslieferung kommt, werden wir euch unter den folgenden Rufnummern zu erreichen versuchen:' %}
 
-	<p>{% trans 'Falls Rückfragen auftreten oder es zu Problemen bei Abholung oder Auslieferung kommt, werden wir euch unter den folgenden Rufnummern zu erreichen versuchen:' %}
+		<table class="confirmation__phone-numbers">
+			<tr>
+				<td>{{ form_data.0.from_person }}</td>
+				<td>
+					<a href="tel:{{form_data.0.from_phone_no}}">
+						{{ form_data.0.from_phone_no }}</a>
+				</td>
+			</tr>
+			<tr>
+				<td>{{ form_data.0.to_person }}</td>
+				<td>
+					<a href="tel:{{ form_data.0.to_phone_no }}">
+					{{ form_data.0.to_phone_no }}</a>
+				</td>
+			</tr>
+		</table>
+		</p>
 
-	<table class="confirmation__phone-numbers">
-		<tr>
-			<td>{{ form_data.0.from_person }}</td>
-			<td>
-				<a href="tel:{{form_data.0.from_phone_no}}">
-					{{ form_data.0.from_phone_no }}</a>
-			</td>
-		</tr>
-		<tr>
-			<td>{{ form_data.0.to_person }}</td>
-			<td>
-				<a href="tel:{{ form_data.0.to_phone_no }}">
-				{{ form_data.0.to_phone_no }}</a>
-			</td>
-		</tr>
-	</table>
-	</p>
+		<p>{% trans 'Sofern du Fragen zum Auftrag hast, sich Angaben ändern oder
+		du den Auftrag stornieren möchtest, kannst du uns unter folgender
+		Telefonnummer erreichen:' %}
 
-	<p>{% trans 'Sofern du Fragen zum Auftrag hast, sich Angaben ändern oder
-	du den Auftrag stornieren möchtest, kannst du uns unter folgender
-	Telefonnummer erreichen:' %}
+		<a class="confirmation__our-phone-no" href="tel:{{ our_phone_no }}">
+			{{ our_phone_no }}
+		</a>
+		</p>
 
-	<a class="confirmation__our-phone-no" href="tel:{{ our_phone_no }}">
-		{{ our_phone_no }}
-	</a>
-	</p>
+		<p>{% trans 'Viele Grüße<br>
+		das Fahrwerk Kurierkollektiv' %}</p>
+	</div>
 
-	<p>{% trans 'Viele Grüße<br>
-	das Fahrwerk Kurierkollektiv' %}</p>
-</div>
-
-<footer class="confirmation__footer">
-	<a href="http://fahrwerk-berlin.de">fahrwerk-berlin.de</a>
-	<a href="/">{% trans 'Neuer Auftrag' %}</a>
-</footer>
-
+	<footer class="confirmation__footer">
+		<a href="http://fahrwerk-berlin.de">fahrwerk-berlin.de</a>
+		<a href="/">{% trans 'Neuer Auftrag' %}</a>
+	</footer>
 {% endblock %}

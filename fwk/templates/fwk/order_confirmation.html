@@ -3,6 +3,7 @@
 {% load i18n %}
 {% load fwk_extras %}
 
+
 {% block head %}
 <script src='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.js'></script>
 <link href='https://api.mapbox.com/mapbox.js/v2.3.0/mapbox.css' rel='stylesheet' />
@@ -17,7 +18,7 @@
     {% opening_hours_reminder %}
 
     <div class="order-detail">
-        <h1 class="order-detail__header">{% trans 'Bestätige deinen Auftrag' %}</h1>
+        <h1 class="order-detail__header">{% block title %}{% trans 'Bestätige deinen Auftrag' %}{% endblock %}</h1>
 
         <p>{% trans 'Bitte schau dir deine Angaben noch einmal ganz genau an, bevor du deinen Auftrag an uns übermittelst.' %}</p>
 
