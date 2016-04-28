@@ -9,6 +9,7 @@ brotlipy>=0.2.0  # See README in case of failing build
 whitenoise
 mapbox
 django-constance
+pyreact>=0.6.0  # used for transpiling jsx files
 
 # The following packages are only suggested for development
 

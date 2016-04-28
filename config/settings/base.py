@@ -189,7 +189,7 @@ PIPELINE = {
             'source_filenames': (
               'css/main.css',
             ),
-            'output_filename': 'main.css',
+            'output_filename': 'build/main.min.css',
             'extra_context': {
                 'media': 'screen,projection'
             },
@@ -201,20 +201,19 @@ PIPELINE = {
             'source_filenames': (
                 'js/jquery.min.js',
                 'js/underscore-min.js',
-                'js/babel/browser.min.js',
                 'js/react.min.js',
                 'js/react-dom.min.js',
+                'js/map.js',
+                'js/quickstart.jsx',
             ),
-            'output_filename': 'main.min.js',
+            'output_filename': 'build/main.min.js',
         },
-        'map': {
-            'source_filenames': {
-                'js/map.js'
-            },
-            'output_filename': 'map.min.js',
-
-        }
     },
+    'COMPILERS': (
+        'react.utils.pipeline.JSXCompiler',
+    ),
+    # Use the noop compressor for debugging
+    #'JS_COMPRESSOR': 'pipeline.compressors.NoopCompressor',
     'YUGLIFY_BINARY': 'node_modules/yuglify/bin/yuglify',
 
     # This is important because Leaflet refuses to work when the scripts (I
