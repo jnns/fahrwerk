@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fwk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-27 18:41+0200\n"
+"POT-Creation-Date: 2016-04-28 12:56+0200\n"
 "PO-Revision-Date: 2016-04-27 18:42+0200\n"
 "Last-Translator: Jannis <jvajen@gmail.com>\n"
 "Language-Team: \n"
@@ -80,12 +80,12 @@ msgstr ""
 "The order can't be verified as long as there's no eCourier order number "
 "associated."
 
-#: models.py:68 templates/fwk/order_confirmation.html.py:42
-#: templates/fwk/order_confirmation.html:143 templates/fwk/order_form.html:49
+#: models.py:68 templates/fwk/order_confirmation.html.py:43
+#: templates/fwk/order_confirmation.html:144 templates/fwk/order_form.html:47
 msgid "Abholung"
 msgstr "Pickup"
 
-#: models.py:69 templates/fwk/order_confirmation.html.py:72
+#: models.py:69 templates/fwk/order_confirmation.html.py:73
 msgid "Auslieferung"
 msgstr "Delivery"
 
@@ -177,8 +177,8 @@ msgstr "Street and house number"
 msgid "PLZ"
 msgstr "Postal code"
 
-#: models.py:175 models.py:185 templates/fwk/order_confirmation.html.py:48
-#: templates/fwk/order_confirmation.html:78
+#: models.py:175 models.py:185 templates/fwk/order_confirmation.html.py:49
+#: templates/fwk/order_confirmation.html:79
 msgid "Bemerkung"
 msgstr "Comment"
 
@@ -223,7 +223,7 @@ msgstr ""
 "The rate is automatically inferred from the specified size of the packages "
 "but can be overwritten."
 
-#: models.py:203 templates/fwk/order_confirmation.html.py:125
+#: models.py:203 templates/fwk/order_confirmation.html.py:126
 msgid "Was wird transportiert?"
 msgstr "What do we deliver?"
 
@@ -278,11 +278,11 @@ msgstr ""
 "New deliveries can't be processed until <strong><nobr>%(time)s</nobr> on "
 "%(day)s</strong>."
 
-#: templates/fwk/done.html:13
+#: templates/fwk/done.html:12
 msgid "Auftrag erteilt."
 msgstr "Order submitted."
 
-#: templates/fwk/done.html:15
+#: templates/fwk/done.html:14
 msgid ""
 "Dein Auftrag ist erfolgreich bei uns eingegangen und wird schnellstmöglich "
 "bearbeitet."
@@ -290,7 +290,7 @@ msgstr ""
 "Your order was submitted successfully and a courier will be on their way as "
 "quickly as possible."
 
-#: templates/fwk/done.html:18
+#: templates/fwk/done.html:17
 msgid ""
 "Falls Rückfragen auftreten oder es zu Problemen bei Abholung oder "
 "Auslieferung kommt, werden wir euch unter den folgenden Rufnummern zu "
@@ -300,7 +300,7 @@ msgstr ""
 "contact you for pickup or delivery, we'll try to call you on the following "
 "phone numbers:"
 
-#: templates/fwk/done.html:53
+#: templates/fwk/done.html:52
 msgid "Neuer Auftrag"
 msgstr "New order"
 
@@ -359,11 +359,11 @@ msgstr ""
 msgid "Bestätigung deiner Bestellung bei Fahrwerk"
 msgstr "Confirmation of your delivery with Fahrwerk"
 
-#: templates/fwk/order_confirmation.html:20
+#: templates/fwk/order_confirmation.html:21
 msgid "Bestätige deinen Auftrag"
 msgstr "Confirm your order"
 
-#: templates/fwk/order_confirmation.html:22
+#: templates/fwk/order_confirmation.html:23
 msgid ""
 "Bitte schau dir deine Angaben noch einmal ganz genau an, bevor du deinen "
 "Auftrag an uns übermittelst."
@@ -371,24 +371,24 @@ msgstr ""
 "Please have a close look at all the details of your order before finally "
 "submitting it."
 
-#: templates/fwk/order_confirmation.html:27
+#: templates/fwk/order_confirmation.html:28
 msgid "Abholadresse"
 msgstr "Pickup address"
 
-#: templates/fwk/order_confirmation.html:37
-#: templates/fwk/order_confirmation.html:67
+#: templates/fwk/order_confirmation.html:38
+#: templates/fwk/order_confirmation.html:68
 msgid "Telefon"
 msgstr "Phone number"
 
-#: templates/fwk/order_confirmation.html:57
+#: templates/fwk/order_confirmation.html:58
 msgid "Zustelladresse"
 msgstr "Delivery address"
 
-#: templates/fwk/order_confirmation.html:91
+#: templates/fwk/order_confirmation.html:92
 msgid "Packstücke"
 msgstr "Packages"
 
-#: templates/fwk/order_confirmation.html:94
+#: templates/fwk/order_confirmation.html:95
 #, python-format
 msgid ""
 "\n"
@@ -405,7 +405,7 @@ msgstr[1] ""
 "\n"
 "%(s)s small packages<br>"
 
-#: templates/fwk/order_confirmation.html:104
+#: templates/fwk/order_confirmation.html:105
 #, python-format
 msgid ""
 "\n"
@@ -422,7 +422,7 @@ msgstr[1] ""
 "\n"
 "%(m)s medium packages<br>"
 
-#: templates/fwk/order_confirmation.html:114
+#: templates/fwk/order_confirmation.html:115
 #, python-format
 msgid ""
 "\n"
@@ -439,58 +439,58 @@ msgstr[1] ""
 "\n"
 "%(l)s big packages<br>"
 
-#: templates/fwk/order_confirmation.html:136
+#: templates/fwk/order_confirmation.html:137
 msgid "für"
 msgstr "for"
 
-#: templates/fwk/order_confirmation.html:141
+#: templates/fwk/order_confirmation.html:142
 msgid "Bezahlung bei"
 msgstr "Payment upon"
 
-#: templates/fwk/order_confirmation.html:145
+#: templates/fwk/order_confirmation.html:146
 msgid "Abgabe"
 msgstr "Delivery"
 
-#: templates/fwk/order_confirmation.html:151
+#: templates/fwk/order_confirmation.html:152
 msgid "Bestätigungs-E-Mail an"
 msgstr "Confirmation email to"
 
-#: templates/fwk/order_confirmation.html:157
+#: templates/fwk/order_confirmation.html:158
 msgid "Karte"
 msgstr "Map"
 
-#: templates/fwk/order_confirmation.html:166
+#: templates/fwk/order_confirmation.html:167
 msgid "Auftrag bearbeiten"
 msgstr "Edit order details"
 
-#: templates/fwk/order_confirmation.html:168
+#: templates/fwk/order_confirmation.html:169
 msgid "Auftrag abschicken"
 msgstr "Submit order"
 
-#: templates/fwk/order_form.html:42
+#: templates/fwk/order_form.html:40
 msgid ""
 "Es befinden sich Fehler im Formular. Bitte korrigiere die markierten Felder."
 msgstr "Some fields did not validate. Please correct the errors below."
 
-#: templates/fwk/order_form.html:60
+#: templates/fwk/order_form.html:58
 msgid "Zustellung"
 msgstr "Delivery"
 
-#: templates/fwk/order_form.html:69
+#: templates/fwk/order_form.html:67
 msgid "Sendungsdetails"
 msgstr "Delivery details"
 
-#: templates/fwk/order_form.html:104
+#: templates/fwk/order_form.html:102
 msgid "Bestellung überprüfen"
 msgstr "Review your order"
 
-#: templates/fwk/order_form.html:115
+#: templates/fwk/order_form.html:113
 msgid ""
 "Bei Fragen aller Art stehen wir euch gerne telefonisch Rede und Antwort. "
 "Ruft einfach durch:"
 msgstr "If you have questions of any kind, don’t hesitate giving us a call:"
 
-#: templates/fwk/order_form.html:124
+#: templates/fwk/order_form.html:122
 msgid ""
 "\n"
 "\t\t\tEs kann aufgrund von nötiger Geldauslage, falsch angegebener\n"
@@ -505,7 +505,7 @@ msgstr ""
 "stated price may change. We'll contact you immediately via phone in case "
 "unforeseen costs emerge."
 
-#: templates/fwk/order_form.html:132
+#: templates/fwk/order_form.html:130
 #, python-format
 msgid ""
 "\n"
@@ -520,7 +520,7 @@ msgstr ""
 "href=\"http://www.fahrwerk-berlin.de/wp/preise/\">rate sheet</a> &mdash;  "
 "19%% VAT."
 
-#: templates/fwk/order_form.html:141
+#: templates/fwk/order_form.html:139
 msgid ""
 "\n"
 "\t\t\tJe nach Auftragslage und Ort der Abholung und Zustellung können\n"

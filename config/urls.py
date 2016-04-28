@@ -35,6 +35,6 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
-    url(r'^$', OrderWizardView.as_view(FORMS), name="order"),
     url(r'^jsi18n/$', javascript_catalog, js_info_dict, name='javascript-catalog'),
+    url(r'^$', OrderWizardView.as_view(FORMS), name="order"),
 )

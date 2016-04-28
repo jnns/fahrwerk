@@ -24,7 +24,6 @@ TEMPLATES = {
 }
 
 
-
 class OrderWizardView(SessionWizardView):
 
     def get_template_names(self):
