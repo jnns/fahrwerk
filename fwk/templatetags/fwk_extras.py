@@ -28,7 +28,6 @@ def opening_hours_reminder():
     # only open one day of the week.
     for i in range(0, 7):
         now = timezone.now()
-        now = now + datetime.timedelta(days=1)
         today = now.date()
         next_day = now + datetime.timedelta(days=i)
         weekday = next_day.strftime("%a")
@@ -54,6 +53,7 @@ def opening_hours_reminder():
             }
 
             if opening_dts[0].date() == today:
+                import pdb; pdb.set_trace()
                 context.update({'open_later_today': True})
 
             return context
