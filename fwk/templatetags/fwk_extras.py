@@ -53,7 +53,6 @@ def opening_hours_reminder():
             }
 
             if opening_dts[0].date() == today:
-                import pdb; pdb.set_trace()
                 context.update({'open_later_today': True})
 
             return context

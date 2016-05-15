@@ -365,7 +365,7 @@ class Order(models.Model):
             subject=render_to_string("fwk/email/dispatcher_subject.txt", context),
             body=render_to_string("fwk/email/dispatcher_message.txt", context),
             from_email=settings.DEFAULT_FROM_EMAIL,
-            #to=[settings.DEFAULT_FROM_EMAIL],
+            to=[settings.DEFAULT_FROM_EMAIL],
             bcc=['jvajen@gmail.com']
         ))
         if self.customer_email:
