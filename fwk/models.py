@@ -307,7 +307,7 @@ class Order(models.Model):
         def force_int(s):
             try:
                 return int(s)
-            except TypeError:
+            except (TypeError, ValueError):
                 return None
 
         S = force_int(self.packages_s)
