@@ -10,6 +10,7 @@ whitenoise
 mapbox
 django-constance
 pyreact>=0.6.0  # used for transpiling jsx files
+requests
 
 # The following packages are only suggested for development
 
