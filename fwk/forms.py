@@ -13,9 +13,14 @@ from django.utils.safestring import mark_safe
 from django.utils import timezone
 from django.utils.translation import ugettext as _
 
+from constance import config
+
 from .models import Order
 
 logger = logging.getLogger(__name__)
+
+MIN_POSTCODE = config.FWK_MIN_POSTCODE
+MAX_POSTCODE = config.FWK_MAX_POSTCODE
 
 class OrderConfirmation(forms.Form):
     pass
@@ -24,10 +29,6 @@ class OrderConfirmation(forms.Form):
 class OrderForm(forms.ModelForm):
     error_css_class = 'error'
     required_css_class = 'required'
-
-    # valid postcodes
-    MIN_POSTCODE = 10115
-    MAX_POSTCODE = 14467
 
     class Meta:
         model = Order
@@ -85,7 +86,7 @@ class OrderForm(forms.ModelForm):
 
     def clean_to_zipcode(self):
         value = self.cleaned_data["to_zipcode"]
-        if not self.MIN_POSTCODE <= value <= self.MAX_POSTCODE:
+        if not MIN_POSTCODE <= value <= MAX_POSTCODE:
             logger.info("Customer tried to order delivery out of region.")
             raise ValidationError(_(
                 "Dieser Ort liegt außerhalb unseres regulären Zustellgebietes. \
@@ -95,7 +96,7 @@ class OrderForm(forms.ModelForm):
 
     def clean_from_zipcode(self):
         value = self.cleaned_data["from_zipcode"]
-        if not self.MIN_POSTCODE <= value <= self.MAX_POSTCODE:
+        if not MIN_POSTCODE <= value <= MAX_POSTCODE:
             logger.info("Customer tried to order pickup from out of region.")
             raise ValidationError(_(
                 "Dieser Ort liegt außerhalb unseres regulären Abholgebietes. \

@@ -236,7 +236,9 @@ CONSTANCE_CONFIG = {
         message informing them about when we're back in office.", str),
     "FWK_DAYS_CLOSED": ("",
         "Days that are considered holidays and during which we're therefore \
-        closed.")
+        closed."),
+    "FWK_MIN_POSTCODE": (10083, "Begin of accepted post code range."),
+    "FWK_MAX_POSTCODE": (14467, "End of accepted post code range."),
 }
 
 # This is Fahrwerk's landline that's used in several places throughout the
