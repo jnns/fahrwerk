@@ -54,7 +54,24 @@ var QuickstartBox = React.createClass({
         }.bind(this));
     },
     setMarker: function (data, pu_or_do) {
-        this.state.geocoded[pu_or_do] = data.features[0];
+        // see which returned object carries the important street and
+        // housenumber information
+        var required_properties = ["street", "housenumber", "postcode"];
+
+        // first returned item is prefered because we trust the source to
+        // order it by significance
+        var most_promising_item = 0;
+
+        for (var i=0;i<=data.features.length;i++) {
+            if (required_properties.every(function (val) {
+                return (val in data.features[i].properties);
+            })) {
+                most_promising_item = i;
+                break
+            }
+        }
+
+        this.state.geocoded[pu_or_do] = data.features[most_promising_item];
         var obj = this.state.geocoded[pu_or_do]; // current target
 
         // set icon
