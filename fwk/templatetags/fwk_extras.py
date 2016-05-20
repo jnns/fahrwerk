@@ -38,11 +38,18 @@ def holidays():
     if not config.FWK_DAYS_CLOSED:
         config.FWK_DAYS_CLOSED = get_holidays()
 
-    data = json.loads(config.FWK_DAYS_CLOSED)
+    string_list = json.loads(config.FWK_DAYS_CLOSED)
 
     # dates are returned in ISO-format ("YYYY-MM-DD") and need to be int-
     # casted and split
-    return sorted([ date(*map(int, i.split("-"))) for i in data ])
+    date_list = sorted([ date(*map(int, i.split("-"))) for i in string_list ])
+
+    # get a fresh list of holidays if no current dates are configured
+    if not date.today().year in set([d.year for d in date_list]):
+        config.FWK_DAYS_CLOSED = None
+        holidays()
+
+    return date_list
 
 
 def opening_hours(weekday):
