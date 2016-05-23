@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-28 14:00+0200\n"
+"POT-Creation-Date: 2016-05-23 13:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,22 +18,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:72
+#: forms.py:73
 msgid "Bitte einen korrekten Wert angeben."
 msgstr ""
 
-#: forms.py:77
+#: forms.py:78
 msgid "Wir besitzen leider keine Zeitmaschine."
 msgstr ""
 
-#: forms.py:81
+#: forms.py:82
 msgid ""
 "Bitte gewähre uns mindestens 30 Minuten bis             zur Abholung, wenn "
 "du dieses Bestellformular nutzt. Für             zeitkritische Sendungen "
 "rufe uns bitte direkt an."
 msgstr ""
 
-#: forms.py:91
+#: forms.py:92
 #, python-format
 msgid ""
 "Dieser Ort liegt außerhalb unseres regulären "
@@ -41,7 +41,7 @@ msgid ""
 "Transportmöglichkeiten                 dorthin sprechen können: %s"
 msgstr ""
 
-#: forms.py:101
+#: forms.py:102
 #, python-format
 msgid ""
 "Dieser Ort liegt außerhalb unseres regulären Abholgebietes.                 "
@@ -49,23 +49,23 @@ msgid ""
 "dort aus sprechen können: %s "
 msgstr ""
 
-#: forms.py:117
+#: forms.py:118
 msgid "Bitte gib die Größe deiner Sendung an."
 msgstr ""
 
-#: forms.py:136
+#: forms.py:137
 msgid ""
 "Du hast eine spezifische Abholzeit ausgewählt. Bitte                     "
 "erläutere dies näher für uns."
 msgstr ""
 
-#: forms.py:143
+#: forms.py:144
 msgid ""
 "Du hast eine spezifische Auslieferungszeit ausgewählt.                     "
 "Bitte erläutere dies näher für uns."
 msgstr ""
 
-#: forms.py:158
+#: forms.py:159
 msgid ""
 "Der Auftrag kann nicht bestätigt                 werden, solange keine "
 "Tournummer aus eCourier angegeben wurde."
@@ -276,11 +276,21 @@ msgid ""
 "erreichen versuchen:"
 msgstr ""
 
-#: templates/fwk/done.html:52
+#: templates/fwk/done.html:37
+msgid ""
+"Sofern du Fragen zum Auftrag hast, sich Angaben ändern oder du den Auftrag "
+"stornieren möchtest, kannst du uns unter folgender Telefonnummer erreichen:"
+msgstr ""
+
+#: templates/fwk/done.html:44
+msgid "Viele Grüße<br> das Fahrwerk Kurierkollektiv"
+msgstr ""
+
+#: templates/fwk/done.html:49
 msgid "Neuer Auftrag"
 msgstr ""
 
-#: templates/fwk/email/customer_message.txt:1
+#: templates/fwk/email/customer_message.txt:2
 #, python-format
 msgid ""
 "Hallo %(customer)s!\n"
@@ -294,27 +304,35 @@ msgid ""
 "einfach an: %(phone_no)s."
 msgstr ""
 
-#: templates/fwk/email/customer_message.txt:10
+#: templates/fwk/email/customer_message.txt:11
 msgid "ABHOLUNG:"
 msgstr ""
 
-#: templates/fwk/email/customer_message.txt:18
+#: templates/fwk/email/customer_message.txt:19
 msgid "ZUSTELLUNG:"
 msgstr ""
 
-#: templates/fwk/email/customer_message.txt:26
+#: templates/fwk/email/customer_message.txt:27
 msgid "SENDUNG & TARIF:"
 msgstr ""
 
-#: templates/fwk/email/customer_message.txt:31
+#: templates/fwk/email/customer_message.txt:29
+msgid "Packstücke (S/M/L):"
+msgstr ""
+
+#: templates/fwk/email/customer_message.txt:30
+msgid "-Tarif"
+msgstr ""
+
+#: templates/fwk/email/customer_message.txt:32
 #, python-format
 msgid ""
 "PREIS:\n"
 "   %(price)s EUR (inkl. 19%% MwSt.)\n"
-"   Es wurde Barzahlung bei %(order.get_customer_display)s gewählt.\n"
+"   Es wurde Barzahlung bei %(customer)s gewählt.\n"
 msgstr ""
 
-#: templates/fwk/email/customer_message.txt:36
+#: templates/fwk/email/customer_message.txt:37
 msgid ""
 "Danke für deine Bestellung und viele Grüße\n"
 "das Fahrwerk Kurierkollektiv"

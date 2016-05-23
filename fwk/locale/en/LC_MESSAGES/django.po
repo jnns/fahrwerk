@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fwk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-28 12:56+0200\n"
-"PO-Revision-Date: 2016-04-27 18:42+0200\n"
+"POT-Creation-Date: 2016-05-23 13:19+0200\n"
+"PO-Revision-Date: 2016-05-23 13:23+0200\n"
 "Last-Translator: Jannis <jvajen@gmail.com>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -19,15 +19,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: forms.py:72
+#: forms.py:73
 msgid "Bitte einen korrekten Wert angeben."
 msgstr "Please enter a correct value."
 
-#: forms.py:77
+#: forms.py:78
 msgid "Wir besitzen leider keine Zeitmaschine."
 msgstr "We can't fly back in time."
 
-#: forms.py:81
+#: forms.py:82
 msgid ""
 "Bitte gewähre uns mindestens 30 Minuten bis             zur Abholung, wenn "
 "du dieses Bestellformular nutzt. Für             zeitkritische Sendungen "
@@ -36,7 +36,7 @@ msgstr ""
 "Please allow us at least 30 minutes for pickup if you're ordering via this "
 "form. If you need a very urgent delivery, please give us a call. "
 
-#: forms.py:91
+#: forms.py:92
 #, python-format
 msgid ""
 "Dieser Ort liegt außerhalb unseres regulären "
@@ -46,7 +46,7 @@ msgstr ""
 "The given location is outside our regular delivery area. Please give us a "
 "call to discuss delivery options for the given destination: %s"
 
-#: forms.py:101
+#: forms.py:102
 #, python-format
 msgid ""
 "Dieser Ort liegt außerhalb unseres regulären Abholgebietes.                 "
@@ -56,23 +56,23 @@ msgstr ""
 "The given location is outside our regular delivery area. Please give us a "
 "call to discuss pickup options for the given location: %s"
 
-#: forms.py:117
+#: forms.py:118
 msgid "Bitte gib die Größe deiner Sendung an."
 msgstr "Please supply the size of your goods."
 
-#: forms.py:136
+#: forms.py:137
 msgid ""
 "Du hast eine spezifische Abholzeit ausgewählt. Bitte                     "
 "erläutere dies näher für uns."
 msgstr "You selected a specific pickup time. Please give us further details."
 
-#: forms.py:143
+#: forms.py:144
 msgid ""
 "Du hast eine spezifische Auslieferungszeit ausgewählt.                     "
 "Bitte erläutere dies näher für uns."
 msgstr "You selected a specific delivery time. Please give us further details."
 
-#: forms.py:158
+#: forms.py:159
 msgid ""
 "Der Auftrag kann nicht bestätigt                 werden, solange keine "
 "Tournummer aus eCourier angegeben wurde."
@@ -300,11 +300,23 @@ msgstr ""
 "contact you for pickup or delivery, we'll try to call you on the following "
 "phone numbers:"
 
-#: templates/fwk/done.html:52
+#: templates/fwk/done.html:37
+msgid ""
+"Sofern du Fragen zum Auftrag hast, sich Angaben ändern oder du den Auftrag "
+"stornieren möchtest, kannst du uns unter folgender Telefonnummer erreichen:"
+msgstr ""
+"In case you have questions, you want to change order details or you want to "
+"cancel the order completely, you can reach us under the following number:"
+
+#: templates/fwk/done.html:44
+msgid "Viele Grüße<br> das Fahrwerk Kurierkollektiv"
+msgstr "Thank you and have a great day,<br> Fahrwerk courier collective"
+
+#: templates/fwk/done.html:49
 msgid "Neuer Auftrag"
 msgstr "New order"
 
-#: templates/fwk/email/customer_message.txt:1
+#: templates/fwk/email/customer_message.txt:2
 #, python-format
 msgid ""
 "Hallo %(customer)s!\n"
@@ -324,30 +336,38 @@ msgstr ""
 "If details of the following delivery need to be changed, or the order as a "
 "whole should be canceled, please give us a call: %(phone_no)s.  "
 
-#: templates/fwk/email/customer_message.txt:10
+#: templates/fwk/email/customer_message.txt:11
 msgid "ABHOLUNG:"
 msgstr "PICKUP:\t"
 
-#: templates/fwk/email/customer_message.txt:18
+#: templates/fwk/email/customer_message.txt:19
 msgid "ZUSTELLUNG:"
 msgstr "DELIVERY:"
 
-#: templates/fwk/email/customer_message.txt:26
+#: templates/fwk/email/customer_message.txt:27
 msgid "SENDUNG & TARIF:"
 msgstr "PACKAGES & RATE:"
 
-#: templates/fwk/email/customer_message.txt:31
+#: templates/fwk/email/customer_message.txt:29
+msgid "Packstücke (S/M/L):"
+msgstr "Packages (S/M/L):"
+
+#: templates/fwk/email/customer_message.txt:30
+msgid "-Tarif"
+msgstr "-Rate"
+
+#: templates/fwk/email/customer_message.txt:32
 #, python-format
 msgid ""
 "PREIS:\n"
 "   %(price)s EUR (inkl. 19%% MwSt.)\n"
-"   Es wurde Barzahlung bei %(order.get_customer_display)s gewählt.\n"
+"   Es wurde Barzahlung bei %(customer)s gewählt.\n"
 msgstr ""
 "PRICE:\n"
-"%(price)s EUR (incl. 19%% VAT).\n"
-"Cash payment upon %(order.get_customer_display)s has been selected.\n"
+"  %(price)s EUR (incl. 19%% VAT).\n"
+"  Cash payment upon %(customer)s has been selected.\n"
 
-#: templates/fwk/email/customer_message.txt:36
+#: templates/fwk/email/customer_message.txt:37
 msgid ""
 "Danke für deine Bestellung und viele Grüße\n"
 "das Fahrwerk Kurierkollektiv"

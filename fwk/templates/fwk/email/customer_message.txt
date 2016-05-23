@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n %}{% autoescape off %}
 {% blocktrans %}Hallo {{ customer }}!
 
 Soeben ist eine Bestellung bei uns eingegangen, bei der deine E-Mail-Adresse
@@ -26,15 +26,14 @@ einfach an: {{ phone_no }}.{% endblocktrans %}
 
 {% trans 'SENDUNG & TARIF:' %}{% if order.package_detail %}
    {{ order.package_detail }}{% endif %}
-   {% blocktrans %}Packstücke (S/M/L): {{ order.packages_s }} / {{ order.packages_m }} / {{ order.packages_l }}
-   {{ order.get_rate_display }}-Tarif{% endblocktrans %}
+   {% trans 'Packstücke (S/M/L):' %} {{ order.packages_s }} / {{ order.packages_m }} / {{ order.packages_l }}
+   {{ order.get_rate_display }}{% trans '-Tarif' %}
 
-{% with price=order.price|floatformat:2 %}
-	{% blocktrans %}PREIS:
-	   {{ price }} EUR (inkl. 19% MwSt.)
-	   Es wurde Barzahlung bei {{ order.get_customer_display }} gewählt.
-	{% endblocktrans %}
+{% blocktrans with customer=order.get_customer_display price=order.price|floatformat:2 %}PREIS:
+   {{ price }} EUR (inkl. 19% MwSt.)
+   Es wurde Barzahlung bei {{ customer }} gewählt.
+{% endblocktrans %}
 
-{% endwith %}
 {% blocktrans %}Danke für deine Bestellung und viele Grüße
 das Fahrwerk Kurierkollektiv{% endblocktrans %}
+{% endautoescape %}
