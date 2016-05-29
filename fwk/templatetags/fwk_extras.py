@@ -82,16 +82,16 @@ def opening_hours_reminder():
         opening_dts = [timezone.get_default_timezone().localize(o) for o in opening_dts]
 
         if not opening_dts:
-            return None
+            continue
 
         # If opening hours match the current time, just display that we're
         # open (unless it's a holiday):
         if opening_dts[0] < now < opening_dts[1] and today not in holidays():
-            return {'now_open': True}
+            return
+
         # There are opening hours specified for the future
         elif now < opening_dts[0] and opening_dts[0].date() not in holidays():
             context = {
-                'now_open': False,
                 'open_again': opening_dts[0],
             }
 

@@ -1,28 +1,31 @@
 Hej! Es gibt eine neue Bestellung:
 {% autoescape off %}
 ABHOLUNG:{% if order.from_company %}
-   {{ order.from_company }}{% endif %}
-   {{ order.from_person }}
-   {{ order.from_phone_no }}
-   {{ order.from_street }}, {{ order.from_zipcode }}{% if order.from_comment %}
-   {{ order.from_comment }}{% endif %}
-   {{ order.get_timeframe_pickup_display|safe }}
+{{ order.from_company }}{% endif %}
+{{ order.from_person }}
+{{ order.from_phone_no }}
+{{ order.from_street }}, {{ order.from_zipcode }}{% if order.from_comment %}
+{{ order.from_comment }}{% endif %}
+{{ order.get_timeframe_pickup_display|safe }}
 
 ZUSTELLUNG:{% if order.to_company %}
-   {{ order.to_company }}{% endif %}
-   {{ order.to_person }}
-   {{ order.to_phone_no }}
-   {{ order.to_street }}, {{ order.to_zipcode }}{% if order.to_comment %}
-   {{ order.to_comment }}{% endif %}
-   {{ order.get_timeframe_dropoff_display|safe }}
+{{ order.to_company }}{% endif %}
+{{ order.to_person }}
+{{ order.to_phone_no }}
+{{ order.to_street }}, {{ order.to_zipcode }}{% if order.to_comment %}
+{{ order.to_comment }}{% endif %}
+{{ order.get_timeframe_dropoff_display|safe }}
+
+KARTENANSICHT
+{{ order.google_maps_url }}
 
 SENDUNG & TARIF:{% if order.package_detail %}
-   {{ order.package_detail }}{% endif %}
-   Packstücke (S/M/L): {{ order.packages_s }} / {{ order.packages_m }} / {{ order.packages_l }}
-   {{ order.get_rate_display }}-Tarif
+{{ order.package_detail }}{% endif %}
+Packstücke (S/M/L): {{ order.packages_s }} / {{ order.packages_m }} / {{ order.packages_l }}
+{{ order.get_rate_display }}-Tarif
 
 PREIS:
-   {{ order.price|floatformat:2 }} EUR (inkl. 19% MwSt.) für {{ order.distance }} km
-   Barzahlung bei {{ order.get_customer_display }}.
+{{ order.price|floatformat:2 }} EUR (inkl. 19% MwSt.) für {{ order.distance }} km
+Barzahlung bei {{ order.get_customer_display }}.
 {% endautoescape %}
 Viel Spaß damit!

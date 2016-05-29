@@ -285,6 +285,13 @@ class Order(models.Model):
         self.distance = math.ceil(meters / 1000.0)
         logger.info("Route has been calculated for %s" % self)
 
+    def google_maps_url(self):
+        context = {
+            'from': self.pickup_short().replace(" ", "+"),
+            'to': self.dropoff_short().replace(" ", "+"),
+        }
+        return "https://www.google.de/maps/dir/%(from)s/%(to)s" % context
+
     def calculate_price(self):
         if not self.rate:
             self.rate = Rate.objects.get(pk=self.calculate_rate())
