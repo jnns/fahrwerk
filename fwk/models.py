@@ -246,17 +246,19 @@ class Order(models.Model):
                 pass
 
     def __unicode__(self):
-        _from = self.from_street or "?"
-        _to = self.to_street or "?"
-        return "%s → %s" % (_from, _to)
-
-
+        return "%s → %s" % (self.pickup_short(), self.dropoff_short())
 
     def pickup_short(self):
-        return "%s %s" % (self.from_street, self.from_zipcode)
+        fields = {'street': self.from_street, 'zip': self.from_zipcode}
+        if self.from_street and self.from_zipcode:
+            return "{street}, {zip}".format(**fields)
+        return "???"
 
     def dropoff_short(self):
-        return "%s %s" % (self.to_street, self.to_zipcode)
+        fields = {'street': self.to_street, 'zip': self.to_zipcode}
+        if self.to_street and self.to_zipcode:
+            return "{street}, {zip}".format(**fields)
+        return "???"
 
     def distance_display(self):
         return "%s  km" % self.distance
