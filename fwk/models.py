@@ -21,6 +21,7 @@ from django.utils.translation import ugettext_lazy as _, ugettext as __
 from hashids import Hashids
 
 from .maps import geocode, directions
+from .util import search_for_key
 
 logger = logging.getLogger(__name__)
 
@@ -279,13 +280,19 @@ class Order(models.Model):
         return geocode(query)
 
     def get_directions(self):
+        if not all([self.from_zipcode, self.to_zipcode, self.from_street, self.to_street]):
+            return
+
         origin = self.geocode(self.from_street, self.from_zipcode)
         destination = self.geocode(self.to_street, self.to_zipcode)
         self.directions_json = directions(origin, destination)
 
-        meters = json.loads(self.directions_json)['properties']['distance']
+        meters = search_for_key(self.directions_json, "distance")
         self.distance = math.ceil(meters / 1000.0)
         logger.info("Route has been calculated for %s" % self)
+
+    def get_mapbox_map_json(self):
+        return json.dumps(search_for_key(self.directions_json, "geometry"))
 
     def google_maps_url(self):
         context = {
@@ -297,8 +304,9 @@ class Order(models.Model):
     def calculate_price(self):
         if not self.rate:
             self.rate = Rate.objects.get(pk=self.calculate_rate())
-        logger.info("Price has been calculated for %s" % self)
-        return self.rate.price(self.distance)
+        if self.distance:
+            logger.info("Price has been calculated for %s" % self)
+            return self.rate.price(self.distance)
 
     def calculate_rate(self):
         """
@@ -323,7 +331,6 @@ class Order(models.Model):
         M = force_int(self.packages_m)
         L = force_int(self.packages_l)
 
-        logger.info("Rate has been calculated for %s" % self)
 
         # Package sizes as I would define them are as follows:
         #

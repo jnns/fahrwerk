@@ -170,11 +170,12 @@
         </form>
 
         <script>
-        var geojson = {{ order.directions_json|safe|default:"{}" }};
+        var geojson = {{ order.get_mapbox_map_json|safe|default:"{}" }};
 
         L.mapbox.accessToken = 'pk.eyJ1Ijoiam5ucyIsImEiOiJjaWdkanI2cW0wN3pudmprcjd5emNkZGliIn0.XU8kSbBiCjLZ6E7PCI3_SQ';
-        L.mapbox.map('map', 'mapbox.streets').setView([52.507,13.396], 11).
-            featureLayer.setGeoJSON(geojson);
+        map = L.mapbox.map('map', 'mapbox.streets');
+        map.setView([52.507,13.396], 11).featureLayer.setGeoJSON(geojson);
+        map.fitBounds(map.featureLayer.getBounds());
         </script>
 
     </div>

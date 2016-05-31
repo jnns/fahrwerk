@@ -109,7 +109,6 @@ class OrderForm(forms.ModelForm):
         super(OrderForm, self).clean()
 
         data = self.cleaned_data
-
         errors = []
 
         # At least one package size must be given
@@ -148,6 +147,11 @@ class OrderForm(forms.ModelForm):
 
         if errors:
             raise ValidationError(errors)
+
+        # Recalculate everything based on current data in case the user made
+        # changes to the form data after the price has been calculated.
+        self.instance.get_directions()
+        self.instance.calculate_price()
 
         return self.cleaned_data
 
