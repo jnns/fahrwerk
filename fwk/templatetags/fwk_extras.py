@@ -1,3 +1,4 @@
+import warnings
 import json
 from datetime import date, datetime, timedelta, time
 
@@ -53,6 +54,8 @@ def holidays():
 
 
 def opening_hours(weekday):
+    warnings.warn("Please use `opening_hours_aware()` instead of `opening_hours()`")
+
     OPENING_HOURS = config.FWK_OPENING_HOURS
     if isinstance(OPENING_HOURS, basestring):
         OPENING_HOURS = json.loads(OPENING_HOURS)
@@ -60,6 +63,30 @@ def opening_hours(weekday):
         'hour': int(i.split(":")[0]),
         'minute': int(i.split(":")[1])
     }) for i in OPENING_HOURS[weekday]]
+
+def opening_hours_aware():
+    OPENING_HOURS = config.FWK_OPENING_HOURS
+    if isinstance(OPENING_HOURS, basestring):
+        OPENING_HOURS = json.loads(OPENING_HOURS)
+
+        week = []
+
+        for i in range(0, 7):
+            now = timezone.now()
+            next_day = now + timedelta(days=i)
+            weekday = next_day.strftime("%a")
+
+            day = []
+            for h in OPENING_HOURS[weekday]:
+                # convert "12:37" notation to time object
+                t = time(*map(int, h.split(":")))
+                # create timezone-aware datetime object
+                day.append(
+                    timezone.get_default_timezone().localize(datetime.combine(next_day, t))
+                )
+            week.append(day)
+
+        return week
 
 
 
@@ -87,6 +114,9 @@ def opening_hours_reminder():
         # If opening hours match the current time, just display that we're
         # open (unless it's a holiday):
         if opening_dts[0] < now < opening_dts[1] and today not in holidays():
+            # remind the client about the late surcharge
+            if opening_dts[1] - now < timedelta(hours=1):
+                return {'late_surcharge': True, 'closing': opening_dts[1]}
             return
 
         # There are opening hours specified for the future

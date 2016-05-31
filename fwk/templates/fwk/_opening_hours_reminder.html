@@ -15,4 +15,13 @@
 			{% endif %}
 		</div>
 	</div>
+{% elif late_surcharge %}
+	<div class="opening_hours_reminder__wrapper">
+		<div class="opening_hours_reminder">
+
+			{% blocktrans with closing=closing|date:"H:i" %}
+				Wir schließen um {{ closing }} Uhr. Falls deine Sendung heute noch ausgeliefert werden soll, wird ein Spätzuschlag von 50% fällig.
+			{% endblocktrans %}
+		</div>
+	</div>
 {% endif %}

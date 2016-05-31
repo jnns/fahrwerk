@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-23 13:19+0200\n"
+"POT-Creation-Date: 2016-05-31 22:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,192 +49,192 @@ msgid ""
 "dort aus sprechen können: %s "
 msgstr ""
 
-#: forms.py:118
+#: forms.py:117
 msgid "Bitte gib die Größe deiner Sendung an."
 msgstr ""
 
-#: forms.py:137
+#: forms.py:136
 msgid ""
 "Du hast eine spezifische Abholzeit ausgewählt. Bitte                     "
 "erläutere dies näher für uns."
 msgstr ""
 
-#: forms.py:144
+#: forms.py:143
 msgid ""
 "Du hast eine spezifische Auslieferungszeit ausgewählt.                     "
 "Bitte erläutere dies näher für uns."
 msgstr ""
 
-#: forms.py:159
+#: forms.py:163
 msgid ""
 "Der Auftrag kann nicht bestätigt                 werden, solange keine "
 "Tournummer aus eCourier angegeben wurde."
 msgstr ""
 
-#: models.py:68 templates/fwk/order_confirmation.html.py:43
+#: models.py:71 templates/fwk/order_confirmation.html.py:43
 #: templates/fwk/order_confirmation.html:144 templates/fwk/order_form.html:47
 msgid "Abholung"
 msgstr ""
 
-#: models.py:69 templates/fwk/order_confirmation.html.py:73
+#: models.py:72 templates/fwk/order_confirmation.html.py:73
 msgid "Auslieferung"
 msgstr ""
 
-#: models.py:148
+#: models.py:159
 msgid "Allgemein"
 msgstr ""
 
-#: models.py:149
+#: models.py:160
 msgid "schnellstmöglich"
 msgstr ""
 
-#: models.py:150
+#: models.py:161
 msgid "individuell (bitte Bemerkung hinterlassen)"
 msgstr ""
 
-#: models.py:151
+#: models.py:162
 msgid "entspannt (\"im Laufe des Tages\", \"während Öffnungszeiten\", …)"
 msgstr ""
 
-#: models.py:153
+#: models.py:164
 msgid "Konkretes Zeitfenster"
 msgstr ""
 
-#: models.py:154
+#: models.py:165
 msgid "8:00 –  9:00 Uhr"
 msgstr ""
 
-#: models.py:155
+#: models.py:166
 msgid "9:00 – 10:00 Uhr"
 msgstr ""
 
-#: models.py:156
+#: models.py:167
 msgid "10:00 – 11:00 Uhr"
 msgstr ""
 
-#: models.py:157
+#: models.py:168
 msgid "11:00 – 12:00 Uhr"
 msgstr ""
 
-#: models.py:158
+#: models.py:169
 msgid "12:00 – 13:00 Uhr"
 msgstr ""
 
-#: models.py:159
+#: models.py:170
 msgid "13:00 – 14:00 Uhr"
 msgstr ""
 
-#: models.py:160
+#: models.py:171
 msgid "14:00 – 15:00 Uhr"
 msgstr ""
 
-#: models.py:161
+#: models.py:172
 msgid "15:00 – 16:00 Uhr"
 msgstr ""
 
-#: models.py:162
+#: models.py:173
 msgid "16:00 – 17:00 Uhr"
 msgstr ""
 
-#: models.py:163
+#: models.py:174
 msgid "17:00 – 18:00 Uhr"
 msgstr ""
 
-#: models.py:164
+#: models.py:175
 msgid "18:00 – 19:00 Uhr"
 msgstr ""
 
-#: models.py:165
+#: models.py:176
 msgid "19:00 – 20:00 Uhr"
 msgstr ""
 
-#: models.py:170 models.py:180
+#: models.py:181 models.py:191
 msgid "Ansprechpartner_in"
 msgstr ""
 
-#: models.py:171 models.py:181
+#: models.py:182 models.py:192
 msgid "Firma"
 msgstr ""
 
-#: models.py:172 models.py:182
+#: models.py:183 models.py:193
 msgid "Telefonnummer"
 msgstr ""
 
-#: models.py:173 models.py:183
+#: models.py:184 models.py:194
 msgid "Straße und Hausnummer"
 msgstr ""
 
-#: models.py:174 models.py:184
+#: models.py:185 models.py:195
 msgid "PLZ"
 msgstr ""
 
-#: models.py:175 models.py:185 templates/fwk/order_confirmation.html.py:49
+#: models.py:186 models.py:196 templates/fwk/order_confirmation.html.py:49
 #: templates/fwk/order_confirmation.html:79
 msgid "Bemerkung"
 msgstr ""
 
-#: models.py:176 models.py:186
+#: models.py:187 models.py:197
 msgid "Gebäude, Stockwerk, o.Ä."
 msgstr ""
 
-#: models.py:177
+#: models.py:188
 msgid "Zeitfenster Abholung **"
 msgstr ""
 
-#: models.py:187
+#: models.py:198
 msgid "Zeitfenster Auslieferung **"
 msgstr ""
 
-#: models.py:190
+#: models.py:201
 msgid "Distanz"
 msgstr ""
 
-#: models.py:191
+#: models.py:202
 msgid "Preis"
 msgstr ""
 
-#: models.py:192
+#: models.py:203
 msgid ""
 "Der Preis dieses Auftrags inkl. Mehrwertsteuer. Wird automatisch "
 "anhand         des Tarifs und der Strecke berechnet, kann aber überschrieben "
 "werden."
 msgstr ""
 
-#: models.py:197
+#: models.py:208
 msgid "Tarif"
 msgstr ""
 
-#: models.py:199
+#: models.py:210
 msgid ""
 "Der Tarif wird automatisch anhand der Packstücke berechnet, kann         "
 "aber überschrieben werden."
 msgstr ""
 
-#: models.py:203 templates/fwk/order_confirmation.html.py:126
+#: models.py:214 templates/fwk/order_confirmation.html.py:126
 msgid "Was wird transportiert?"
 msgstr ""
 
-#: models.py:204
+#: models.py:215
 msgid "Packstücke klein"
 msgstr ""
 
-#: models.py:205
+#: models.py:216
 msgid "Packstücke mittel"
 msgstr ""
 
-#: models.py:206
+#: models.py:217
 msgid "Packstücke groß"
 msgstr ""
 
-#: models.py:220
+#: models.py:231
 msgid "Barzahlung bei"
 msgstr ""
 
-#: models.py:222
+#: models.py:233
 msgid "E-Mailadresse"
 msgstr ""
 
-#: models.py:223
+#: models.py:234
 msgid "Falls du eine Auftragsbestätigung per E-Mail erhalten möchtest."
 msgstr ""
 
@@ -257,6 +257,15 @@ msgid ""
 "\t\t\t\t\tNeue Aufträge können wir erst wieder ab <strong>%(day)s um <nobr>"
 "%(time)s Uhr</nobr></strong> bearbeiten.\n"
 "\t\t\t\t"
+msgstr ""
+
+#: templates/fwk/_opening_hours_reminder.html:22
+#, python-format
+msgid ""
+"\n"
+"\t\t\t\tWir schließen um %(closing)s Uhr. Falls deine Sendung heute noch "
+"ausgeliefert werden soll, wird ein Spätzuschlag von 50%% fällig.\n"
+"\t\t\t"
 msgstr ""
 
 #: templates/fwk/done.html:12

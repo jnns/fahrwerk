@@ -8,6 +8,7 @@ import json
 import logging
 import math
 from decimal import Decimal
+from datetime import timedelta, datetime
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -22,6 +23,7 @@ from hashids import Hashids
 
 from .maps import geocode, directions
 from .util import search_for_key
+from .templatetags.fwk_extras import opening_hours_aware
 
 logger = logging.getLogger(__name__)
 
@@ -129,6 +131,14 @@ class Rate(models.Model):
 
         # German "brutto" price
         gross = net * self.tax
+
+        # If it's only one hour till we're closed, add a surcharge
+        LATE_SURCHARGE = Decimal(0.5)
+
+        todays_opening_hours = opening_hours_aware()[0]
+        if todays_opening_hours[1] - timezone.now() < timedelta(hours=1):
+            gross = gross + gross * LATE_SURCHARGE
+
         price = round(gross, 2)
 
         logger.info("Price calculated (for %s km): %s EUR" % (distance, price))
