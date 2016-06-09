@@ -136,8 +136,14 @@ class Rate(models.Model):
         LATE_SURCHARGE = Decimal(0.5)
 
         todays_opening_hours = opening_hours_aware()[0]
-        if todays_opening_hours[1] - timezone.now() < timedelta(hours=1):
-            gross = gross + gross * LATE_SURCHARGE
+
+        # If there're no opening hours defined, don't let the IndexError
+        # bother us
+        try:
+            if todays_opening_hours[1] - timezone.now() < timedelta(hours=1):
+                gross = gross + gross * LATE_SURCHARGE
+        except IndexError:
+            pass
 
         price = round(gross, 2)
 
