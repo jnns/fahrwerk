@@ -27,5 +27,7 @@ Packstücke (S/M/L): {{ order.packages_s }} / {{ order.packages_m }} / {{ order.
 PREIS:
 {{ order.price|floatformat:2 }} EUR (inkl. 19% MwSt.) für {{ order.distance }} km
 Barzahlung bei {{ order.get_customer_display }}.
+{% if order.customer_email %}
+Bestätigung an {{order.customer_email}} verschickt.{% endif %}
 {% endautoescape %}
 Viel Spaß damit!
