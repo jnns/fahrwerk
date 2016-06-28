@@ -131,6 +131,7 @@ class OrderForm(forms.ModelForm):
         # information
         if self.cleaned_data.get("timeframe_pickup") == 'CUSTOM' \
         and not self.cleaned_data["from_comment"].strip():
+            logger.info("Customer wants custom pickup but didn't supply enough info..")
             errors.append(
                 ValidationError({'from_comment':
                     _("Du hast eine spezifische Abholzeit ausgewählt. Bitte \
@@ -138,6 +139,7 @@ class OrderForm(forms.ModelForm):
 
         if self.cleaned_data.get("timeframe_dropoff") == 'CUSTOM' \
         and not self.cleaned_data["to_comment"].strip():
+            logger.info("Customer wants custom dropoff but didn't supply enough info.")
             errors.append(
                 ValidationError({'to_comment':
                     _("Du hast eine spezifische Auslieferungszeit ausgewählt. \

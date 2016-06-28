@@ -147,7 +147,7 @@ class Rate(models.Model):
 
         price = round(gross, 2)
 
-        logger.info("Price calculated (for %s km): %s EUR" % (distance, price))
+        logger.info("Price calculated (for %s km, %s): %s EUR" % (distance, self, price))
 
         return price
 
@@ -318,8 +318,7 @@ class Order(models.Model):
         return "https://www.google.de/maps/dir/%(from)s/%(to)s" % context
 
     def calculate_price(self):
-        if not self.rate:
-            self.rate = Rate.objects.get(pk=self.calculate_rate())
+        self.rate = Rate.objects.get(pk=self.calculate_rate())
         if self.distance:
             logger.info("Price has been calculated for %s" % self)
             return self.rate.price(self.distance)
@@ -333,6 +332,7 @@ class Order(models.Model):
         considered best-practice but at the moment it suits the needs best so
         I don't bother for now.
         """
+        logger.info("Calculating rate for %s" % self)
 
         # Django takes care of type-conversion when data is submitted via a
         # form but when this function is called through the API we must check
