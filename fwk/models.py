@@ -8,7 +8,7 @@ import json
 import logging
 import math
 from decimal import Decimal
-from datetime import timedelta, datetime
+from datetime import timedelta, date
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -94,7 +94,7 @@ class Rate(models.Model):
     RATE_TRANSPORTER = 5
 
     name = models.CharField(max_length=30, unique=True)
-    price_base =  models.DecimalField('Grundpreis',
+    price_base = models.DecimalField('Grundpreis',
         help_text="Der Grundpreis für eine Abholung bzw. den ersten Kilometer.",
         **DECIMAL_KWARGS)
     price_per_km = models.DecimalField('Preis pro Km',
@@ -133,15 +133,22 @@ class Rate(models.Model):
         gross = net * self.tax
 
         # If it's only one hour till we're closed, add a surcharge
-        LATE_SURCHARGE = Decimal(0.5)
+        LATE_SURCHARGE = Decimal(0.5) * gross
+        WEEKEND_SURCHARGE = LATE_SURCHARGE
 
         todays_opening_hours = opening_hours_aware()[0]
 
         # If there're no opening hours defined, don't let the IndexError
         # bother us
         try:
+            # add late-surcharche one hour before closing time
             if todays_opening_hours[1] - timezone.now() < timedelta(hours=1):
-                gross = gross + gross * LATE_SURCHARGE
+                gross = gross + LATE_SURCHARGE
+            # add weekend surcharge
+            weekend = [6, 7]
+            weekday = date.today().isoweekday()
+            if weekday in weekend:
+                gross = gross + WEEKEND_SURCHARGE
         except IndexError:
             pass
 
@@ -150,7 +157,6 @@ class Rate(models.Model):
         logger.info("Price calculated (for %s km, %s): %s EUR" % (distance, self, price))
 
         return price
-
 
 
 class Order(models.Model):
