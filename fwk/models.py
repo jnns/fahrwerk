@@ -375,7 +375,7 @@ class Order(models.Model):
             return Rate.RATE_PKW
         if L > 0 and M > 2:
             return Rate.RATE_PKW
-        if L > 0 or M > 2 or S > 15:
+        if L > 0 or M > 1 or S > 15:
             return Rate.RATE_CARGO
         return Rate.RATE_BIKE
 
