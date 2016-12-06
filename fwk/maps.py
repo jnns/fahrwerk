@@ -28,6 +28,7 @@ def geocode(query):
 
 def directions(origin, destination):
     # pull coordinates from each GEOJSON object
+    logger.info("Getting directions for:\n%s\n%s" % (origin, destination))
     coordinates = map(search_for_key, [origin, destination], ['coordinates'] * 2)
     # format coordinates to be comma-separated
     coordinates = ["{},{}".format(*i) for i in coordinates]
@@ -42,7 +43,6 @@ def directions(origin, destination):
             'access_token': os.environ.get("MAPBOX_ACCESS_TOKEN"),
             'geometries': 'geojson'
     })
-    logger.info("Getting directions for:\n%s\n%s" % (origin, destination))
     logger.info("Result: %s" % r.json())
     r.raise_for_status()
     return r.json()
