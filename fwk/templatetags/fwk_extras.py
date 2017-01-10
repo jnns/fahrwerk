@@ -47,7 +47,7 @@ def holidays():
 
     # get a fresh list of holidays if no current dates are configured
     if not date.today().year in set([d.year for d in date_list]):
-        config.FWK_DAYS_CLOSED = None
+        config.FWK_DAYS_CLOSED = ""
         holidays()
 
     return date_list
@@ -63,6 +63,7 @@ def opening_hours(weekday):
         'hour': int(i.split(":")[0]),
         'minute': int(i.split(":")[1])
     }) for i in OPENING_HOURS[weekday]]
+
 
 def opening_hours_aware():
     OPENING_HOURS = config.FWK_OPENING_HOURS
@@ -87,7 +88,6 @@ def opening_hours_aware():
             week.append(day)
 
         return week
-
 
 
 @register.inclusion_tag("fwk/_opening_hours_reminder.html")
