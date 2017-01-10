@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -46,7 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware', # after session, before common
+    'django.middleware.locale.LocaleMiddleware',  # after session, before common
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -62,7 +61,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,17 +69,28 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # Constance is added because some template objects (such as
+                # telephone numbers, social media accounts) should be
+                # controllable through the admin interface.
+                'constance.context_processors.config',
             ],
         },
     },
 ]
 
+# See https://docs.djangoproject.com/en/1.9/ref/settings/#wsgi-application
+# Maybe this should be set to the default value of None in light of having
+# separate settings for each instance?
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+# This is the default database for local development of the white-label app.
+# Each branded app should define their own database in a particular settings
+# file. See config.settings.fahrwerk for details.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -178,11 +188,11 @@ LOGGING = {
 }
 
 PIPELINE = {
-    #'PIPELINE_ENABLED': True,
+    # 'PIPELINE_ENABLED': True,
     'STYLESHEETS': {
         'main': {
             'source_filenames': (
-              'css/main.css',
+                'css/main.css',
             ),
             'output_filename': 'build/main.min.css',
             'extra_context': {
@@ -208,7 +218,7 @@ PIPELINE = {
         'react.utils.pipeline.JSXCompiler',
     ),
     # Use the noop compressor for debugging
-    #'JS_COMPRESSOR': 'pipeline.compressors.NoopCompressor',
+    # 'JS_COMPRESSOR': 'pipeline.compressors.NoopCompressor',
     'YUGLIFY_BINARY': 'node_modules/yuglify/bin/yuglify',
 
     # This is important because Leaflet refuses to work when the scripts (I
@@ -216,45 +226,46 @@ PIPELINE = {
     'DISABLE_WRAPPER': True
 }
 
-EMAIL_SUBJECT_PREFIX = "[FWK] "
+# See https://docs.djangoproject.com/en/1.9/ref/settings/#email-subject-prefix
+EMAIL_SUBJECT_PREFIX = ""
 
+# The following settings are stored in the databse for live editing and should
+# be customized for each branded site that uses this app.
+# For more information about djanog-constance see: http://django-constance.rtfd.org
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
     'FWK_PHONE_NO': ("(030) 40 58 51 00",
         'Our default phone number where clients can reach us.'),
     'FWK_INFO_EMAIL': ("info@fahrwerk-berlin.de",
         "Our default email where clients can reach us."),
-    'FWK_OPENING_HOURS': ("""{
-            "Mon": ["07:30", "20:00"],
-            "Tue": ["07:30", "20:00"],
-            "Wed": ["07:30", "20:00"],
-            "Thu": ["07:30", "20:00"],
-            "Fri": ["07:30", "20:00"],
-            "Sat": ["12:00", "20:00"],
-            "Sun": [] }""",
+    'FWK_OPENING_HOURS': ("""{\n
+            "Mon": ["07:30", "20:00"],\n
+            "Tue": ["07:30", "20:00"],\n
+            "Wed": ["07:30", "20:00"],\n
+            "Thu": ["07:30", "20:00"],\n
+            "Fri": ["07:30", "20:00"],\n
+            "Sat": ["12:00", "20:00"],\n
+            "Sun": []\n}""",
         "Our opening hours. Outside of opening hours clients will see a \
         message informing them about when we're back in office.", str),
     "FWK_DAYS_CLOSED": ("",
-        "Days that are considered holidays and during which we're therefore \
-        closed."),
-    "FWK_MIN_POSTCODE": (10083, "Begin of accepted post code range."),
-    "FWK_MAX_POSTCODE": (14467, "End of accepted post code range."),
-}
-
-# This is Fahrwerk's landline that's used in several places throughout the
-# codebase.
-FWK_PHONE_NO = "(030) 40 58 51 00"
-
-FWK_INFO_EMAIL = "info@fahrwerk-berlin.de"
-
-# When NOT to display a page that says we're closed and that they should come
-# back later.
-FWK_OPENING_HOURS = {
-    'Mon': ("07:30", "20:00"),
-    'Tue': ("07:30", "20:00"),
-    'Wed': ("07:30", "20:00"),
-    'Thu': ("07:30", "20:00"),
-    'Fri': ("07:30", "20:00"),
-    'Sat': ("12:00", "20:00"),
-    'Sun': (), # we're closed the whole day
+        "Days that are considered holidays and during which we're therefore closed. Leave empty for automatic definition."),
+    "FWK_MIN_POSTCODE": (10083,
+        "Begin of accepted post code range."),
+    "FWK_MAX_POSTCODE": (14467,
+        "End of accepted post code range."),
+    "FWK_ORGANIZATION_NAME": ("Fahrwerk Kurierkollektiv",
+        "The name of our organization."),
+    "FWK_CONTRACT_URL": ("http://www.fahrwerk-berlin.de/wp/preise/",
+        "URI of our contract file."),
+    "FWK_WEBSITE_URL": ("http://www.fahrwerk-berlin.de",
+        "URI of our website."),
+    "FWK_INSTAGRAM_ACCOUNT": ("fahrwerk_berlin",
+        "Name of our Instagram account (optional)."),
+    "FWK_TWITTER_ACCOUNT": ("FahrwerkBerlin",
+        "Name of our Twitter account (optional)."),
+    "FWK_FACEBOOK_ACCOUNT": ("fahrwerkberlin",
+        "Name of our Facebook account (optional)."),
+    "FWK_GOOGLE_ANALYTICS_ID": ("UA-75433740-1",
+        "The id of the Google Analytics entity that's used for this site."),
 }

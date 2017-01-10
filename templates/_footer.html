@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% if config.FWK_WEBSITE_URL %}
+	<a href="{{ config.FWK_WEBSITE_URL }}">{% trans 'Unsere Website' %}</a>
+{% endif %}
+|
+{% if config.FWK_FACEBOOK_ACCOUNT %}
+	<a href="https://facebook.com/{{ config.FWK_FACEBOOK_ACCOUNT }}">Facebook</a>
+{% endif %}
+|
+{% if config.FWK_INSTAGRAM_ACCOUNT %}
+	<a href="https://instagram.com/{{ config.FWK_INSTAGRAM_ACCOUNT }}">Instagram</a>
+{% endif %}
+|
+{% if config.FWK_TWITTER_ACCOUNT %}
+	<a href="https://twitter.com/{{ config.FWK_TWITTER_ACCOUNT }}">Twitter</a>
+{% endif %}

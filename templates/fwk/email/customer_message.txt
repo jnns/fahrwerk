@@ -34,6 +34,6 @@ einfach an: {{ phone_no }}.{% endblocktrans %}
    Es wurde Barzahlung bei {{ customer }} gewählt.
 {% endblocktrans %}
 
-{% blocktrans %}Danke für deine Bestellung und viele Grüße
-das Fahrwerk Kurierkollektiv{% endblocktrans %}
+{% trans 'Danke für deine Bestellung und viele Grüße' %}
+{{ config.FWK_ORGANIZATION_NAME }}
 {% endautoescape %}

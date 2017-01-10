@@ -19,6 +19,7 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _, ugettext as __
 
+from constance import config
 from hashids import Hashids
 
 from .maps import geocode, directions
@@ -396,7 +397,7 @@ class Order(models.Model):
         context = {
             "order": self,
             "customer": self.get_customer_name().split()[0],
-            "phone_no": settings.FWK_PHONE_NO
+            "phone_no": config.FWK_PHONE_NO
         }
         emails = []
         emails.append(mail.EmailMessage(

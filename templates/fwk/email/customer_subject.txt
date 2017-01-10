@@ -1,0 +1,1 @@
+{% load i18n %}{% blocktrans %}Bestätigung deiner Bestellung bei {{ config.FWK_ORGANIZATION_NAME }}{% endblocktrans %}

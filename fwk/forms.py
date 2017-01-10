@@ -7,7 +7,6 @@ from __future__ import unicode_literals
 import logging
 
 from django import forms
-from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
 from django.utils import timezone
@@ -19,8 +18,6 @@ from .models import Order
 
 logger = logging.getLogger(__name__)
 
-MIN_POSTCODE = config.FWK_MIN_POSTCODE
-MAX_POSTCODE = config.FWK_MAX_POSTCODE
 
 class OrderConfirmation(forms.Form):
     pass
@@ -29,6 +26,11 @@ class OrderConfirmation(forms.Form):
 class OrderForm(forms.ModelForm):
     error_css_class = 'error'
     required_css_class = 'required'
+
+    # Store values in object so they mustn't be retreived multiple times
+    # Screw that, this generates an error while running migrate on an empty database.
+    #MIN_POSTCODE = config.FWK_MIN_POSTCODE
+    #MAX_POSTCODE = config.FWK_MAX_POSTCODE
 
     class Meta:
         model = Order
@@ -86,22 +88,22 @@ class OrderForm(forms.ModelForm):
 
     def clean_to_zipcode(self):
         value = self.cleaned_data["to_zipcode"]
-        if not MIN_POSTCODE <= value <= MAX_POSTCODE:
+        if not config.MIN_POSTCODE <= value <= config.MAX_POSTCODE:
             logger.info("Customer tried to order delivery out of region.")
             raise ValidationError(_(
                 "Dieser Ort liegt außerhalb unseres regulären Zustellgebietes. \
                 Ruf uns doch an, damit wir über Transportmöglichkeiten \
-                dorthin sprechen können: %s" % settings.FWK_PHONE_NO))
+                dorthin sprechen können: %s" % config.FWK_PHONE_NO))
         return value
 
     def clean_from_zipcode(self):
         value = self.cleaned_data["from_zipcode"]
-        if not MIN_POSTCODE <= value <= MAX_POSTCODE:
+        if not config.MIN_POSTCODE <= value <= config.MAX_POSTCODE:
             logger.info("Customer tried to order pickup from out of region.")
             raise ValidationError(_(
                 "Dieser Ort liegt außerhalb unseres regulären Abholgebietes. \
                 Ruf uns doch an, damit wir über Transportmöglichkeiten von \
-                dort aus sprechen können: %s " % settings.FWK_PHONE_NO))
+                dort aus sprechen können: %s " % config.FWK_PHONE_NO))
         return value
 
 

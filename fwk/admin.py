@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 
-from .models import *  # NOOP
+from .models import Order, Rate
 from .forms import OrderAdminForm
 
 admin.site.site_header = "Online-Bestellungen"

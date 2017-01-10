@@ -108,11 +108,14 @@
 
 
 {% block footer %}
-<div class="footer">
+<footer class="footer">
 	<div class="footer__contact">
 		{% trans 'Bei Fragen aller Art stehen wir euch gerne telefonisch Rede und Antwort. Ruft einfach durch:' %}
-		<a class="contact__phone-no" href="tel:+49 030 50 58 51 00">
-		(030) 40 58 51 00</a>
+		<a class="contact__phone-no" href="tel:{{ config.FWK_PHONE_NO }}">
+		{{ config.FWK_PHONE_NO }}</a>
+	</div>
+	<div class="footer__links">
+		{% include '_footer.html' %}
 	</div>
 
 	<div class="footer__terms">
@@ -127,9 +130,9 @@
 			{% endblocktrans %}
 
 			<p>
-			{% blocktrans %}
+			{% blocktrans with contract_url=config.FWK_CONTRACT_URL %}
 			Die hier dargestellten Preise verstehen sich &mdash; anders als in unserem <a
-			href="http://www.fahrwerk-berlin.de/wp/preise/">Preis- und
+			href="{{ contract_url }}">Preis- und
 			Leistungsverzeichnis</a> &mdash; inkl. 19% MwSt.
 			{% endblocktrans %}
 			</p>
@@ -145,5 +148,5 @@
 			{% endblocktrans %}
 		</div>
 	</div>
-</div>
+</footer>
 {% endblock footer %}

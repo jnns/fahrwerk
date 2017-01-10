@@ -1,9 +1,6 @@
 import logging
 
-from django.conf import settings
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render_to_response
-from django.utils import translation
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import CreateView, DetailView
 
 from formtools.wizard.views import SessionWizardView
@@ -40,9 +37,8 @@ class OrderWizardView(SessionWizardView):
         form.instance.status = 'NEW'
         form.save()
 
-        return render_to_response('fwk/done.html', {
-            'form_data': [form.cleaned_data for form in form_list],
-            'our_phone_no': settings.FWK_PHONE_NO
+        return render(self.request, 'fwk/done.html', {
+            'form_data': [form.cleaned_data for form in form_list]
         })
 
 

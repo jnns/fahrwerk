@@ -1,18 +1,19 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
+
 {% block content %}
 <div class="error-page">
-	<h1 class="error-page__header">Ein Fehler ist aufgetreten</h1>
+	<h1 class="error-page__header">{% trans 'Ein Fehler ist aufgetreten' %}</h1>
 
-	<p>Es tut uns Leid, dass dieser Fehler auftritt. Wir wurden bereits über den Vorfall benachrichtigt und werden uns schleunigst darum kümmern, den Fehler zu beheben.</p>
+	<p>{% trans 'Es tut uns Leid, dass dieser Fehler auftritt. Wir wurden bereits über den Vorfall benachrichtigt und werden uns schleunigst darum kümmern, den Fehler zu beheben.' %}</p>
 
-	<p>Bis wir das Problem in den Griff bekommen haben, kannst du uns gerne auch Aufträge per Telefon übermitteln:</p>
+	<p>{% trans 'Bis wir das Problem in den Griff bekommen haben, kannst du uns gerne auch Aufträge per Telefon übermitteln:' %}</p>
 
-	<a class="contact__phone-no" href="tel:+49 030 50 58 51 00">
-		(030) 40 58 51 00</a>
+	<a class="contact__phone-no" href="tel:{{ config.FWK_PHONE_NO }}">
+		{{ config.FWK_PHONE_NO }}</a>
 
-	Viele Grüße<br>
-	die Technik-AG vom Fahrwerk Kurierkollektiv
+	{% trans 'Viele Grüße<br>die Technik-AG von ' context "is appended by the company name" %}{{ config.FWK_ORGANIZATION_NAME }}
 </div>
 {% endblock content %}
 

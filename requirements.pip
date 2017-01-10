@@ -1,15 +1,15 @@
 django>=1.9
 
 djangorestframework
-django-formtools
-django-constance
+django-formtools>=1.0
+django-constance[database]>=1.1.2
 django-pipeline
 hashids
 brotlipy>=0.2.0  # See README in case of failing build
 whitenoise
-django-constance
 pyreact>=0.6.0  # used for transpiling jsx files
 requests
+mapbox>=0.7.0  # TODO: do we really need that anymore?
 
 # The following packages are only suggested for development
 
