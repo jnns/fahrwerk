@@ -117,11 +117,8 @@ Issues
 
 This is a list of features that I want to implement in the near future:
 
-- implement quickstart with opencage.org geocoding
-- check user submitted address for validity on form validation
 - PayPal as a payment method
 - automatically insert orders into eCourier (either via API or direct SQL).
-- logging all admin and form actions using the Python logging framework.
 - LDAP-authentication using `django-auth-ldap` for the admin backend.
 
 
