@@ -88,7 +88,7 @@ class OrderForm(forms.ModelForm):
 
     def clean_to_zipcode(self):
         value = self.cleaned_data["to_zipcode"]
-        if not config.MIN_POSTCODE <= value <= config.MAX_POSTCODE:
+        if not config.FWK_MIN_POSTCODE <= value <= config.FWK_MAX_POSTCODE:
             logger.info("Customer tried to order delivery out of region.")
             raise ValidationError(_(
                 "Dieser Ort liegt außerhalb unseres regulären Zustellgebietes. \
@@ -98,7 +98,7 @@ class OrderForm(forms.ModelForm):
 
     def clean_from_zipcode(self):
         value = self.cleaned_data["from_zipcode"]
-        if not config.MIN_POSTCODE <= value <= config.MAX_POSTCODE:
+        if not config.FWK_MIN_POSTCODE <= value <= config.FWK_MAX_POSTCODE:
             logger.info("Customer tried to order pickup from out of region.")
             raise ValidationError(_(
                 "Dieser Ort liegt außerhalb unseres regulären Abholgebietes. \
