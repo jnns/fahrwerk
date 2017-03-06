@@ -271,7 +271,7 @@ var Price = React.createClass({
     render: function () {
         var price_str = gettext("Preis") + ": " + (this.state.price || 0).toLocaleString("de", {style: "currency", currency: "EUR", minimumFractionDigits: 2})
         return (
-            <div className="quickstart__price">{price_str} <a href="#*">*</a></div>
+            <div className="quickstart__price">{price_str} <a href="#*"><small>(brutto)</small>*</a></div>
         )
     }
 });

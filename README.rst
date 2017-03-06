@@ -75,13 +75,15 @@ The tests can be run via::
 Localization
 ------------
 
-If you want to localize this app or if strings have changed, the translation files need to be updated::
+If you want to localize this app or if strings have changed, the translation
+files need to be updated::
 
 $ cd fwk/
 $ ../manage.py makemessages --all
 $ ../manage.py makemessages -d djangojs --ignore node_modules --extension js,jsx
 
-Now open up PoEdit or another program to translate the generated files. Afterwards compile them to ``*.mo`` files via::
+Now open up PoEdit or another program to translate the generated files.
+Afterwards compile them to ``*.mo`` files via::
 
 $ ./manage.py compilemessages
 
@@ -127,6 +129,7 @@ License
 =======
 
 This project is licensed under the GNU General Public License v3.0. For more
-information see ``LICENSE``. You're free to use and modify this code as long as
-you provide the source code for your changes in return.
-However, please get in touch with us if you use this for your business. We'd like to get to know you :-)
+information see ``LICENSE``. You're free to use and modify this code as long
+as you provide the source code for your changes in return. However, please get
+in touch with us if you use this for your business. We'd like to get to know
+you :-)
